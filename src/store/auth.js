@@ -6,16 +6,13 @@ import AuthService from "@/services/AuthService"
 export default {
     state: {
         user: {
-          token: '',
+          status: '',
           role: '',
           uuid: '',
           username: ''
       }
       },
       getters: {
-        TOKEN(state) {
-            return state.user.token;
-        },
         ROLE(state) {
             return state.user.role;
         },
@@ -30,9 +27,6 @@ export default {
         }
       },
       mutations: {
-        SET_TOKEN_TO_STATE(state, token) {
-          state.user.token = token;
-        },
         SET_ROLE_TO_STATE(state, role) {
           state.user.role = role;
         },
@@ -41,6 +35,9 @@ export default {
         },
         SET_USERNAME_TO_STATE(state, username) {
           state.user.username = username;
+        },
+        SET_USER_TO_STATE(state, user) {
+            state.user = user
         }
       },
     actions: {
@@ -50,10 +47,7 @@ export default {
                 await axios.post('http://localhost:8081/login', request)
                 .then((response) => {
                     localStorage.setItem('token', JSON.stringify(response.data.token));
-                    commit('SET_TOKEN_TO_STATE', response.data.token);
-                    commit('SET_ROLE_TO_STATE', response.data.role);
-                    commit('SET_UUID_TO_STATE', response.data.uuid);
-                    commit('SET_USERNAME_TO_STATE', response.data.userName);
+                    commit('SET_USER_TO_STATE', response.data);
                 });
                 router.push('/')
             } catch (e) {
@@ -99,10 +93,7 @@ export default {
               }
             })
               .then((response) => { 
-              commit('SET_TOKEN_TO_STATE', response.data.token);
-              commit('SET_ROLE_TO_STATE', response.data.role);
-              commit('SET_UUID_TO_STATE', response.data.uuid);
-              commit('SET_USERNAME_TO_STATE', response.data.username);
+            commit('SET_USER_TO_STATE', response.data);
             return response;
         }).catch((error) => {
                 console.log(error)
