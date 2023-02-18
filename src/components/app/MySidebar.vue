@@ -24,13 +24,13 @@ export default {
         userLinks: [
             {title: 'Главная', url: '/', exact: true},
             {title: 'Мои заказы', url: '/history'},
-            {title: 'Новая заявка', url: '/record'}
+            {title: 'Новый заказ', url: '/record'}
         ],
         moderatorLinks: [
             {title: 'Главная', url: '/', exact: true},
             {title: 'Все заказы', url: '/history'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
-            {title: 'Новая заявка', url: '/record'}
+            {title: 'Новый заказ', url: '/record'}
         ],
         adminLinks: [
             {title: 'Главная', url: '/', exact: true},
