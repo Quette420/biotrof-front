@@ -1,15 +1,15 @@
 <template>
-    <form class="card auth-card">
+    <form class="card auth-card" @submit.prevent="submitHandler">
         <div class="card-content">
-            <span class="card-title">Домашняя бухгалтерия</span>
+            <span class="card-title">Войти</span>
         <div class="input-field">
             <input
-            id="email"
+            id="login"
             type="text"
             class="validate"
             >
-            <label for="email">Email</label>
-            <small class="helper-text invalid">Email</small>
+            <label for="login">Login</label>
+            
         </div>
         <div class="input-field">
             <input
@@ -18,7 +18,7 @@
             class="validate"
             >
             <label for="password">Пароль</label>
-            <small class="helper-text invalid">Password</small>
+            
         </div>
     </div>
     <div class="card-action">
@@ -33,8 +33,26 @@
         </div>
              <p class="center">
             Нет аккаунта?
-            <a href="/">Зарегистрироваться</a>
+            <router-link to="/register">Зарегистрироваться</router-link>
             </p>
         </div>
     </form>
 </template>
+
+<script>
+
+
+export default {
+    name:'v-login',
+    data: () => ({
+        email: '',
+      password: ''
+    }),
+    methods: {
+        submitHandler() {
+            this.$router.push('/')
+        }
+    }
+
+}
+</script>
