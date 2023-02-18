@@ -1,17 +1,20 @@
 <template>
-    <form class="card auth-card">
+    <form class="card auth-card" @submit.prevent="submitHandlerAsync"> 
       <div class="card-content">
         <span class="card-title">Регистрация</span>
         <div class="input-field">
           <input
-              id="email"
+          v-model="username"
+              id="username"
               type="text"
+              class="validate"
           >
-          <label for="email">Email</label>
-          <small class="helper-text invalid">Email</small>
+          <label for="username">Имя пользователя</label>
+          <small class="helper-text invalid">Name</small>
         </div>
         <div class="input-field">
           <input
+          v-model="password"
               id="password"
               type="password"
               class="validate"
@@ -19,21 +22,6 @@
           <label for="password">Пароль</label>
           <small class="helper-text invalid">Password</small>
         </div>
-        <div class="input-field">
-          <input
-              id="name"
-              type="text"
-              class="validate"
-          >
-          <label for="name">Имя</label>
-          <small class="helper-text invalid">Name</small>
-        </div>
-        <p>
-          <label>
-            <input type="checkbox" />
-            <span>С правилами согласен</span>
-          </label>
-        </p>
       </div>
       <div class="card-action">
         <div>
@@ -53,4 +41,27 @@
       </div>
     </form>
   </template>
+  
+<script>
+export default {
+  name:'v-login',
+    data: () => ({
+        username: '',
+        password: ''
+    }),
+    methods: {
+        async submitHandlerAsync() {
+            const request = {
+                username: this.username, 
+                password: this.password
+            }
+            try {
+                await this.$store.dispatch('register', request)
+            } catch(e) {
+                console.log('error')
+            }
+        }
+    }
+}
+</script>
   

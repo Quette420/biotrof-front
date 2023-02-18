@@ -43,6 +43,20 @@ export default {
         logout() {
             localStorage.clear()
         },
-        
+        async register({dispatch, commit}, {username, password}) {
+            const request = {
+                username: username, 
+                password: password
+            }
+            try {
+                await axios.post('http://localhost:8081/register', request)
+                .then((response) => {
+                    console.log("Register success")
+                });
+                router.push('/login')
+            } catch (e) {
+                console.log('Пользователь уже зарегистрирован!')
+            }
+        }
     }
 }
