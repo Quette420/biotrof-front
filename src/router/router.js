@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    meta: {layout: 'main'},
+    meta: {layout: 'main', auth: true},
     component: () => import('../views/HomeView.vue')
   },
   {
@@ -25,37 +25,37 @@ const routes = [
   {
     path: '/detail/:id',
     name: 'detail',
-    meta: {layout: 'main'},
+    meta: {layout: 'main', auth: true},
     component: () => import('../views/DetailRecord.vue')
   },
   {
     path: '/planning',
     name: 'planning',
-    meta: {layout: 'main'},
+    meta: {layout: 'main', auth: true},
     component: () => import('../views/MyPlanning.vue')
   },
   {
     path: '/record',
     name: 'record',
-    meta: {layout: 'main'},
+    meta: {layout: 'main', auth: true},
     component: () => import('../views/MyRecord.vue')
   },
   {
     path: '/categories',
     name: 'categories',
-    meta: {layout: 'main'},
+    meta: {layout: 'main', auth: true},
     component: () => import('../views/MyCategories.vue')
   },
   {
     path: '/history',
     name: 'history',
-    meta: {layout: 'main'},
+    meta: {layout: 'main', auth: true},
     component: () => import('../views/MyHistory.vue')
   },
   {
     path: '/profile',
     name: 'profile',
-    meta: {layout: 'main'},
+    meta: {layout: 'main', auth: true},
     component: () => import('../views/MyProfile.vue')
   }
 ]
@@ -64,6 +64,17 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const token = 'token'
+  const requireAuth = to.matched.some(record => record.meta.auth) 
+
+  if(requireAuth && !token) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router
