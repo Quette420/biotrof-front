@@ -4,11 +4,7 @@ import router from "@/router/router"
 export default {
     actions: {
         /*eslint no-unused-vars: ["error", { "args": "none" }]*/
-        async login({dispatch, commit}, {username, password}) {
-            const request = {
-                username: username, 
-                password: password
-            }
+        async login({dispatch, commit}, request) {
             try {
                 await axios.post('http://localhost:8081/login', request)
                 .then((response) => {
@@ -43,11 +39,7 @@ export default {
         logout() {
             localStorage.clear()
         },
-        async register({dispatch, commit}, {username, password}) {
-            const request = {
-                username: username, 
-                password: password
-            }
+        async register({dispatch, commit}, request) {
             try {
                 await axios.post('http://localhost:8081/register', request)
                 .then((response) => {
