@@ -23,21 +23,21 @@ export default {
         },
         userLinks: [
             {title: 'Главная', url: '/', exact: true},
-            {title: 'Мои заказы', url: '/history'},
-            {title: 'Новый заказ', url: '/record'}
+            {title: 'Новый заказ', url: '/record'},
+            {title: 'Мои заказы', url: '/history'}
         ],
         moderatorLinks: [
             {title: 'Главная', url: '/', exact: true},
+            {title: 'Новый заказ', url: '/record'},
             {title: 'Все заказы', url: '/history'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
-            {title: 'Новый заказ', url: '/record'}
         ],
         adminLinks: [
             {title: 'Главная', url: '/', exact: true},
+            {title: 'Новый заказ', url: '/record'},
             {title: 'Мои заказы', url: '/history'},
             {title: 'Все заказы', url: '/all-orders'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
-            {title: 'Новай заказ', url: '/record'},
             {title: 'Статистика', url: '/planning'}
         ]
     }),
