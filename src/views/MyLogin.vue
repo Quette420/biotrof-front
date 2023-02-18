@@ -1,9 +1,10 @@
 <template>
-    <form class="card auth-card" @submit.prevent="submitHandler">
+    <form class="card auth-card" @submit.prevent="submitHandlerAsync">
         <div class="card-content">
             <span class="card-title">Войти</span>
         <div class="input-field">
             <input
+            v-model="username"
             id="login"
             type="text"
             class="validate"
@@ -13,6 +14,7 @@
         </div>
         <div class="input-field">
             <input
+            v-model="password"
             id="password"
             type="password"
             class="validate"
@@ -45,12 +47,20 @@
 export default {
     name:'v-login',
     data: () => ({
-        email: '',
-      password: ''
+        username: '',
+        password: ''
     }),
     methods: {
-        submitHandler() {
-            this.$router.push('/')
+        async submitHandlerAsync() {
+            const request = {
+                username: this.username, 
+                password: this.password
+            }
+            try {
+                await this.$store.dispatch('login', request)
+            } catch(e) {
+                console.log('error')
+            }
         }
     }
 

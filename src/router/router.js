@@ -53,6 +53,18 @@ const routes = [
     component: () => import('../views/MyHistory.vue')
   },
   {
+    path: '/not-shipped',
+    name: 'not-shipped',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/NotShippedOrders.vue')
+  },
+  {
+    path: '/all-orders',
+    name: 'all-orders',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/AllOrders.vue')
+  },
+  {
     path: '/profile',
     name: 'profile',
     meta: {layout: 'main', auth: true},
@@ -67,7 +79,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const token = 'token'
+  const token = localStorage.getItem('token')
   const requireAuth = to.matched.some(record => record.meta.auth) 
 
   if(requireAuth && !token) {
