@@ -3,8 +3,9 @@
       <div class="page-title">
         <h3>Профиль</h3>
       </div>
-  
-      <form class="form">
+      <h3>Ваше имя пользователя: {{ this.$store.state.user.username }}</h3>
+      <h3>Ваша должность: {{ this.$store.state.user.role }}</h3>
+     <!--<form class="form">
         <div class="input-field">
           <input
               id="description"
@@ -19,6 +20,6 @@
           Обновить
           <i class="material-icons right">send</i>
         </button>
-      </form>
+      </form> --> 
     </div>
   </template>
