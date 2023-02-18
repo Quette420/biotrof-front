@@ -14,8 +14,7 @@
                 href="#"
                 data-target="dropdown"
                 ref="dropdown"
-            >
-              USER NAME
+            >{{USERNAME }}
               <i class="material-icons right">arrow_drop_down</i>
             </a>
 
@@ -39,6 +38,8 @@
 </template>
 
 <script>
+
+import { mapGetters } from 'vuex'
 
 /*global M*/
 export default {
@@ -67,6 +68,10 @@ export default {
             this.$store.dispatch('logout')
             this.$router.push('/login?message=logout')
         }
+    }, computed: {
+      ...mapGetters([
+                'USERNAME'
+            ])
     }
 }
 
