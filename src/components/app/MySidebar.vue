@@ -46,9 +46,9 @@ export default {
             return localStorage.getItem('uuid');
         },
         getLinksByUserRole() {
-            if(this.$store.state.user.role ==='ADMIN') {
+            if(this.$store.state.auth.user.role ==='ADMIN') {
                 return this.adminLinks;
-            } else if (this.$store.state.user.role === 'WAREHOUSE_MANAGER') {
+            } else if (this.$store.state.auth.user.role === 'WAREHOUSE_MANAGER') {
                 return this.moderatorLinks
             } else {
                 return this.userLinks
