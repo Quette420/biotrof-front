@@ -12,9 +12,19 @@
       v-bind:in-process="GET_PER_WEEK_EMPLOYER_ORDERS_IN_PROCESS.length"
       v-bind:closed="GET_PER_WEEK_EMPLOYER_ORDERS_DONE.length"
       />
-      <MounthBill />
-      <YearBill />
-      <HomeCurrency />
+      <MounthBill 
+      v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS.length"
+      v-bind:in-process="GET_PER_MONTH_EMPLOYER_ORDERS_IN_PROCESS.length"
+      v-bind:closed="GET_PER_MONTH_EMPLOYER_ORDERS_DONE.length"
+      />
+      <YearBill 
+      v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS.length"
+      v-bind:in-process="GET_PER_MONTH_EMPLOYER_ORDERS_IN_PROCESS.length"
+      v-bind:closed="GET_PER_MONTH_EMPLOYER_ORDERS_DONE.length"
+      />
+      <HomeCurrency 
+      v-bind:monthly="GET_PER_MONTH_EMPLOYER_ORDERS.length"
+      />
     </div>
   </div>
 </template>
@@ -58,7 +68,8 @@ export default {
   this.loading = false;
 }, computed: {
   ...mapGetters([
-    'GET_ALL_EMPLOYER_ORDERS', 'GET_PER_WEEK_EMPLOYER_ORDERS', 'GET_PER_WEEK_EMPLOYER_ORDERS_IN_PROCESS', 'GET_PER_WEEK_EMPLOYER_ORDERS_DONE'
+    'GET_ALL_EMPLOYER_ORDERS', 'GET_PER_WEEK_EMPLOYER_ORDERS', 'GET_PER_WEEK_EMPLOYER_ORDERS_IN_PROCESS', 'GET_PER_WEEK_EMPLOYER_ORDERS_DONE', 'GET_PER_MONTH_EMPLOYER_ORDERS',
+    'GET_PER_MONTH_EMPLOYER_ORDERS_IN_PROCESS', 'GET_PER_MONTH_EMPLOYER_ORDERS_DONE'
     ]),
   }
 }

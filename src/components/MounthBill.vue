@@ -5,18 +5,46 @@
             <span class="card-title">Статистика за месяц</span>
 
             <p class="currency-line">
-              <span>Заказов зарегистрировано: 50</span>
+              <span>Заказов зарегистрировано: {{sum}}</span>
             </p>
             <p class="currency-line">
-              <span>В работе: 30</span>
+              <span>В работе: {{inProcess}}</span>
             </p>
             <p class="currency-line">
-              <span>Закрыто: 20</span>
+              <span>Закрыто: {{closed}}</span>
             </p>
           </div>
         </div>
     </div>
 </template>
+
+<script>
+
+export default {
+  name: "monthly-bill",
+  props: {
+    sum: {
+      type: Number,
+      default() {
+        0
+    }},
+    inProcess: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    closed: {
+      type: Number,
+      default() {
+       0
+      }
+    }
+  }
+
+}
+
+</script>
 
 <style>
 .card#monthly-card {

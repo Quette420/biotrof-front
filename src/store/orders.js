@@ -22,24 +22,36 @@ export default {
         },
         GET_PER_WEEK_EMPLOYER_ORDERS(state) {
             let now = new Date();
-            let arr = state.ordersByUuid.filter(order => DateService.getStartOfWeek(now) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
+            let arr = state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(now) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
             return arr;
-        },
-        GET_PER_MONTH_EMPLOYER_ORDERS(state) {
-            return state.ordersByUuid;
-        },
-        GET_PER_YEAR_EMPLOYER_ORDERS(state) {
-            return state.ordersByUuid;
         },
         GET_PER_WEEK_EMPLOYER_ORDERS_IN_PROCESS(state) {
             let now = new Date();
-            let arr = state.ordersByUuid.filter(order => DateService.getStartOfWeek(now) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
+            let arr = state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(now) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
             return arr.filter(order => order.stage != 'DONE');
         },
         GET_PER_WEEK_EMPLOYER_ORDERS_DONE(state) {
             let now = new Date();
-            let arr = state.ordersByUuid.filter(order => DateService.getStartOfWeek(now) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
+            let arr = state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(now) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
             return arr.filter(order => order.stage === 'DONE');
+        },
+        GET_PER_MONTH_EMPLOYER_ORDERS(state) {
+            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getMonth === new Date(order.createDate).getMonth);
+        },
+        GET_PER_MONTH_EMPLOYER_ORDERS_IN_PROCESS(state) {
+            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getMonth === new Date(order.createDate).getMonth).filter(order => order.stage != 'DONE');
+        },
+        GET_PER_MONTH_EMPLOYER_ORDERS_DONE(state) {
+            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getMonth === new Date(order.createDate).getMonth).filter(order => order.stage === 'DONE');
+        },
+        GET_PER_YEAR_EMPLOYER_ORDERS(state) {
+            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getFullYear === new Date(order.createDate).getFullYear);
+        },
+        GET_PER_YEAR_EMPLOYER_ORDERS_IN_PROCESS(state) {
+            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getFullYear === new Date(order.createDate).getFullYear).filter(order => order.stage != 'DONE');
+        },
+        GET_PER_YEAR_EMPLOYER_ORDERS_DONE(state) {
+            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getFullYear === new Date(order.createDate).getFullYear).filter(order => order.stage === 'DONE');
         }
       },
       mutations: {

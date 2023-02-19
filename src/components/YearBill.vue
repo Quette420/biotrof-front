@@ -5,19 +5,45 @@
             <span class="card-title">Статистика за год</span>
 
             <p class="currency-line">
-              <span>Заказов зарегистрировано: 123</span>
+              <span>Заказов зарегистрировано: {{sum}}</span>
             </p>
             <p class="currency-line">
-              <span>В работе: 90</span>
+              <span>В работе: {{inProcess}}</span>
             </p>
             <p class="currency-line">
-              <span>Закрыто: 33</span>
+              <span>Закрыто: {{closed}}</span>
             </p>
           </div>
         </div>
     </div>
 </template>
 
+<script>
+export default {
+  name: "year-bill",
+  props: {
+    sum: {
+      type: Number,
+      default() {
+        0
+    }},
+    inProcess: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    closed: {
+      type: Number,
+      default() {
+       0
+      }
+    }
+  }
+
+}
+
+</script>
 <style>
 .card#year-card {
   background: rgb(144,144,249);
