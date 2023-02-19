@@ -5,15 +5,43 @@
             <span class="card-title">Статистика за неделю</span>
 
             <p class="currency-line">
-              <span>Заказов зарегистрировано: 20</span>
+              <span>Заказов зарегистрировано: {{sum}}</span>
             </p>
             <p class="currency-line">
-              <span>Ожидают отгрузки: 11</span>
+              <span>В работе: {{inProcess}}</span>
             </p>
             <p class="currency-line">
-              <span>Заказов закрыто: 9</span>
+              <span>Заказов закрыто: {{closed}}</span>
             </p>
           </div>
         </div>
     </div>
 </template>
+
+<script>
+
+export default {
+  name: "weekly-bill",
+  props: {
+    sum: {
+      type: Number,
+      default() {
+        0
+    }},
+    inProcess: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    closed: {
+      type: Number,
+      default() {
+       0
+      }
+    }
+  }
+
+}
+
+</script>

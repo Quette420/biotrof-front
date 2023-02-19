@@ -8,7 +8,7 @@
               <span>Заказов зарегистрировано: 50</span>
             </p>
             <p class="currency-line">
-              <span>Ожидают отгрузки: 30</span>
+              <span>В работе: 30</span>
             </p>
             <p class="currency-line">
               <span>Заказов закрыто: 20</span>

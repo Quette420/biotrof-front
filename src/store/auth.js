@@ -47,6 +47,7 @@ export default {
                 await axios.post('http://localhost:8081/login', request)
                 .then((response) => {
                     localStorage.setItem('token', JSON.stringify(response.data.token));
+                    localStorage.setItem('uuid', JSON.stringify(response.data.uuid));
                     commit('SET_USER_TO_STATE', response.data);
                 });
                 router.push('/')
@@ -86,6 +87,7 @@ export default {
             }
         },
         getUser({dispatch, commit}) {
+            console.log('getUser called')
             return axios('http://localhost:8081/user',{
               method: 'GET',
               headers: {
@@ -94,6 +96,7 @@ export default {
             })
               .then((response) => { 
             commit('SET_USER_TO_STATE', response.data);
+            localStorage.setItem('uuid', JSON.stringify(response.data.uuid));
             return response;
         }).catch((error) => {
                 console.log(error)
