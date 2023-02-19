@@ -25,11 +25,13 @@ export default {
         },
         GET_PER_WEEK_EMPLOYER_ORDERS_IN_PROCESS(state) {
             let now = new Date();
-            return state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
+            return state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).filter(order => order.stage != 'DONE');
         },
         GET_PER_WEEK_EMPLOYER_ORDERS_DONE(state) {
             let now = new Date();
-            return state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
+            return state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).filter(order => order.stage === 'DONE');
         },
         GET_PER_WEEK_EMPLOYER_ORDER_SALES(state) {
             let sum = 0;
@@ -114,11 +116,7 @@ export default {
         GET_PER_YEAR_EMPLOYER_ORDERS(state) {
             const now = new Date()
             const year = now.getFullYear();
-            let arr = state.ordersByUuid
-            arr.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear()).forEach(order => {
-                console.log(order.createDate)
-            })
-            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getFullYear() === new Date(order.createDate).getFullYear());
+            return state.ordersByUuid.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear());
         },
         GET_PER_YEAR_EMPLOYER_ORDERS_IN_PROCESS(state) {
             const now = new Date()
