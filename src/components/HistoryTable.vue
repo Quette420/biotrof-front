@@ -4,6 +4,7 @@
         <tr>
           <th>#</th>
           <th>Сумма</th>
+          <th>Вес</th>
           <th>Дата создания</th>
           <th>Название товара</th>
           <th>Категория</th>
@@ -17,6 +18,7 @@
         <tr v-for="order of orders" :key="order.id">
           <td>{{order.id}}</td>
           <td>{{order.price}} ₽</td>
+          <td>{{order.weight}}</td>
           <td>{{order.createDate}}</td>
           <td>{{order.productName}}</td>
           <td>{{order.category}}</td>

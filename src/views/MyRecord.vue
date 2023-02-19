@@ -41,6 +41,7 @@
           <input
               id="weight"
               type="number"
+              step=0.01
               v-model="weight"
           >
           <label for="weight">Вес</label>
