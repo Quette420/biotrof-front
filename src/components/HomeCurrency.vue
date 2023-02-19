@@ -18,21 +18,21 @@
               <tbody>
               <tr>
                 <td>За год</td>
-                <td>500000 ₽</td>
-                <td>290000 ₽</td>
-                <td>210000 ₽</td>
+                <td>{{yearlySum}} ₽</td>
+                <td>{{yearlyInProcess}} ₽</td>
+                <td>{{yearlyClosed}} ₽</td>
               </tr>
               <tr>
                 <td>За месяц</td>
-                <td>150000 ₽</td>
-                <td>110000 ₽</td>
-                <td>40000 ₽</td>
+                <td>{{monthlySum}} ₽</td>
+                <td>{{monthlyInProcess}} ₽</td>
+                <td>{{monthlyClosed}} ₽</td>
               </tr>
               <tr>
                 <td>За неделю</td>
-                <td>50000 ₽</td>
-                <td>19000 ₽</td>
-                <td>11000 ₽</td>
+                <td>{{weeklySum}} ₽</td>
+                <td>{{weeklyInProcess}} ₽</td>
+                <td>{{weeklyClosed}} ₽</td>
               </tr>
               </tbody>
             </table>
@@ -45,18 +45,52 @@
 export default {
   name: "home-currency",
   props: {
-    weekly: {
+    weeklySum: {
       type: Number,
       default() {
         0
     }},
-    monthly: {
+    weeklyInProcess: {
       type: Number,
       default() {
         0
       }
     },
-    yearly: {
+    weeklyClosed: {
+      type: Number,
+      default() {
+       0
+      }
+    },
+    monthlySum: {
+      type: Number,
+      default() {
+        0
+    }},
+    monthlyInProcess: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    monthlyClosed: {
+      type: Number,
+      default() {
+       0
+      }
+    },
+    yearlySum: {
+      type: Number,
+      default() {
+        0
+    }},
+    yearlyInProcess: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    yearlyClosed: {
       type: Number,
       default() {
        0

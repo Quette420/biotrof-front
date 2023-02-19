@@ -17,41 +17,148 @@ export default {
             return state.ordersArray;
         },
         GET_ALL_EMPLOYER_ORDERS(state) {
-            //let arr = state.orders.ordersArray.filter(order => order.employerUuid === state.auth.user.uuid);
             return state.ordersByUuid;
         },
         GET_PER_WEEK_EMPLOYER_ORDERS(state) {
             let now = new Date();
-            let arr = state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(now) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
-            return arr;
+            return state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
         },
         GET_PER_WEEK_EMPLOYER_ORDERS_IN_PROCESS(state) {
             let now = new Date();
-            let arr = state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(now) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
-            return arr.filter(order => order.stage != 'DONE');
+            return state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
         },
         GET_PER_WEEK_EMPLOYER_ORDERS_DONE(state) {
             let now = new Date();
-            let arr = state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(now) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
-            return arr.filter(order => order.stage === 'DONE');
+            return state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
+        },
+        GET_PER_WEEK_EMPLOYER_ORDER_SALES(state) {
+            let sum = 0;
+            let now = new Date();
+            state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_WEEK_EMPLOYER_ORDER_SALES_IN_PROCESS(state) {
+            let sum = 0;
+            let now = new Date();
+            state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).filter(order => order.stage != 'DONE').forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_WEEK_EMPLOYER_ORDER_SALES_IN_DONE(state) {
+            let sum = 0;
+            let now = new Date();
+            state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).filter(order => order.stage === 'DONE').forEach(order => {
+                sum += order.price 
+            });
+            return sum;
         },
         GET_PER_MONTH_EMPLOYER_ORDERS(state) {
-            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getMonth === new Date(order.createDate).getMonth);
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            return state.ordersByUuid.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year);
         },
         GET_PER_MONTH_EMPLOYER_ORDERS_IN_PROCESS(state) {
-            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getMonth === new Date(order.createDate).getMonth).filter(order => order.stage != 'DONE');
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            return state.ordersByUuid.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year).filter(order => order.stage != 'DONE');
         },
         GET_PER_MONTH_EMPLOYER_ORDERS_DONE(state) {
-            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getMonth === new Date(order.createDate).getMonth).filter(order => order.stage === 'DONE');
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            return state.ordersByUuid.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year).filter(order => order.stage === 'DONE');
+        },
+        GET_PER_MONTH_EMPLOYER_ORDER_SALES(state) {
+            let sum = 0;
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            let arr = state.ordersByUuid.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year && order.price != null)
+            arr.forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_MONTH_EMPLOYER_ORDER_SALES_IN_PROCESS(state) {
+            let sum = 0;
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            let arr = state.ordersByUuid.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year && order.price != null)
+            .filter(order => order.stage != 'DONE')
+            arr.forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_MONTH_EMPLOYER_ORDER_SALES_IN_DONE(state) {
+            let sum = 0;
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            let arr = state.ordersByUuid.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year && order.price != null)
+            .filter(order => order.stage === 'DONE')
+            arr.forEach(order => {
+                sum += order.price
+            });
+            return sum;
         },
         GET_PER_YEAR_EMPLOYER_ORDERS(state) {
-            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getFullYear === new Date(order.createDate).getFullYear);
+            const now = new Date()
+            const year = now.getFullYear();
+            let arr = state.ordersByUuid
+            arr.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear()).forEach(order => {
+                console.log(order.createDate)
+            })
+            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getFullYear() === new Date(order.createDate).getFullYear());
         },
         GET_PER_YEAR_EMPLOYER_ORDERS_IN_PROCESS(state) {
-            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getFullYear === new Date(order.createDate).getFullYear).filter(order => order.stage != 'DONE');
+            const now = new Date()
+            const year = now.getFullYear();
+            return state.ordersByUuid.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear()).filter(order => order.stage != 'DONE');
         },
         GET_PER_YEAR_EMPLOYER_ORDERS_DONE(state) {
-            return state.ordersByUuid.filter(order => order.createDate != null && new Date().getFullYear === new Date(order.createDate).getFullYear).filter(order => order.stage === 'DONE');
+            const now = new Date()
+            const year = now.getFullYear();
+            return state.ordersByUuid.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear()).filter(order => order.stage === 'DONE');
+        },
+        GET_PER_YEAR_EMPLOYER_ORDER_SALES(state) {
+            let sum = 0;
+            const now = new Date()
+            const year = now.getFullYear();
+            state.ordersByUuid.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear())
+            .filter(order => order.price != null).forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_YEAR_EMPLOYER_ORDER_SALES_IN_PROCESS(state) {
+            let sum = 0;
+            const now = new Date()
+            const year = now.getFullYear();
+            state.ordersByUuid.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear())
+            .filter(order => order.price != null).filter(order => order.stage != 'DONE').forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_YEAR_EMPLOYER_ORDER_SALES_IN_DONE(state) {
+            let sum = 0;
+            const now = new Date()
+            const year = now.getFullYear();
+            state.ordersByUuid.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear())
+            .filter(order => order.price != null).filter(order => order.stage === 'DONE').forEach(order => {
+                sum += order.price 
+            });
+            return sum;
         }
       },
       mutations: {
