@@ -1,6 +1,6 @@
 <template>
     <div class="col s14 m6 l12">
-        <div class="card orange darken-1 bill-card" id="mycard">
+        <div class="card bill-card" id="mycard">
           <div class="card-content white-text">
             <div class="card-header">
               <span class="card-title"><h5>Выручка</h5></span>
@@ -18,21 +18,21 @@
               <tbody>
               <tr>
                 <td>За год</td>
-                <td>500.000 руб.</td>
-                <td>290.000 руб.</td>
-                <td>210.000 руб.</td>
+                <td>500000 ₽</td>
+                <td>290000 ₽</td>
+                <td>210000 ₽</td>
               </tr>
               <tr>
                 <td>За месяц</td>
-                <td>150.000 руб.</td>
-                <td>110.000 руб.</td>
-                <td>40.000 руб.</td>
+                <td>150000 ₽</td>
+                <td>110000 ₽</td>
+                <td>40000 ₽</td>
               </tr>
               <tr>
                 <td>За неделю</td>
-                <td>50.000 руб.</td>
-                <td>19.000 руб.</td>
-                <td>11.000 руб.</td>
+                <td>50000 ₽</td>
+                <td>19000 ₽</td>
+                <td>11000 ₽</td>
               </tr>
               </tbody>
             </table>
@@ -70,7 +70,10 @@ export default {
 
 <style>
 .card#mycard {
-height:350px;
-font-size: 1.3em;
+  height:350px;
+  font-size: 1.4em;
+  background: rgb(54,168,195);
+  background: linear-gradient(141deg, rgba(54,168,195,1) 0%, rgba(93,221,180,1) 100%);
+  
 }
 </style>

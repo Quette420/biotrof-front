@@ -1,6 +1,6 @@
 <template>
     <div class="col s12 m6 l4">
-        <div class="card light-blue bill-card">
+        <div class="card bill-card" id="weekly-card">
           <div class="card-content white-text">
             <span class="card-title">Статистика за неделю</span>
 
@@ -45,3 +45,12 @@ export default {
 }
 
 </script>
+
+<style>
+.card#weekly-card {
+  background: rgb(127,137,255);
+  background: linear-gradient(141deg, rgba(127,137,255,1) 0%, rgba(13,216,255,1) 100%);
+  
+}
+
+</style>

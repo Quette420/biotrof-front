@@ -1,16 +1,16 @@
 <template>
-    <nav class="navbar orange lighten-1">
+    <nav class="navbar " id="mynav">
         <div class="nav-wrapper">
             <div class="navbar-left">
             <a href="#" @click.prevent="$emit('click')">
-            <i class="material-icons black-text">dehaze</i>
+            <i class="material-icons white-text">dehaze</i>
             </a>
-            <span class="black-text">{{date | date('datetime')}}</span>
+            <span class="white-text">{{date | date('datetime')}}</span>
         </div>
         <ul class="right hide-on-small-and-down">
           <li>
             <a
-                class="dropdown-trigger black-text"
+                class="dropdown-trigger white-text"
                 href="#"
                 data-target="dropdown"
                 ref="dropdown"
@@ -76,3 +76,10 @@ export default {
 }
 
 </script>
+
+<style>
+.navbar#mynav {
+  background: rgb(49,48,78);
+  background: linear-gradient(75deg, rgba(49,48,78,1) 0%, rgba(86,71,142,1) 100%);
+}
+</style>
