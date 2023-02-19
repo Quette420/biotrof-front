@@ -29,7 +29,8 @@
             >{{order.stage}}</span>
           </td>
           <td>
-            <button class="btn-small btn" @click="$router.push('/detail/' + order.id)">
+            <button class="btn-small btn" 
+            @click="$router.push('/detail/' + order.id)">
               <i class="material-icons">open_in_new</i>
             </button>
           </td>
