@@ -9,7 +9,8 @@
     </div>
     <MyLoader v-if="loading"/>
 
-    <h3 class="center" v-else-if="!orders.length">Здесь пока ничего нет</h3>
+    <h3 class="center" v-else-if="!orders.length">Здесь пока ничего нет
+    <router-link to="/record"> Создать заказ</router-link></h3>
 
     <section v-else>
       <HistoryTable :orders="orders"/>
