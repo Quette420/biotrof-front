@@ -4,7 +4,7 @@
       <div class="breadcrumb-wrap">
         <a href="/history" class="breadcrumb">История</a>
         <a class="breadcrumb">
-          Расход
+          Информация о заказе
         </a>
       </div>
       <div class="row">
@@ -23,3 +23,11 @@
     </div>
   </div>
 </template>
+
+<script>
+
+export default {
+
+}
+
+</script>
