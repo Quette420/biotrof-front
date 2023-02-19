@@ -1,6 +1,6 @@
 <template>
     <div class="col s14 m6 l12">
-        <div class="card orange darken-1 bill-card">
+        <div class="card orange darken-1 bill-card" id="mycard">
           <div class="card-content white-text">
             <div class="card-header">
               <span class="card-title"><h5>Выручка</h5></span>
@@ -40,3 +40,37 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+  name: "home-currency",
+  props: {
+    weekly: {
+      type: Number,
+      default() {
+        0
+    }},
+    monthly: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    yearly: {
+      type: Number,
+      default() {
+       0
+      }
+    }
+  }
+
+}
+
+</script>
+
+<style>
+.card#mycard {
+height:350px;
+font-size: 1.3em;
+}
+</style>

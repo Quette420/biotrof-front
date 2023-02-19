@@ -11,7 +11,7 @@
               <span>В работе: {{inProcess}}</span>
             </p>
             <p class="currency-line">
-              <span>Заказов закрыто: {{closed}}</span>
+              <span>Закрыто: {{closed}}</span>
             </p>
           </div>
         </div>

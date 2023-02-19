@@ -11,7 +11,7 @@
               <span>В работе: 30</span>
             </p>
             <p class="currency-line">
-              <span>Заказов закрыто: 20</span>
+              <span>Закрыто: 20</span>
             </p>
           </div>
         </div>

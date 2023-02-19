@@ -123,8 +123,10 @@ export default {
                 return error;
             });
         },
-        createOrder({dispatch, commit}, productName, category, price, weight, plannedDateOfShipment, wishes) {
-            const request = new CreateOrderRequest(productName, category, price, weight, plannedDateOfShipment, wishes, AuthService.getUuid());
+        CREATE_ORDER({dispatch, commit}, req) {
+            let request = new CreateOrderRequest();
+            request = req
+            request.employerUuid = AuthService.getUuid()
             return axios.post(ORDERS_BASE_URL, request, {
                 headers: {
                     Authorization: AuthService.getToken()
