@@ -1,5 +1,5 @@
 <template>
-    <ul class="sidenav app-sidenav" :class="{open: value}">
+    <ul class="sidenav app-sidenav" :class="{open: value}" id="myside">
         <router-link
             v-for="link in getLinksByUserRole"
             :key="link.url"
@@ -8,7 +8,7 @@
             :to="link.url"
             :exact="link.exact"
         >
-            <a href="#" class="waves-effect waves-purple pointer">{{link.title}}</a>
+            <a href="#" class="sideel white-text waves-effect waves-purple pointer">{{link.title}}</a>
         </router-link>
     </ul>
 </template>
@@ -67,3 +67,10 @@ export default {
 }
 
 </script>
+
+<style>
+.sidenav#myside {
+    background: rgb(49,48,78);
+    background: linear-gradient(180deg, rgba(49,48,78,1) 18%, rgba(86,71,142,1) 100%);
+}
+</style>
