@@ -61,3 +61,14 @@ export default {
 
 }
 </script>
+
+<style>
+
+span.badge {
+  min-width: 9rem;
+  height: 30px;
+  border: solid;
+  border-color: black;
+  border-width: 2px 
+}
+</style>

@@ -13,7 +13,15 @@
   <router-link to="/record"> Создать заказ</router-link></h3>
 
   <section v-else>
-    <HistoryTable :orders="orders"/>
+    <HistoryTable :orders="items"/>
+    <historyPaginate
+      :page-count="pageCount"
+      :click-handler="pageChangeHandler"
+      :prev-text="'Назад'"
+      :next-text="'Вперед'"
+      :container-class="'pagination'"
+      :page-class="'waves-effect'"
+      />
   </section>
 </div>
 </template>
@@ -24,9 +32,11 @@
 import { mapActions } from 'vuex';
 import HistoryTable from '@/components/HistoryTable.vue';
 import MyLoader from '@/components/app/MyLoader.vue';
+import paginationMixin from '@/mixins/pagination.mixin';
 
 export default {
 name: 'not-shipped',
+mixins: [paginationMixin],
 data: () => ({
   loading: true,
   orders: [],
@@ -95,7 +105,7 @@ mounted () {
   if(response.data) {
     console.log('Orders arrived!')
     const ordrs = response.data
-    this.orders = ordrs.map(order => {
+    this.setupPagination(this.orders = ordrs.map(order => {
     // eslint-disable-next-line
     Object.entries(this.products).forEach(([key, value]) => {
     if(order.productName === value.value) {
@@ -119,7 +129,7 @@ mounted () {
         ...order
        }
 
-    })
+    }))
     this.loading = false;
   }
 },

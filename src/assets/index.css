@@ -75,3 +75,6 @@
 .breadcrumb-wrap a,
 .breadcrumb-wrap a:before{display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;color:rgba(0,0,0,.7)!important}
 .history-chart{max-width:600px;margin:0 auto}
+.pagination li.active {
+    background-color: #be12e9;
+  }
