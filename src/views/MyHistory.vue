@@ -14,6 +14,14 @@
 
     <section v-else>
       <HistoryTable :orders="orders"/>
+      <historyPaginate
+      :page-count="20"
+      :click-handler="pageChangeHandler"
+      :prev-text="'Назад'"
+      :next-text="'Вперед'"
+      :container-class="'pagination'"
+      :page-class="'waves-effect'"
+      />
     </section>
   </div>
 </template>
@@ -72,7 +80,7 @@ export default {
         },
         { label: 'Изготовление',
           value: 'MANUFACTURE',
-          color: 'yellow'
+          color: 'lime'
         },
         { label: 'Готово к отгрузке',
           value: 'READY_FOR_SHIPMENT',
@@ -87,7 +95,10 @@ export default {
   methods:{ 
   ...mapActions([
       'getAllOrdersByUuid'
-      ])
+      ]),
+      pageChangeHandler() {
+
+      }
 },
   mounted () {
     this.getAllOrdersByUuid().then(

@@ -227,7 +227,7 @@ export default {
             });
         },
         getOrderByOrderId({dispatch, commit}, id) {
-            return axios(ORDERS_BASE_URL + id, 
+            return axios(ORDERS_BASE_URL + '/' + id, 
                 {
                 method: 'GET',
                 headers: {

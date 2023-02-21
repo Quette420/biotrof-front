@@ -48,6 +48,8 @@ export default {
                 .then((response) => {
                     localStorage.setItem('token', JSON.stringify(response.data.token));
                     localStorage.setItem('uuid', JSON.stringify(response.data.uuid));
+                //    sessionStorage.setItem('token', JSON.stringify(response.data.token));
+                //    sessionStorage.setItem('uuid', JSON.stringify(response.data.uuid));
                     commit('SET_USER_TO_STATE', response.data);
                 });
                 router.push('/')

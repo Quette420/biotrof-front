@@ -3,11 +3,11 @@
         <thead>
         <tr>
           <th>#</th>
+          <th>Название товара</th>
+          <th>Категория</th>
           <th>Сумма</th>
           <th>Вес</th>
           <th>Дата создания</th>
-          <th>Название товара</th>
-          <th>Категория</th>
           <th>Палнируемая дата доставки</th>
           <th>Статус</th>
           <th>Открыть</th>
@@ -17,11 +17,11 @@
         <tbody>
         <tr v-for="order of orders" :key="order.id">
           <td>{{order.id}}</td>
+          <td>{{order.productName}}</td>
+          <td>{{order.category}}</td>
           <td>{{order.price}} ₽</td>
           <td>{{order.weight}}</td>
           <td>{{order.createDate}}</td>
-          <td>{{order.productName}}</td>
-          <td>{{order.category}}</td>
           <td>{{order.plannedDateOfShipment}}</td>
           <td>
             <span 
