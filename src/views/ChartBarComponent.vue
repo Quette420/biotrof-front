@@ -39,7 +39,7 @@
           labels: 
             this.statuses.map(s => s.label),
           datasets: [ { 
-           label: 'Заказы',
+           label: 'Всего заказов: ' + this.orders.length,
             data: [
               this.orders.filter(o => o.stage === this.statuses[0].label).length,
               this.orders.filter(o => o.stage === this.statuses[1].label).length,
