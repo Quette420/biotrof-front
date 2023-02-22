@@ -1,18 +1,17 @@
 <template>
   <div>
   <div class="page-title">
-    <h3>История записей</h3>
-  </div>
-
-  <div class="history-chart">
-    <canvas></canvas>
+    <h3>Список всех заказов</h3>
   </div>
   <MyLoader v-if="loading"/>
 
   <h3 class="center" v-else-if="!orders.length">Здесь пока ничего нет
   <router-link to="/record"> Создать заказ</router-link></h3>
-
-  <section v-else>
+    <div v-else>
+      <ChartBarComponent
+    :orders="orders"
+    :statuses="statuses"/>
+    <section>
     <HistoryTable :orders="items"/>
     <historyPaginate
       :page-count="pageCount"
@@ -23,6 +22,7 @@
       :page-class="'waves-effect'"
       />
   </section>
+    </div>
 </div>
 </template>
 
@@ -33,10 +33,16 @@ import { mapActions } from 'vuex';
 import HistoryTable from '@/components/HistoryTable.vue';
 import MyLoader from '@/components/app/MyLoader.vue';
 import paginationMixin from '@/mixins/pagination.mixin';
+import ChartBarComponent from './ChartBarComponent.vue';
 
 export default {
 name: 'all-orders',
 mixins: [paginationMixin],
+components: {
+  HistoryTable,
+  MyLoader,
+  ChartBarComponent
+},
 data: () => ({
   loading: true,
   orders: [],
@@ -138,10 +144,6 @@ mounted () {
 }
 );
 
-},
-components: {
-  HistoryTable,
-  MyLoader
 }
 
 }
