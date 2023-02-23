@@ -1,8 +1,7 @@
 <template>
     <div id="bar-chart">
         <div>
-        <canvas id="myChart" width="20"></canvas>
-        <button class="btn-small btn" 
+            <button class="btn-small btn" 
             @click="calculateDiagramm">
               <i class="material-icons"></i>
             </button>
@@ -14,6 +13,8 @@
             @click="calculateDiagramm3">
               <i class="material-icons"></i>
             </button>
+        <canvas id="myChart" width="20"></canvas>
+        
     </div>
     </div>
 </template>

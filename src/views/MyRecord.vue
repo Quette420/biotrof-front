@@ -55,12 +55,13 @@
           <label for="plannedDateOfShipment">Дата доставки</label>
         </div>
         <div class="input-field">
-          <input
-              id="wishes"
+          <textarea
+              id="textarea1"
               type="text"
               v-model="wishes"
+              class="materialize-textarea"
           >
-          <label for="wishes">Пожелания</label>
+          Пожелания</textarea>
         </div>
   
         <button class="btn waves-effect waves-light" type="submit">
