@@ -37,8 +37,8 @@ export default {
 
 <style>
 .card#dashboard-in-process-card {
-    background: rgb(20,167,209);
-background: linear-gradient(157deg, rgba(20,167,209,1) 0%, rgba(221,233,70,1) 100%);
+  background: rgb(54,168,195);
+  background: linear-gradient(141deg, rgba(54,168,195,1) 0%, rgba(93,221,180,1) 100%);
   text-align: center;
   height: 150px;
   width: 380px;

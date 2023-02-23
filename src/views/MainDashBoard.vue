@@ -24,9 +24,6 @@
         v-bind:text="'Выручка'"
         />
       </div>
-      <ChartBarComponent
-    :orders="orderData"
-    :statuses="statuses"/>
     </div>
   </template>
   
@@ -38,7 +35,6 @@ import DashBoardGainBill from '@/components/DashBoardGainBill.vue';
 import DashBoardInprocessBill from '@/components/DashBoardInprocessBill.vue'
 import DashBoardClosedBill from '@/components/DashBoardClosedBill.vue'
 import {mapActions, mapGetters} from 'vuex'
-import ChartBarComponent from './ChartBarComponent.vue';
   
   export default {
     name: 'main-dashboard',
@@ -70,7 +66,6 @@ import ChartBarComponent from './ChartBarComponent.vue';
     }),
     components: {
       DashBoardBill,
-      ChartBarComponent,
       DashBoardGainBill,
       DashBoardInprocessBill,
       DashBoardClosedBill,
@@ -105,8 +100,6 @@ import ChartBarComponent from './ChartBarComponent.vue';
 
   <style>
 .row {
-  display:inline-block;
- 
-  width: auto;
+  display: flex;
 }
 </style>
