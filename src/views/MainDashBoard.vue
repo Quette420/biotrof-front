@@ -20,7 +20,7 @@
         v-bind:text="'закрыто'"
         />
         <DashBoardGainBill 
-        v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDER_SALES_IN_DONE"
+        v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDER_SALES"
         v-bind:text="'Выручка'"
         />
         
