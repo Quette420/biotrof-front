@@ -56,7 +56,7 @@
         </div>
         <div class="input-field">
           <textarea
-              id="textarea1"
+              id="textarea"
               type="text"
               v-model="wishes"
               class="materialize-textarea"
