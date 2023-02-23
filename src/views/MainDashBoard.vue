@@ -20,7 +20,7 @@
         v-bind:text="'заказов закрыто'"
         />
         <DashBoardGainBill 
-        v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDER_SALES"
+        v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDER_SALES_IN_DONE"
         v-bind:text="'Выручка'"
         />
         
@@ -44,33 +44,11 @@ import Chart from 'chart.js/auto'
     data: () => ({
       loading: true,
       orderData: [],
-      statuses: [
-        { label: 'Не оплачено',
-          value: 'WAITING_FOR_PAYMENT',
-          color: 'red'
-        },
-        { label: 'Подписание',
-          value: 'CONTRACT_SIGNING',
-          color:  'orange'
-        },
-        { label: 'Изготовление',
-          value: 'MANUFACTURE',
-          color: 'lime'
-        },
-        { label: 'Готово к отгрузке',
-          value: 'READY_FOR_SHIPMENT',
-          color: 'green'
-        },
-        { label: 'Отгружено',
-          value: 'DONE',
-          color: 'blue'
-        }
-    ],
     data:{
-                labels: ['Red','Blue','Yellow','Green','Purple','Orange'],
+                labels: [],
                 datasets: [{
                 label: 'Заказы',
-                data: [12,19,3,5,2,3],
+                data: [],
                 backgroundColor: [
                     'rgba(255,99,132,0.2)',
                     'rgba(54,162,235,0.2)',
@@ -87,7 +65,7 @@ import Chart from 'chart.js/auto'
                     'rgba(153,102,255,1)',
                     'rgba(255,159,64,1)'
                 ],
-                borderWidth: 2
+                borderWidth: 3
                 }]
             },
             options: {
@@ -108,28 +86,37 @@ import Chart from 'chart.js/auto'
   },methods:{ 
     ...mapActions([
         'getAllOrdersByUuid'
-        ])
-  }, mounted () {
-    this.getAllOrdersByUuid().then(
-      (response) => {
-      if(response.data) {
-        this.orderData = response.data
-        console.log('Orders arrived!')
-      }
-    },
-      (error) => {
-        console.log(error);
-    }
-  );
- const context = document.getElementById('dashboard-diagramm')
+        ]),
+    setupDiagram(orders) {
+     let sum = 1;
+      orders.map(o => {
+        if(this.data.labels.includes(new Date(o.createDate).getDate())) {
+          sum++;
+        } else {
+          if(this.data.labels.length) {
+            this.data.datasets[0].data.push(sum)
+            sum = 1
+          }
+          this.data.labels.push(new Date(o.createDate).getDate())
+        }
+      })
+      this.data.datasets[0].data.push(sum)
+      const context = document.getElementById('dashboard-diagramm')
     // eslint-disable-next-line
         this.myChart = new Chart(context, {
             type: 'line',
             data: this.data,
             options: this.options
         })
-       
-
+    }
+  }, async mounted () {
+  try {
+      await this.$store.dispatch('getAllOrdersByUuidAsync')
+   } catch(e) {
+      console.log('error')
+   }
+    this.orderData = this.GET_PER_MONTH_EMPLOYER_ORDERS
+    this.setupDiagram(this.orderData)
     this.loading = false;
   }, computed: {
     ...mapGetters([

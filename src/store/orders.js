@@ -349,6 +349,22 @@ export default {
                 return error;
             });
         },
+        async getAllOrdersByUuidAsync({dispatch, commit}) {
+            try {
+                await axios('http://localhost:8081/api/v1/orders/employer/' + AuthService.getUuid(), 
+                {
+                    method: 'GET',
+                    headers: {
+                        Authorization: AuthService.getToken()
+                    }
+                }).then((response) => {
+                    commit('SET_ORDERS_BY_UUID_TO_STATE', response.data);
+                    return response;
+                });
+            } catch (e) {
+                console.log(e)
+            }
+        },
          getAllOrders({dispatch, commit}) {
             console.log('getAllOrders called')
             return axios(ORDERS_BASE_URL, 
