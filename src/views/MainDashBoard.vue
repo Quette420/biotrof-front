@@ -6,7 +6,7 @@
   
       <MyLoader v-if="loading"/>
   
-      <div v-else class="row">
+      <div v-else class="row" id="dash-row">
         <DashBoardBill 
         v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS.length"
         v-bind:text="'заказов зарегистрировано'"
@@ -99,7 +99,7 @@ import {mapActions, mapGetters} from 'vuex'
   </script>
 
   <style>
-.row {
+.dash-row {
   display: flex;
 }
 </style>
