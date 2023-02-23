@@ -62,17 +62,12 @@ export default {
   ...mapActions([
       'getAllOrdersByUuid'
       ])
-}, mounted () {
-  this.getAllOrdersByUuid().then(
-    (response) => {
-    if(response.data) {
-      console.log('Orders arrived!')
-    }
-  },
-    (error) => {
-      console.log(error);
-  }
-);
+}, async mounted () {
+  try {
+      await this.$store.dispatch('getAllOrdersByUuidAsync')
+   } catch(e) {
+      console.log('error')
+   }
   this.loading = false;
 }, computed: {
   ...mapGetters([
