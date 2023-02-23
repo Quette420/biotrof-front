@@ -157,6 +157,145 @@ export default {
                 sum += order.price 
             });
             return sum;
+        },
+        GET_PER_WEEK_ORDERS(state) {
+            let now = new Date();
+            return state.ordersArray.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now));
+        },
+        GET_PER_WEEK_ORDERS_IN_PROCESS(state) {
+            let now = new Date();
+            return state.ordersArray.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).filter(order => order.stage != 'DONE');
+        },
+        GET_PER_WEEK_ORDERS_DONE(state) {
+            let now = new Date();
+            return state.ordersArray.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).filter(order => order.stage === 'DONE');
+        },
+        GET_PER_WEEK_ORDERS_SALES(state) {
+            let sum = 0;
+            let now = new Date();
+            state.ordersArray.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_WEEK_ORDERS_SALES_IN_PROCESS(state) {
+            let sum = 0;
+            let now = new Date();
+            state.ordersArray.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).filter(order => order.stage != 'DONE').forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_WEEK_ORDERS_SALES_IN_DONE(state) {
+            let sum = 0;
+            let now = new Date();
+            state.ordersArray.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).filter(order => order.stage === 'DONE').forEach(order => {
+                sum += order.price 
+            });
+            return sum;
+        },
+        GET_PER_MONTH_ORDERS(state) {
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            return state.ordersArray.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year);
+        },
+        GET_PER_MONTH_ORDERS_IN_PROCESS(state) {
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            return state.ordersArray.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year).filter(order => order.stage != 'DONE');
+        },
+        GET_PER_MONTH_ORDERS_DONE(state) {
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            return state.ordersArray.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year).filter(order => order.stage === 'DONE');
+        },
+        GET_PER_MONTH_ORDERS_SALES(state) {
+            let sum = 0;
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            let arr = state.ordersArray.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year && order.price != null)
+            arr.forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_MONTH_ORDERS_SALES_IN_PROCESS(state) {
+            let sum = 0;
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            let arr = state.ordersArray.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year && order.price != null)
+            .filter(order => order.stage != 'DONE')
+            arr.forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_MONTH_ORDERS_SALES_IN_DONE(state) {
+            let sum = 0;
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            let arr = state.ordersArray.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year && order.price != null)
+            .filter(order => order.stage === 'DONE')
+            arr.forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_YEAR_ORDERS(state) {
+            const now = new Date()
+            const year = now.getFullYear();
+            return state.ordersArray.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear());
+        },
+        GET_PER_YEAR_ORDERS_IN_PROCESS(state) {
+            const now = new Date()
+            const year = now.getFullYear();
+            return state.ordersArray.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear()).filter(order => order.stage != 'DONE');
+        },
+        GET_PER_YEAR_ORDERS_DONE(state) {
+            const now = new Date()
+            const year = now.getFullYear();
+            return state.ordersArray.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear()).filter(order => order.stage === 'DONE');
+        },
+        GET_PER_YEAR_ORDERS_SALES(state) {
+            let sum = 0;
+            const now = new Date()
+            const year = now.getFullYear();
+            state.ordersArray.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear())
+            .filter(order => order.price != null).forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_YEAR_ORDERS_SALES_IN_PROCESS(state) {
+            let sum = 0;
+            const now = new Date()
+            const year = now.getFullYear();
+            state.ordersArray.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear())
+            .filter(order => order.price != null).filter(order => order.stage != 'DONE').forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_YEAR_ORDERS_SALES_IN_DONE(state) {
+            let sum = 0;
+            const now = new Date()
+            const year = now.getFullYear();
+            state.ordersArray.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear())
+            .filter(order => order.price != null).filter(order => order.stage === 'DONE').forEach(order => {
+                sum += order.price 
+            });
+            return sum;
         }
       },
       mutations: {

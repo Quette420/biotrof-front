@@ -1,11 +1,11 @@
 <template>
   <div>
   <div class="page-title">
-    <h3>История записей</h3>
+    <h3>Список заказов готовых к отгрузке</h3>
   </div>
 
   <div class="history-chart">
-    <canvas></canvas>
+    
   </div>
   <MyLoader v-if="loading"/>
 
@@ -32,11 +32,11 @@
 import { mapActions } from 'vuex';
 import HistoryTable from '@/components/HistoryTable.vue';
 import MyLoader from '@/components/app/MyLoader.vue';
-import paginationMixin from '@/mixins/pagination.mixin';
+import notshippedpaginationMixin from '@/mixins/notshippedpagination.mixin';
 
 export default {
 name: 'not-shipped',
-mixins: [paginationMixin],
+mixins: [notshippedpaginationMixin],
 data: () => ({
   loading: true,
   orders: [],

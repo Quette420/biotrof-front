@@ -8,7 +8,7 @@ const routes = [
     path: '/',
     name: 'home',
     meta: {layout: 'main', auth: true},
-    component: () => import('../views/HomeView.vue')
+    component: () => import('../views/MainDashBoard.vue')
   },
   {
     path: '/login',
@@ -29,8 +29,8 @@ const routes = [
     component: () => import('../views/DetailRecord.vue')
   },
   {
-    path: '/statistic',
-    name: 'statistic',
+    path: '/infografic',
+    name: 'infografic',
     meta: {layout: 'main', auth: true},
     component: () => import('../views/BarChart.vue')
   },
@@ -69,6 +69,18 @@ const routes = [
     name: 'profile',
     meta: {layout: 'main', auth: true},
     component: () => import('../views/MyProfile.vue')
+  },
+  {
+    path: '/statistic',
+    name: 'statistic',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/HomeView.vue')
+  },
+  {
+    path: '/general-statistic',
+    name: 'general-statistic',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/GeneralStatistic.vue')
   }
 ]
 

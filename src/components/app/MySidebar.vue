@@ -24,7 +24,8 @@ export default {
         userLinks: [
             {title: 'Главная', url: '/', exact: true},
             {title: 'Новый заказ', url: '/record'},
-            {title: 'Мои заказы', url: '/history'}
+            {title: 'Мои заказы', url: '/history'},
+            {title: 'Моя статистика', url: '/statistic'}
         ],
         moderatorLinks: [
             {title: 'Главная', url: '/', exact: true},
@@ -38,7 +39,9 @@ export default {
             {title: 'Мои заказы', url: '/history'},
             {title: 'Все заказы', url: '/all-orders'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
-            {title: 'Статистика', url: '/statistic'}
+            {title: 'Моя статистика', url: '/statistic'},
+            {title: 'Общая статистика', url: '/general-statistic'},
+            {title: 'Инфографика', url: '/infografic'}
         ]
     }),
     computed: {

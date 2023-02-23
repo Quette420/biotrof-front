@@ -107,10 +107,5 @@ export default {
       justify-content: space-between;
       align-items: center;
 }
-    canvas#myChart{
-
-  
-
-}
 
 </style>
