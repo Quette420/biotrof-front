@@ -23,7 +23,9 @@
         v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDER_SALES"
         v-bind:text="'Выручка'"
         />
+        
       </div>
+      <canvas id="dashboard-diagramm" width="160" height="50"></canvas>
     </div>
   </template>
   
@@ -35,6 +37,7 @@ import DashBoardGainBill from '@/components/DashBoardGainBill.vue';
 import DashBoardInprocessBill from '@/components/DashBoardInprocessBill.vue'
 import DashBoardClosedBill from '@/components/DashBoardClosedBill.vue'
 import {mapActions, mapGetters} from 'vuex'
+import Chart from 'chart.js/auto'
   
   export default {
     name: 'main-dashboard',
@@ -62,7 +65,39 @@ import {mapActions, mapGetters} from 'vuex'
           value: 'DONE',
           color: 'blue'
         }
-    ]
+    ],
+    data:{
+                labels: ['Red','Blue','Yellow','Green','Purple','Orange'],
+                datasets: [{
+                label: 'Заказы',
+                data: [12,19,3,5,2,3],
+                backgroundColor: [
+                    'rgba(255,99,132,0.2)',
+                    'rgba(54,162,235,0.2)',
+                    'rgba(255,206,86,0.2)',
+                    'rgba(75,192,192,0.2)',
+                    'rgba(153,102,255,0.2)',
+                    'rgba(255,159,64,0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54,162,235,1)',
+                    'rgba(255,206,86,1)',
+                    'rgba(75,192,192,1)',
+                    'rgba(153,102,255,1)',
+                    'rgba(255,159,64,1)'
+                ],
+                borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            },
+            myChart: ''
     }),
     components: {
       DashBoardBill,
@@ -86,6 +121,15 @@ import {mapActions, mapGetters} from 'vuex'
         console.log(error);
     }
   );
+ const context = document.getElementById('dashboard-diagramm')
+    // eslint-disable-next-line
+        this.myChart = new Chart(context, {
+            type: 'line',
+            data: this.data,
+            options: this.options
+        })
+       
+
     this.loading = false;
   }, computed: {
     ...mapGetters([
@@ -101,5 +145,14 @@ import {mapActions, mapGetters} from 'vuex'
   <style>
 .dash-row {
   display: flex;
+}
+
+.dashboard-diagramm {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      width:800px !important;
+    height:400px !important;
 }
 </style>
