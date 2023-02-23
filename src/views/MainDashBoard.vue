@@ -9,7 +9,7 @@
       <div v-else class="row" id="dash-row">
         <DashBoardBill 
         v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS.length"
-        v-bind:text="'заказов зарегистрировано'"
+        v-bind:text="'заказов'"
         />
         <DashBoardInprocessBill 
         v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS_IN_PROCESS.length"
