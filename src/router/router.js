@@ -35,7 +35,7 @@ const routes = [
     component: () => import('../views/BarChart.vue')
   },
   {
-    path: '/record',
+    path: '/order',
     name: 'record',
     meta: {layout: 'main', auth: true},
     component: () => import('../views/MyRecord.vue')

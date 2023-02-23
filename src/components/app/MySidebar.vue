@@ -23,19 +23,19 @@ export default {
         },
         userLinks: [
             {title: 'Главная', url: '/', exact: true},
-            {title: 'Новый заказ', url: '/record'},
+            {title: 'Новый заказ', url: '/order'},
             {title: 'Мои заказы', url: '/history'},
             {title: 'Моя статистика', url: '/statistic'}
         ],
         moderatorLinks: [
             {title: 'Главная', url: '/', exact: true},
-            {title: 'Новый заказ', url: '/record'},
+            {title: 'Новый заказ', url: '/order'},
             {title: 'Все заказы', url: '/history'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
         ],
         adminLinks: [
             {title: 'Главная', url: '/', exact: true},
-            {title: 'Новый заказ', url: '/record'},
+            {title: 'Новый заказ', url: '/order'},
             {title: 'Мои заказы', url: '/history'},
             {title: 'Все заказы', url: '/all-orders'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},

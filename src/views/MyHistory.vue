@@ -8,7 +8,7 @@
     <MyLoader v-if="loading"/>
 
     <h3 class="center" v-else-if="!orders.length && loading=== false">Здесь пока ничего нет
-    <router-link to="/record"> Создать заказ</router-link></h3>
+    <router-link to="/order"> Создать заказ</router-link></h3>
       <div v-else>
         <ChartBarComponent
     :orders="orders"

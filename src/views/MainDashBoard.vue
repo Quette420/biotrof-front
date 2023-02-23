@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="page-title">
-        <h3>В этом месяце</h3>
+        <h3>Сводка по моим заказам в этом месяце</h3>
       </div>
   
       <MyLoader v-if="loading"/>
@@ -9,15 +9,15 @@
       <div v-else class="row" id="dash-row">
         <DashBoardBill 
         v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS.length"
-        v-bind:text="'заказов'"
+        v-bind:text="'создано'"
         />
         <DashBoardInprocessBill 
         v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS_IN_PROCESS.length"
-        v-bind:text="'заказов в работе'"
+        v-bind:text="'в работе'"
         />
         <DashBoardClosedBill 
         v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS_DONE.length"
-        v-bind:text="'заказов закрыто'"
+        v-bind:text="'закрыто'"
         />
         <DashBoardGainBill 
         v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDER_SALES_IN_DONE"
@@ -66,7 +66,7 @@ import Chart from 'chart.js/auto'
                     'rgba(153,102,255,1)',
                     'rgba(255,159,64,1)'
                 ],
-                borderWidth: 2
+                borderWidth: 4
                 }
             ]
             },
