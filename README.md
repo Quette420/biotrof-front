@@ -1,4 +1,4 @@
-# vue-youtube-crm
+# biotrof-front
 
 ## Project setup
 ```
