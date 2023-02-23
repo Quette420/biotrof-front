@@ -46,7 +46,8 @@ import Chart from 'chart.js/auto'
       orderData: [],
     data:{
                 labels: [],
-                datasets: [{
+                datasets: [
+                  {
                 label: 'Заказы',
                 data: [],
                 backgroundColor: [
@@ -58,15 +59,16 @@ import Chart from 'chart.js/auto'
                     'rgba(255,159,64,0.2)'
                 ],
                 borderColor: [
-                    'rgba(255,99,132,1)',
+                'rgba(255,99,132,1)',
                     'rgba(54,162,235,1)',
                     'rgba(255,206,86,1)',
                     'rgba(75,192,192,1)',
                     'rgba(153,102,255,1)',
                     'rgba(255,159,64,1)'
                 ],
-                borderWidth: 3
-                }]
+                borderWidth: 2
+                }
+            ]
             },
             options: {
                 scales: {
@@ -90,14 +92,16 @@ import Chart from 'chart.js/auto'
     setupDiagram(orders) {
      let sum = 1;
       orders.map(o => {
-        if(this.data.labels.includes(new Date(o.createDate).getDate())) {
+      //  console.log(new Date(o.createDate).getMonth() + 1)
+        const date = new Date(o.createDate).getDate()
+        if(this.data.labels.includes(date)) {
           sum++;
         } else {
           if(this.data.labels.length) {
             this.data.datasets[0].data.push(sum)
             sum = 1
           }
-          this.data.labels.push(new Date(o.createDate).getDate())
+          this.data.labels.push(date)
         }
       })
       this.data.datasets[0].data.push(sum)
