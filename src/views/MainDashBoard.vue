@@ -1,62 +1,79 @@
 <template>
     <div>
       <div class="page-title">
-        <h3>Дашборд</h3>
+        <h3>В этом месяце</h3>
       </div>
   
       <MyLoader v-if="loading"/>
   
       <div v-else class="row">
-        <WeeklyBill 
-        v-bind:sum="GET_PER_WEEK_EMPLOYER_ORDERS.length"
-        v-bind:in-process="GET_PER_WEEK_EMPLOYER_ORDERS_IN_PROCESS.length"
-        v-bind:closed="GET_PER_WEEK_EMPLOYER_ORDERS_DONE.length"
-        />
-        <MounthBill 
+        <DashBoardBill 
         v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS.length"
-        v-bind:in-process="GET_PER_MONTH_EMPLOYER_ORDERS_IN_PROCESS.length"
-        v-bind:closed="GET_PER_MONTH_EMPLOYER_ORDERS_DONE.length"
+        v-bind:text="'заказов зарегистрировано'"
         />
-        <YearBill 
-        v-bind:sum="GET_PER_YEAR_EMPLOYER_ORDERS.length"
-        v-bind:in-process="GET_PER_YEAR_EMPLOYER_ORDERS_IN_PROCESS.length"
-        v-bind:closed="GET_PER_YEAR_EMPLOYER_ORDERS_DONE.length"
+        <DashBoardInprocessBill 
+        v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS_IN_PROCESS.length"
+        v-bind:text="'заказов в работе'"
         />
-        <HomeCurrency 
-        v-bind:weekly-sum="GET_PER_WEEK_EMPLOYER_ORDER_SALES"
-        v-bind:weekly-in-process="GET_PER_WEEK_EMPLOYER_ORDER_SALES_IN_PROCESS"
-        v-bind:weekly-closed="GET_PER_WEEK_EMPLOYER_ORDER_SALES_IN_DONE"
-        v-bind:monthly-sum="GET_PER_MONTH_EMPLOYER_ORDER_SALES"
-        v-bind:monthly-in-process="GET_PER_MONTH_EMPLOYER_ORDER_SALES_IN_PROCESS"
-        v-bind:monthly-closed="GET_PER_MONTH_EMPLOYER_ORDER_SALES_IN_DONE"
-        v-bind:yearly-sum="GET_PER_YEAR_EMPLOYER_ORDER_SALES"
-        v-bind:yearly-in-process="GET_PER_YEAR_EMPLOYER_ORDER_SALES_IN_PROCESS"
-        v-bind:yearly-closed="GET_PER_YEAR_EMPLOYER_ORDER_SALES_IN_DONE"
+        <DashBoardClosedBill 
+        v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS_DONE.length"
+        v-bind:text="'заказов закрыто'"
+        />
+        <DashBoardGainBill 
+        v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDER_SALES"
+        v-bind:text="'Выручка'"
         />
       </div>
+      <ChartBarComponent
+    :orders="orderData"
+    :statuses="statuses"/>
     </div>
   </template>
   
   <script>
   
-  import MyLoader from '@/components/app/MyLoader.vue';
-  import WeeklyBill from '@/components/WeeklyBill.vue';
-  import MounthBill from '@/components/MounthBill.vue';
-  import YearBill from '@/components/YearBill.vue';
-  import HomeCurrency from '@/components/HomeCurrency.vue';
-  import {mapActions, mapGetters} from 'vuex'
+import MyLoader from '@/components/app/MyLoader.vue';
+import DashBoardBill from '@/components/DashBoardBill.vue';
+import DashBoardGainBill from '@/components/DashBoardGainBill.vue';
+import DashBoardInprocessBill from '@/components/DashBoardInprocessBill.vue'
+import DashBoardClosedBill from '@/components/DashBoardClosedBill.vue'
+import {mapActions, mapGetters} from 'vuex'
+import ChartBarComponent from './ChartBarComponent.vue';
   
   export default {
     name: 'main-dashboard',
     data: () => ({
       loading: true,
-      orderData: null
+      orderData: [],
+      statuses: [
+        { label: 'Не оплачено',
+          value: 'WAITING_FOR_PAYMENT',
+          color: 'red'
+        },
+        { label: 'Подписание',
+          value: 'CONTRACT_SIGNING',
+          color:  'orange'
+        },
+        { label: 'Изготовление',
+          value: 'MANUFACTURE',
+          color: 'lime'
+        },
+        { label: 'Готово к отгрузке',
+          value: 'READY_FOR_SHIPMENT',
+          color: 'green'
+        },
+        { label: 'Отгружено',
+          value: 'DONE',
+          color: 'blue'
+        }
+    ]
     }),
     components: {
-      WeeklyBill,
-      MounthBill,
-      YearBill,
-      HomeCurrency,
+      DashBoardBill,
+      ChartBarComponent,
+      DashBoardGainBill,
+      DashBoardInprocessBill,
+      DashBoardClosedBill,
       MyLoader
   },methods:{ 
     ...mapActions([
@@ -66,6 +83,7 @@
     this.getAllOrdersByUuid().then(
       (response) => {
       if(response.data) {
+        this.orderData = response.data
         console.log('Orders arrived!')
       }
     },
@@ -84,3 +102,11 @@
     }
   }
   </script>
+
+  <style>
+.row {
+  display:inline-block;
+ 
+  width: auto;
+}
+</style>
