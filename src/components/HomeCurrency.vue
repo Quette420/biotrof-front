@@ -22,20 +22,29 @@
               <tr>
                 <td>За год</td>
                 <td>{{yearlySum}} ₽</td>
-                <td>{{yearlyInProcess}} ₽</td>
                 <td>{{yearlyClosed}} ₽</td>
+                <td>{{yearlyReadyForShipment}} ₽</td>
+                <td>{{yearlyManufacture}} ₽</td>
+                <td>{{yearlySigning}} ₽</td>
+                <td>{{yearlyWaitingForPayment}} ₽</td>
               </tr>
               <tr>
                 <td>За месяц</td>
                 <td>{{monthlySum}} ₽</td>
-                <td>{{monthlyInProcess}} ₽</td>
                 <td>{{monthlyClosed}} ₽</td>
+                <td>{{monthlyReadyForShipment}} ₽</td>
+                <td>{{monthlyManufacture}} ₽</td>
+                <td>{{monthlySigning}} ₽</td>
+                <td>{{monthlyWaitingForPayment}} ₽</td>
               </tr>
               <tr>
                 <td>За неделю</td>
                 <td>{{weeklySum}} ₽</td>
-                <td>{{weeklyInProcess}} ₽</td>
                 <td>{{weeklyClosed}} ₽</td>
+                <td>{{weeklyReadyForShipment}} ₽</td>
+                <td>{{weeklyManufacture}} ₽</td>
+                <td>{{weeklySigning}} ₽</td>
+                <td>{{weeklyWaitingForPayment}} ₽</td>
               </tr>
               </tbody>
             </table>
@@ -53,7 +62,25 @@ export default {
       default() {
         0
     }},
-    weeklyInProcess: {
+    weeklyWaitingForPayment: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    weeklySigning: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    weeklyManufacture: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    weeklyReadyForShipment: {
       type: Number,
       default() {
         0
@@ -70,7 +97,25 @@ export default {
       default() {
         0
     }},
-    monthlyInProcess: {
+    monthlyWaitingForPayment: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    monthlySigning: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    monthlyManufacture: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    monthlyReadyForShipment: {
       type: Number,
       default() {
         0
@@ -87,7 +132,25 @@ export default {
       default() {
         0
     }},
-    yearlyInProcess: {
+    yearlyWaitingForPayment: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    yearlySigning: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    yearlyManufacture: {
+      type: Number,
+      default() {
+        0
+      }
+    },
+    yearlyReadyForShipment: {
       type: Number,
       default() {
         0

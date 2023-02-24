@@ -51,6 +51,42 @@ export default {
             });
             return sum;
         },
+        GET_PER_WEEK_EMPLOYER_ORDER_SALES_WAITING_FOR_PAYMENT(state) {
+            let sum = 0;
+            let now = new Date();
+            state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).filter(order => order.stage === 'WAITING_FOR_PAYMENT').forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_WEEK_EMPLOYER_ORDER_SALES_CONTRACT_SIGNING(state) {
+            let sum = 0;
+            let now = new Date();
+            state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).filter(order => order.stage === 'CONTRACT_SIGNING').forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_WEEK_EMPLOYER_ORDER_SALES_MANUFACTURE(state) {
+            let sum = 0;
+            let now = new Date();
+            state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).filter(order => order.stage === 'MANUFACTURE').forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_WEEK_EMPLOYER_ORDER_SALES_READY_FOR_SHIPMENT(state) {
+            let sum = 0;
+            let now = new Date();
+            state.ordersByUuid.filter(order => order.createDate != null && DateService.getStartOfWeek(new Date()) <= new Date(order.createDate) && new Date(order.createDate) <= DateService.getEndOfWeek(now))
+            .filter(order => order.price != null).filter(order => order.stage === 'READY_FOR_SHIPMENT').forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
         GET_PER_WEEK_EMPLOYER_ORDER_SALES_IN_DONE(state) {
             let sum = 0;
             let now = new Date();
@@ -96,6 +132,54 @@ export default {
             const year = now.getFullYear();
             let arr = state.ordersByUuid.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year && order.price != null)
             .filter(order => order.stage != 'DONE')
+            arr.forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_MONTH_EMPLOYER_ORDER_SALES_WAITING_FOR_PAYMENT(state) {
+            let sum = 0;
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            let arr = state.ordersByUuid.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year && order.price != null)
+            .filter(order => order.stage === 'WAITING_FOR_PAYMENT')
+            arr.forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_MONTH_EMPLOYER_ORDER_SALES_CONTRACT_SIGNING(state) {
+            let sum = 0;
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            let arr = state.ordersByUuid.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year && order.price != null)
+            .filter(order => order.stage === 'CONTRACT_SIGNING')
+            arr.forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_MONTH_EMPLOYER_ORDER_SALES_MANUFACTURE(state) {
+            let sum = 0;
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            let arr = state.ordersByUuid.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year && order.price != null)
+            .filter(order => order.stage === 'MANUFACTURE')
+            arr.forEach(order => {
+                sum += order.price
+            });
+            return sum;
+        },
+        GET_PER_MONTH_EMPLOYER_ORDER_SALES_READY_FOR_SHIPMENT(state) {
+            let sum = 0;
+            const now = new Date()
+            const month = now.getMonth();
+            const year = now.getFullYear();
+            let arr = state.ordersByUuid.filter(order => order.createDate != null && new Date(order.createDate).getMonth() === month && new Date(order.createDate).getFullYear() === year && order.price != null)
+            .filter(order => order.stage === 'READY_FOR_SHIPMENT')
             arr.forEach(order => {
                 sum += order.price
             });
@@ -154,6 +238,46 @@ export default {
             const year = now.getFullYear();
             state.ordersByUuid.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear())
             .filter(order => order.price != null).filter(order => order.stage === 'DONE').forEach(order => {
+                sum += order.price 
+            });
+            return sum;
+        },
+        GET_PER_YEAR_EMPLOYER_ORDER_SALES_WAITING_FOR_PAYMENT(state) {
+            let sum = 0;
+            const now = new Date()
+            const year = now.getFullYear();
+            state.ordersByUuid.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear())
+            .filter(order => order.price != null).filter(order => order.stage === 'WAITING_FOR_PAYMENT').forEach(order => {
+                sum += order.price 
+            });
+            return sum;
+        },
+        GET_PER_YEAR_EMPLOYER_ORDER_SALES_CONTRACT_SIGNING(state) {
+            let sum = 0;
+            const now = new Date()
+            const year = now.getFullYear();
+            state.ordersByUuid.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear())
+            .filter(order => order.price != null).filter(order => order.stage === 'CONTRACT_SIGNING').forEach(order => {
+                sum += order.price 
+            });
+            return sum;
+        },
+        GET_PER_YEAR_EMPLOYER_ORDER_SALES_MANUFACTURE(state) {
+            let sum = 0;
+            const now = new Date()
+            const year = now.getFullYear();
+            state.ordersByUuid.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear())
+            .filter(order => order.price != null).filter(order => order.stage === 'MANUFACTURE').forEach(order => {
+                sum += order.price 
+            });
+            return sum;
+        },
+        GET_PER_YEAR_EMPLOYER_ORDER_SALES_READY_FOR_SHIPMENT(state) {
+            let sum = 0;
+            const now = new Date()
+            const year = now.getFullYear();
+            state.ordersByUuid.filter(order => order.createDate != null && year === new Date(order.createDate).getFullYear())
+            .filter(order => order.price != null).filter(order => order.stage === 'READY_FOR_SHIPMENT').forEach(order => {
                 sum += order.price 
             });
             return sum;
