@@ -3,15 +3,15 @@
         <div>
             <button class="btn-small btn" 
             @click="calculateDiagramm">
-              <i class="material-icons"></i>
+              <i class="material-icons">Все заказы</i>
             </button>
             <button class="btn-small btn" 
             @click="calculateDiagramm2">
-              <i class="material-icons"></i>
+              <i class="material-icons">За этот год</i>
             </button>
             <button class="btn-small btn" 
             @click="calculateDiagramm3">
-              <i class="material-icons"></i>
+              <i class="material-icons">За этот месяц</i>
             </button>
         <canvas id="myChart" width="20"></canvas>
         
