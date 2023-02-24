@@ -21,7 +21,7 @@
         />
         <DashBoardGainBill 
         v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDER_SALES"
-        v-bind:text="'Выручка'"
+        v-bind:text="'выручка'"
         />
         
       </div>

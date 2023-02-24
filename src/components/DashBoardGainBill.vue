@@ -5,7 +5,7 @@
             
             
             <h4 >
-              <span>{{text}}<br /> {{sum}} ₽</span>
+              <span>{{sum}} ₽<br /> {{ text }}</span>
             </h4>
             
           </div>
