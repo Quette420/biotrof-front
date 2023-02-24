@@ -78,3 +78,10 @@
 .pagination li.active {
     background-color: #be12e9;
   }
+  #toast-container {
+    top: auto !important;
+    right: auto !important;
+    bottom: 90%;
+    left: 45%;
+  
+  }
