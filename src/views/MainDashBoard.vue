@@ -50,24 +50,12 @@ import Chart from 'chart.js/auto'
                   {
                 label: 'Заказы',
                 data: [],
-                backgroundColor: [
-                    'rgba(255,99,132,0.2)',
-                    'rgba(54,162,235,0.2)',
-                    'rgba(255,206,86,0.2)',
-                    'rgba(75,192,192,0.2)',
-                    'rgba(153,102,255,0.2)',
-                    'rgba(255,159,64,0.2)'
-                ],
-                borderColor: [
-                    'rgba(153,102,255,1)',
-                    'rgba(255,99,132,1)',
-                    'rgba(54,162,235,1)',
-                    'rgba(255,206,86,1)',
-                    'rgba(75,192,192,1)',
-                    'rgba(153,102,255,1)',
-                    'rgba(255,159,64,1)'
-                ],
-                borderWidth: 4
+                borderColor: 'rgb(153, 102, 255)',
+                borderWidth: 4,
+                tension: 0.1,
+                fill: false,
+                pointBorderColor: 'rgb(242, 12, 116)',
+                pointHoverRadius: 6,
                 }
             ]
             },
@@ -94,15 +82,16 @@ import Chart from 'chart.js/auto'
      let sum = 1;
       orders.map(o => {
       //  console.log(new Date(o.createDate).getMonth() + 1)
-        const date = new Date(o.createDate).getDate()
-        if(this.data.labels.includes(date)) {
+        const date = new Date(o.createDate)
+        const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
+        if(this.data.labels.includes(strDate)) {
           sum++;
         } else {
           if(this.data.labels.length) {
             this.data.datasets[0].data.push(sum)
             sum = 1
           }
-          this.data.labels.push(date)
+          this.data.labels.push(strDate)
         }
       })
       this.data.datasets[0].data.push(sum)
