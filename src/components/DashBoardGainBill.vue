@@ -1,11 +1,11 @@
 <template>
-    <div class="col">
+    <div class="col s16 m6 l3">
         <div class="card bill-card" id="dashboard-gain-card">
           <div class="card-content white-text">
             
             
             <h4 >
-              <span>{{text}} {{sum}} ₽</span>
+              <span>{{text}}<br /> {{sum}} ₽</span>
             </h4>
             
           </div>
@@ -40,9 +40,9 @@ export default {
   background: rgb(20,167,209);
   background: linear-gradient(157deg, rgba(20,167,209,1) 0%, rgba(221,233,70,1) 100%);
   text-align: center;
-  height: 150px;
-  width: 380px;
-  flex: auto;
-}
 
+}
+.dashboard-gain-card {
+  height: 25%;
+}
 </style>

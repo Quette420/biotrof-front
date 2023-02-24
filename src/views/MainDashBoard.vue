@@ -144,7 +144,7 @@ import Chart from 'chart.js/auto'
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      width:800px !important;
-    height:400px !important;
+      width:80% !important;
+    height:40% !important;
 }
 </style>
