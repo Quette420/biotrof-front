@@ -10,9 +10,7 @@
     <h3 class="center" v-else-if="!orders.length && loading=== false">Здесь пока ничего нет
     <router-link to="/order"> Создать заказ</router-link></h3>
       <div v-else>
-        <ChartBarComponent
-    :orders="orders"
-    :statuses="statuses"/>
+        
         <section >
       <HistoryTable :orders="items"/>
       <historyPaginate
@@ -37,15 +35,13 @@ import { mapActions } from 'vuex';
 import HistoryTable from '@/components/HistoryTable.vue';
 import MyLoader from '@/components/app/MyLoader.vue';
 import paginationMixin from '@/mixins/pagination.mixin';
-import ChartBarComponent from './ChartBarComponent.vue';
 
 export default {
   name: 'my-history',
   mixins: [paginationMixin],
   components: {
     HistoryTable,
-    MyLoader,
-    ChartBarComponent
+    MyLoader
   },
   data: () => ({
     loading: true,
