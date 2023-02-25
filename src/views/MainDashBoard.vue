@@ -26,7 +26,16 @@
         
       </div>
       <canvas id="dashboard-diagramm" width="160" height="50"></canvas>
+      <button v-if="!pressed" class="btn-small btn" id="Gainbutton"
+            @click="setupOrdersGain">
+              <i class="material-icons">Выручка</i>
+            </button>
+            <button v-if="pressed" class="btn-small btn"  id="Countbutton"
+            @click="setupOrdersCount">
+              <i class="material-icons">Все заказы</i>
+            </button>
     </div>
+    
   </template>
   
   <script>
@@ -44,6 +53,7 @@ import Chart from 'chart.js/auto'
     data: () => ({
       loading: true,
       orderData: [],
+      pressed: false,
     data:{
                 labels: [],
                 datasets: [
@@ -102,6 +112,55 @@ import Chart from 'chart.js/auto'
             data: this.data,
             options: this.options
         })
+    },
+    setupOrdersCount() {
+     let sum = 1;
+     let labels = []
+     let data = []
+      this.orderData.map(o => {
+        const date = new Date(o.createDate)
+        const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
+        if(labels.includes(strDate)) {
+          sum++;
+        } else {
+          if(labels.length) {
+            data.push(sum)
+            sum = 1
+          }
+          labels.push(strDate)
+        }
+      })
+      data.push(sum)
+      this.data.labels = labels
+      this.data.datasets[0].data = data
+      this.myChart.update()
+      this.pressed = !this.pressed
+    },
+    setupOrdersGain() {
+      let sum = 0;
+      let labels = []
+      let data = []
+      this.orderData.map(o => {
+        const date = new Date(o.createDate)
+        const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
+        if(labels.includes(strDate)) {
+          sum =+ o.price;
+        } else {
+          if(labels.length) {
+            data.push(sum)
+            sum = 0
+          }
+          labels.push(strDate)
+        }
+      })
+      data.push(sum)
+      this.data.labels = labels
+      this.data.datasets[0].data = data
+      this.myChart.update()
+      this.pressed = !this.pressed
+    },
+    changePressed() {
+      this.pressed = !this.pressed
     }
   }, async mounted () {
   try {
