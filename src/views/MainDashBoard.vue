@@ -33,7 +33,7 @@
             </button>
             <button v-if="pressed" class="btn-small btn"  id="count-button"
             @click="setupOrdersCount">
-              <i class="material-icons">Все заказы</i>
+              <i class="material-icons">Количество заказов</i>
             </button>
       </div>
     </div> 
