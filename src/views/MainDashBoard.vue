@@ -26,16 +26,17 @@
         
       </div>
       <canvas id="dashboard-diagramm" width="160" height="50"></canvas>
-      <button v-if="!pressed" class="btn-small btn" id="Gainbutton"
+      <div id="diagram-buttons">
+        <button v-if="!pressed" class="btn-small btn" id="gain-button"
             @click="setupOrdersGain">
               <i class="material-icons">Выручка</i>
             </button>
-            <button v-if="pressed" class="btn-small btn"  id="Countbutton"
+            <button v-if="pressed" class="btn-small btn"  id="count-button"
             @click="setupOrdersCount">
               <i class="material-icons">Все заказы</i>
             </button>
-    </div>
-    
+      </div>
+    </div> 
   </template>
   
   <script>
@@ -54,11 +55,11 @@ import Chart from 'chart.js/auto'
       loading: true,
       orderData: [],
       pressed: false,
-    data:{
+      data:{
                 labels: [],
                 datasets: [
                   {
-                label: 'Заказы',
+                label: 'Количество заказов',
                 data: [],
                 borderColor: 'rgb(153, 102, 255)',
                 borderWidth: 4,
@@ -114,48 +115,40 @@ import Chart from 'chart.js/auto'
         })
     },
     setupOrdersCount() {
-     let sum = 1;
-     let labels = []
-     let data = []
+     let map = new Map()
       this.orderData.map(o => {
         const date = new Date(o.createDate)
         const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
-        if(labels.includes(strDate)) {
-          sum++;
+        if(map.has(strDate)) {
+          map.set(strDate, map.get(strDate) + 1)
         } else {
-          if(labels.length) {
-            data.push(sum)
-            sum = 1
-          }
-          labels.push(strDate)
+          map.set(strDate, 1)
         }
       })
-      data.push(sum)
-      this.data.labels = labels
-      this.data.datasets[0].data = data
+      this.data.labels = Array.from(map.keys());
+      this.data.datasets[0].data = Array.from(map.values());
+      this.data.datasets[0].label = 'Количество заказов'
+      this.data.datasets[0].borderColor = 'rgb(153, 102, 255)'
+      this.data.datasets[0].pointBorderColor = 'rgb(242, 12, 116)'
       this.myChart.update()
       this.pressed = !this.pressed
     },
     setupOrdersGain() {
-      let sum = 0;
-      let labels = []
-      let data = []
+      let map = new Map()
       this.orderData.map(o => {
         const date = new Date(o.createDate)
         const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
-        if(labels.includes(strDate)) {
-          sum =+ o.price;
+        if(map.has(strDate)) {
+          map.set(strDate, map.get(strDate) + o.price)
         } else {
-          if(labels.length) {
-            data.push(sum)
-            sum = 0
-          }
-          labels.push(strDate)
+          map.set(strDate, o.price)
         }
       })
-      data.push(sum)
-      this.data.labels = labels
-      this.data.datasets[0].data = data
+      this.data.labels = Array.from(map.keys());
+      this.data.datasets[0].data = Array.from(map.values());
+      this.data.datasets[0].label = 'Выручка' 
+      this.data.datasets[0].borderColor = 'rgb(164, 214, 109)'
+      this.data.datasets[0].pointBorderColor = 'rgb(153, 102, 255)'
       this.myChart.update()
       this.pressed = !this.pressed
     },
@@ -193,6 +186,6 @@ import Chart from 'chart.js/auto'
       justify-content: space-between;
       align-items: center;
       width:80% !important;
-    height:40% !important;
+      height:40% !important;
 }
 </style>
