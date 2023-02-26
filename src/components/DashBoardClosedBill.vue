@@ -4,9 +4,9 @@
           <div class="card-content white-text">
             
             
-            <h4 >
+            <h5>
               <span>{{sum}} <br /> {{text}}</span>
-            </h4>
+            </h5>
             
           </div>
         </div>

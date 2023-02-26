@@ -11,6 +11,7 @@
           <th>Палнируемая дата доставки</th>
           <th>Статус</th>
           <th>Открыть</th>
+          <th>Удалить</th>
         </tr>
         </thead>
 
@@ -36,6 +37,13 @@
               <i class="material-icons">open_in_new</i>
             </button>
           </td>
+          <td>
+            <button class="btn-small red accent-2 btn" 
+            @click="deleteOrder(order.id)"
+            >
+              <i class="material-icons">delete</i>
+            </button>
+          </td>
         </tr>
         
         </tbody>
@@ -56,7 +64,10 @@ export default {
   data: () => ({
     color: 'green'
   }), methods: {
-    
+    deleteOrder(orderId) {
+      console.log(orderId)
+     
+    }
   }
 
 }
