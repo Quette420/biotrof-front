@@ -237,7 +237,7 @@ export default {
 .some-content {
   display: flex;
   margin-left: 0.6%; 
-  margin-right: 0.6%;
+  margin-right: 0;
   height: 30%;
   padding: 2;
 }
@@ -285,7 +285,7 @@ export default {
 }
 
 .pie-chart-cart {
-  width: 40%;
+  width: 37.4%; 
   height: auto;
   background-color: white;
   border-radius: 5px;

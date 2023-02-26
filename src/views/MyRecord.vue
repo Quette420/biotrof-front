@@ -62,6 +62,7 @@
               class="materialize-textarea"
           >
           Пожелания</textarea>
+          <label for="textarea">Пожелания</label>
         </div>
   
         <button class="btn waves-effect waves-light" type="submit">
