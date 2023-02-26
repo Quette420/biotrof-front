@@ -76,7 +76,7 @@ export default {
 <style>
 
 span.badge {
-  min-width: 9rem;
+  min-width: 10rem;
   height: 30px;
   border: solid;
   border-color: black;
