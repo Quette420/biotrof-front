@@ -249,6 +249,7 @@ export default {
   margin-left: 0px;  
   margin-top: 0px;   
   height: 95%;
+  justify-content: center;
 }
 
 .canvas-here {
