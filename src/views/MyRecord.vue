@@ -130,7 +130,7 @@ export default {
         wishes:this.wishes
       }
       try {
-          this.$store.dispatch('CREATE_ORDER', request)
+          this.$store.dispatch('createOrder', request)
           } catch(e) {
             console.log('error')
         }

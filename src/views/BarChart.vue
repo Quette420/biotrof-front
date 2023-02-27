@@ -14,17 +14,72 @@
               <i class="material-icons">За этот месяц</i>
             </button>
         <canvas id="myChart" width="20"></canvas>
-        
     </div>
     </div>
 </template>
 
 <script>
+
+import { mapGetters } from 'vuex'
 import Chart from 'chart.js/auto'
+
 export default {
     data() {
         return{
-           
+            products: [
+      { label: 'Целлобактерин®+',
+        value: 'Cillobakterin+'
+      },
+      { label: 'Заслон®',
+        value: 'Zaslon'
+      },
+      { label: 'Биотроф®',
+        value: 'Biotrof'
+      },
+      { label: 'Агротроф®',
+        value: 'Agrotrof'
+      },
+      { label: 'Интесан®',
+        value: 'Intesan'
+      }
+            ],
+            categories: [
+      { label: 'Кормовые добавки',
+        value: 'FeedAdditives'
+      },
+      { label: 'Сорбенты от микотоксикозов',
+        value: 'SorbentsForMycotoxicosis'
+      },
+      { label: 'Биопрепараты и силосные закваски для заготовки кормов',
+        value: 'BiologicsAndSilageFerments'
+      },
+      { label: 'Биопрепараты для переработки навоза и биодезодорации',
+        value: 'BiologicalProductsForManureProcessing'
+      }
+            ],
+            statuses: [
+      { label: 'Не оплачено',
+        value: 'WAITING_FOR_PAYMENT',
+        color: 'red'
+      },
+      { label: 'Подписание',
+        value: 'CONTRACT_SIGNING',
+        color:  'orange'
+      },
+      { label: 'Изготовление',
+        value: 'MANUFACTURE',
+        color: 'yellow'
+      },
+      { label: 'Готово к отгрузке',
+        value: 'READY_FOR_SHIPMENT',
+        color: 'green'
+      },
+      { label: 'Отгружено',
+        value: 'DONE',
+        color: 'blue'
+      }
+            ],
+            orders: [],
             data:{
                 labels: ['Red','Blue','Yellow','Green','Purple','Orange'],
                 datasets: [{
@@ -57,17 +112,47 @@ export default {
                 }
             },
             myChart: ''
-        }
-        
+        }   
     },
-    mounted() {
-        const ctx = document.getElementById('myChart')
+    async mounted () {
+    try {
+        await this.$store.dispatch('getAllOrders')
+    } catch(e) {
+      console.log('error')
+    }
+    const ordrs = this.GET_PER_YEAR_ORDERS
+    this.orders = ordrs.map(order => {
     // eslint-disable-next-line
-        this.myChart = new Chart(ctx, {
-            type: 'line',
-            data: this.data,
-            options: this.options
-        })
+    Object.entries(this.products).forEach(([key, value]) => {
+    if(order.productName === value.value) {
+      order.productName = value.label
+    }
+    });
+    // eslint-disable-next-line
+    Object.entries(this.categories).forEach(([key, value]) => {
+    if(order.category === value.value) {
+      order.category = value.label
+    }
+    })
+    // eslint-disable-next-line
+    Object.entries(this.statuses).forEach(([key, value]) => {
+    if(order.stage === value.value) {
+      order.stage = value.label
+      order.typeClass = value.color
+    }
+    });  
+      return {
+        ...order
+       }
+    })
+    console.log(this.orders)
+    const ctx = document.getElementById('myChart')
+    // eslint-disable-next-line
+    this.myChart = new Chart(ctx, {
+        type: 'line',
+        data: this.data,
+        options: this.options
+    })
        
 }, methods: {
     calculateDiagramm () {
@@ -95,7 +180,17 @@ export default {
         this.data.datasets[0].label = 'Статистика за месяц'
         this.data.datasets[0].data = [100, 120, 130, 140, 150, 160, 130, 100, 120, 130, 110, 190, 50, 75, 170, 66, 99, 200, 100, 120, 130, 140, 190, 110, 120, 100, 100, 120, 130, 140, 150]
         this.myChart.update()
+    },
+    setupAllOrdersCountGiagram() {
+
+    },
+    setupAllOrdersGainDiagram() {
+
     }
+}, computed: {
+    ...mapGetters([
+      'ORDERS', 'GET_PER_YEAR_ORDERS'
+    ])
 }
 }
 </script>

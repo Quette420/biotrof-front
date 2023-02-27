@@ -58,21 +58,18 @@
       YearBill,
       HomeCurrency,
       MyLoader
-  },methods:{ 
+  },
+  methods: { 
     ...mapActions([
         'getAllOrders'
         ])
-  }, mounted () {
-    this.getAllOrders().then(
-      (response) => {
-      if(response.data) {
-        console.log('Orders arrived!')
-      }
-    },
-      (error) => {
-        console.log(error);
+  }, 
+  async mounted () {
+    try {
+        await this.$store.dispatch('getAllOrders')
+    } catch(e) {
+      console.log('error')
     }
-  );
     this.loading = false;
   }, computed: {
     ...mapGetters([

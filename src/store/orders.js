@@ -428,6 +428,10 @@ export default {
         },
         SET_ORDERS_BY_UUID_TO_STATE(state, orders) {
             state.ordersByUuid = orders
+        },
+        DELETE_ORDER_BY_ID(state, orderId) {
+            const orderInex = state.ordersByUuid.findIndex(p => p.id === orderId)
+            state.ordersByUuid.splice(orderInex, 1)
         }
       },
     actions: {
@@ -489,21 +493,22 @@ export default {
                 console.log(e)
             }
         },
-         getAllOrders({dispatch, commit}) {
+        async getAllOrders({dispatch, commit}) {
             console.log('getAllOrders called')
-            return axios(ORDERS_BASE_URL, 
+            try {
+                await axios(ORDERS_BASE_URL, 
                 {
-                method: 'GET',
-                headers: {
-                    Authorization: AuthService.getToken()
-                }
-            }).then((response) => {
-                commit('SET_ORDERS_TO_STATE', response.data);
-                return response;
-            }).catch((error) => {
-                console.log(error)
-                return error;
-            });
+                    method: 'GET',
+                    headers: {
+                        Authorization: AuthService.getToken()
+                    }
+                }).then((response) => {
+                    commit('SET_ORDERS_TO_STATE', response.data);
+                    return response;
+                });
+            } catch (e) {
+                console.log(e)
+            }
         },
         getOrderByOrderId({dispatch, commit}, id) {
             return axios(ORDERS_BASE_URL + '/' + id, 
@@ -519,7 +524,7 @@ export default {
                 return error;
             });
         },
-        CREATE_ORDER({dispatch, commit}, req) {
+        createOrder({dispatch, commit}, req) {
             let request = new CreateOrderRequest();
             request = req
             request.employerUuid = AuthService.getUuid()
@@ -547,17 +552,21 @@ export default {
                 return error;
             });
         },
-        deleteOrder({dispatch, commit}, id) {
-            return axios.delete(ORDERS_BASE_URL + id, {
-                headers: {
-                    Authorization: AuthService.getToken()
-                }
-            }).then((response) => {
-                return response;
-            }).catch((error) => {
-                console.log(error)
-                return error;
-            });
+        async deleteOrder({dispatch, commit}, id) {
+            try {
+                await axios(ORDERS_BASE_URL + '/' + id, 
+                {
+                    method: 'DELETE',
+                    headers: {
+                        Authorization: AuthService.getToken()
+                    }
+                }).then((response) => {
+                    commit('DELETE_ORDER_BY_ID', id)
+                    return response;
+                });
+            } catch (e) {
+                console.log(e)
+            }
         }
     }
 }

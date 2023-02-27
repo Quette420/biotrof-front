@@ -30,6 +30,14 @@
               <p>Дата создания: {{ order.createDate }}</p>
               <p>Дата изменения: {{ order.modifiedDate }}</p>
               <p>Идентификатор сотрудника: {{ order.employerUuid }}</p>
+              <button class="btn-small orange btn" 
+            @click="editOrder">
+              <i class="material-icons">edit</i>
+            </button>
+              <button class="btn-small red btn" 
+            @click="deleteOrder">
+              <i class="material-icons">delete</i>
+            </button>
             </div>
           </div>
         </div>
@@ -91,8 +99,27 @@ export default {
   methods:{ 
   ...mapActions([
       'getOrderByOrderId'
-      ])
+      ]),
+  async editOrder(){
+    console.log( this.$route.params.id)
+    /*  try {
+      await this.$store.dispatch('deleteOrder',  this.$route.params.id)
+      this.$router.push('/history')
+      } catch(e) {
+      console.log('error')
+      }
+      */
   },
+  async deleteOrder(){
+    console.log(  this.$route.params.id)
+      try {
+      await this.$store.dispatch('deleteOrder',  this.$route.params.id)
+      this.$router.push('/history')
+      } catch(e) {
+      console.log('error')
+      }
+  }
+},
   mounted() {
     const id = this.$route.params.id
     this.order = this.getOrderByOrderId(id).then(

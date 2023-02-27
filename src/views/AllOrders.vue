@@ -26,7 +26,7 @@
 /* eslint-disable */
 <script>
 
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import HistoryTable from '@/components/HistoryTable.vue';
 import MyLoader from '@/components/app/MyLoader.vue';
 import paginationMixin from '@/mixins/pagination.mixin';
@@ -99,13 +99,18 @@ methods:{
 ...mapActions([
     'getAllOrders'
     ])
+}, computed: {
+    ...mapGetters([
+      'ORDERS'
+    ])
 },
-mounted () {
-  this.getAllOrders().then(
-  (response) => {
-  if(response.data) {
-    console.log('Orders arrived!')
-    const ordrs = response.data
+async mounted () {
+  try {
+      await this.$store.dispatch('getAllOrders')
+   } catch(e) {
+      console.log('error')
+   }
+    const ordrs = this.ORDERS
     this.setupPagination(this.orders = ordrs.map(order => {
     // eslint-disable-next-line
     Object.entries(this.products).forEach(([key, value]) => {
@@ -129,17 +134,8 @@ mounted () {
       return {
         ...order
        }
-
     }))
     this.loading = false;
   }
-},
-  (error) => {
-    console.log(error);
-}
-);
-
-}
-
 }
 </script>
