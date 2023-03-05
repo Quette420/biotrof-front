@@ -29,10 +29,10 @@ const routes = [
     component: () => import('../views/DetailRecord.vue')
   },
   {
-    path: '/infografic',
-    name: 'infografic',
+    path: '/infographics',
+    name: 'infographics',
     meta: {layout: 'main', auth: true},
-    component: () => import('../views/BarChart.vue')
+    component: () => import('../views/OrdersInfographics.vue')
   },
   {
     path: '/order',
