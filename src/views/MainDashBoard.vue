@@ -1,26 +1,34 @@
 <template>
     <div class="main-dash-board-class">
       <div class="page-title">
-        <h3>Сводка по моим заказам в этом месяце</h3>
+        <h3>Сводка по моим заказам в этом {{ temporaryToggle ? 'году' : 'месяце' }}</h3>
+        <div class="diagram-buttons" v-if="!loading">
+              <button v-if="!temporaryToggle" class="btn-small btn" id="gain-button" @click="switchToYearlyOrders">
+                <i class="material-icons">Данные за год</i>
+              </button>
+              <button v-if="temporaryToggle" class="btn-small btn"  id="count-button" @click="switchToMonthlyOrders">
+                <i class="material-icons">Данные за месяц</i>
+              </button>
+            </div>
       </div>
   
       <MyLoader v-if="loading"/>
   
       <div v-else class="row" id="dash-row">
         <DashBoardBill 
-        v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS.length"
+        v-bind:sum="temporaryToggle ? GET_PER_YEAR_EMPLOYER_ORDERS.length : GET_PER_MONTH_EMPLOYER_ORDERS.length"
         v-bind:text="'зарегестрировано'"
         />
         <DashBoardInprocessBill 
-        v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS_IN_PROCESS.length"
+        v-bind:sum="temporaryToggle ? GET_PER_YEAR_EMPLOYER_ORDERS_IN_PROCESS.length : GET_PER_MONTH_EMPLOYER_ORDERS_IN_PROCESS.length"
         v-bind:text="'в работе'"
         />
         <DashBoardClosedBill 
-        v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDERS_DONE.length"
+        v-bind:sum="temporaryToggle ? GET_PER_YEAR_EMPLOYER_ORDERS_DONE.length : GET_PER_MONTH_EMPLOYER_ORDERS_DONE.length"
         v-bind:text="'закрыто'"
         />
         <DashBoardGainBill 
-        v-bind:sum="GET_PER_MONTH_EMPLOYER_ORDER_SALES"
+        v-bind:sum="temporaryToggle ? GET_PER_YEAR_EMPLOYER_ORDER_SALES : GET_PER_MONTH_EMPLOYER_ORDER_SALES"
         v-bind:text="'выручка'"
         />
         
@@ -66,6 +74,7 @@ export default {
   loading: true,
   orderData: [],
   pressed: false,
+  temporaryToggle: false,
   data:{
     labels: [],
     datasets: [
@@ -95,11 +104,11 @@ export default {
     hoverOffset: 4
   }]},
     options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
     },
     myChart: '',
     myPieChart: ''
@@ -114,22 +123,7 @@ export default {
   methods:{ 
     ...mapActions(['getAllOrdersByUuid']),
     setupDiagram(orders) {
-     let sum = 1;
-      orders.map(o => {
-      //  console.log(new Date(o.createDate).getMonth() + 1)
-        const date = new Date(o.createDate)
-        const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
-        if(this.data.labels.includes(strDate)) {
-          sum++;
-        } else {
-          if(this.data.labels.length) {
-            this.data.datasets[0].data.push(sum)
-            sum = 1
-          }
-          this.data.labels.push(strDate)
-        }
-      })
-      this.data.datasets[0].data.push(sum)
+     this.fillMonthlyChartData(orders)
       const context = document.getElementById('dashboard-diagramm')
     // eslint-disable-next-line
         this.myChart = new Chart(context, {
@@ -138,7 +132,75 @@ export default {
             options: this.options
         })
     },
+    fillMonthlyChartData(orders) {
+      let map = new Map()
+      orders.map(o => {
+        const date = new Date(o.createDate)
+        const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
+        if(map.has(strDate)) {
+          map.set(strDate, map.get(strDate) + 1)
+        } else {
+          map.set(strDate, 1)
+        }
+      })
+      this.data.labels = Array.from(map.keys());
+      this.data.datasets[0].data = Array.from(map.values());
+      this.data.datasets[0].label = 'Количество заказов'
+      this.data.datasets[0].borderColor = 'rgb(153, 102, 255)'
+      this.data.datasets[0].pointBorderColor = 'rgb(242, 12, 116)'
+    },
+    fillYearlyChartData(orders) {
+      let map = new Map()
+      orders.map(o => {
+        const date = new Date(o.createDate)
+        const strDate = JSON.stringify(date.getMonth() + 1) + '.' + JSON.stringify(date.getFullYear())
+        if(map.has(strDate)) {
+          map.set(strDate, map.get(strDate) + 1)
+        } else {
+          map.set(strDate, 1)
+        }
+      })
+      this.data.labels = Array.from(map.keys());
+      this.data.datasets[0].data = Array.from(map.values());
+      this.data.datasets[0].label = 'Количество заказов'
+      this.data.datasets[0].borderColor = 'rgb(153, 102, 255)'
+      this.data.datasets[0].pointBorderColor = 'rgb(242, 12, 116)'
+    },
+    setupOrdersCount() {
+      this.fillMonthlyChartData(this.orderData)
+      this.myChart.update()
+      this.pressed = !this.pressed
+    },
+    setupOrdersGain() {
+      let map = new Map()
+      this.orderData.map(o => {
+        const date = new Date(o.createDate)
+        const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
+        if(map.has(strDate)) {
+          map.set(strDate, map.get(strDate) + o.price)
+        } else {
+          map.set(strDate, o.price)
+        }
+      })
+      this.data.labels = Array.from(map.keys());
+      this.data.datasets[0].data = Array.from(map.values());
+      this.data.datasets[0].label = 'Выручка' 
+      this.data.datasets[0].borderColor = 'rgb(164, 214, 109)'
+      this.data.datasets[0].pointBorderColor = 'rgb(153, 102, 255)'
+      this.myChart.update()
+      this.pressed = !this.pressed
+    },
     setupPieDiagram(orders) {
+      this.fillPieData(orders)
+      const context = document.getElementById('dashboard-line-diagramm')
+    // eslint-disable-next-line
+        this.myPieChart = new Chart(context, {
+            type: 'doughnut',
+            data: this.pieData,
+            options: this.options
+        })
+    },
+    fillPieData(orders) {
       let waitingForPayment = 0;
         let contractSigning = 0;
         let manufacture = 0;
@@ -162,52 +224,33 @@ export default {
       this.pieData.datasets[0].data[2] = manufacture
       this.pieData.datasets[0].data[3] = readyForShipment
       this.pieData.datasets[0].data[4] = done
-      const context = document.getElementById('dashboard-line-diagramm')
-    // eslint-disable-next-line
-        this.myPieChart = new Chart(context, {
-            type: 'doughnut',
-            data: this.pieData,
-            options: this.options
-        })
     },
-    setupOrdersCount() {
-     let map = new Map()
-      this.orderData.map(o => {
-        const date = new Date(o.createDate)
-        const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
-        if(map.has(strDate)) {
-          map.set(strDate, map.get(strDate) + 1)
-        } else {
-          map.set(strDate, 1)
-        }
-      })
-      this.data.labels = Array.from(map.keys());
-      this.data.datasets[0].data = Array.from(map.values());
-      this.data.datasets[0].label = 'Количество заказов'
-      this.data.datasets[0].borderColor = 'rgb(153, 102, 255)'
-      this.data.datasets[0].pointBorderColor = 'rgb(242, 12, 116)'
+    switchToMonthlyOrders() {
+      this.orderData = this.GET_PER_MONTH_EMPLOYER_ORDERS
+
+      this.fillMonthlyChartData(this.orderData)
+      this.myChart.reset()
       this.myChart.update()
-      this.pressed = !this.pressed
+
+      this.fillPieData(this.orderData)
+      this.myPieChart.reset()
+      this.myPieChart.update()
+
+      this.temporaryToggle = !this.temporaryToggle
     },
-    setupOrdersGain() {
-      let map = new Map()
-      this.orderData.map(o => {
-        const date = new Date(o.createDate)
-        const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
-        if(map.has(strDate)) {
-          map.set(strDate, map.get(strDate) + o.price)
-        } else {
-          map.set(strDate, o.price)
-        }
-      })
-      this.data.labels = Array.from(map.keys());
-      this.data.datasets[0].data = Array.from(map.values());
-      this.data.datasets[0].label = 'Выручка' 
-      this.data.datasets[0].borderColor = 'rgb(164, 214, 109)'
-      this.data.datasets[0].pointBorderColor = 'rgb(153, 102, 255)'
+    switchToYearlyOrders() {
+      this.orderData = this.GET_PER_YEAR_EMPLOYER_ORDERS
+
+      this.fillYearlyChartData(this.orderData)
+      this.myChart.reset()
       this.myChart.update()
-      this.pressed = !this.pressed
-    }
+
+      this.fillPieData(this.orderData)
+      this.myPieChart.reset()
+      this.myPieChart.update()
+
+      this.temporaryToggle = !this.temporaryToggle
+}
   }, async mounted () {
   try {
       await this.$store.dispatch('getAllOrdersByUuidAsync')
