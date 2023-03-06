@@ -39,8 +39,7 @@ export default {
             {title: 'Мои заказы', url: '/history'},
             {title: 'Все заказы', url: '/all-orders'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
-            {title: 'Моя статистика', url: '/statistic'},
-            {title: 'Общая статистика', url: '/general-statistic'},
+            {title: 'Статистика', url: '/statistic'},
             {title: 'Инфографика', url: '/infographics'}
         ]
     }),

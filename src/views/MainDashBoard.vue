@@ -136,6 +136,7 @@ export default {
       let map = new Map()
       orders.map(o => {
         const date = new Date(o.createDate)
+        //const strDate = '0' + '' + JSON.stringify(date.getDate()) + '.0' + JSON.stringify(date.getMonth() + 1)
         const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
         if(map.has(strDate)) {
           map.set(strDate, map.get(strDate) + 1)
@@ -153,6 +154,7 @@ export default {
       let map = new Map()
       orders.map(o => {
         const date = new Date(o.createDate)
+        //const strDate = '0' + '' + JSON.stringify(date.getMonth() + 1) + '.' + JSON.stringify(date.getFullYear())
         const strDate = JSON.stringify(date.getMonth() + 1) + '.' + JSON.stringify(date.getFullYear())
         if(map.has(strDate)) {
           map.set(strDate, map.get(strDate) + 1)

@@ -1,7 +1,7 @@
 import axios from "axios"
 import router from "@/router/router"
 
-import AuthService from "@/services/AuthService"
+import LocalStorageService from "@/services/LocalStorageService"
 
 export default {
     state: {
@@ -93,7 +93,7 @@ export default {
             return axios('http://localhost:8081/user',{
               method: 'GET',
               headers: {
-                  Authorization: AuthService.getToken()
+                  Authorization: LocalStorageService.getToken()
               }
             })
               .then((response) => { 

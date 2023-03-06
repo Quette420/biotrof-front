@@ -32,11 +32,11 @@
 import { mapActions } from 'vuex';
 import HistoryTable from '@/components/HistoryTable.vue';
 import MyLoader from '@/components/app/MyLoader.vue';
-import notshippedpaginationMixin from '@/mixins/notshippedpagination.mixin';
+import paginationMixin from '@/mixins/pagination.mixin';
 
 export default {
 name: 'not-shipped',
-mixins: [notshippedpaginationMixin],
+mixins: [paginationMixin],
 data: () => ({
   loading: true,
   orders: [],

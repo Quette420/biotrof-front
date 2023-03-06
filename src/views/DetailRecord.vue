@@ -102,13 +102,6 @@ export default {
       ]),
   async editOrder(){
     console.log( this.$route.params.id)
-    /*  try {
-      await this.$store.dispatch('deleteOrder',  this.$route.params.id)
-      this.$router.push('/history')
-      } catch(e) {
-      console.log('error')
-      }
-      */
   },
   async deleteOrder(){
     console.log(  this.$route.params.id)

@@ -41,12 +41,6 @@ const routes = [
     component: () => import('../views/MyRecord.vue')
   },
   {
-    path: '/categories',
-    name: 'categories',
-    meta: {layout: 'main', auth: true},
-    component: () => import('../views/MyCategories.vue')
-  },
-  {
     path: '/history',
     name: 'history',
     meta: {layout: 'main', auth: true},
@@ -74,7 +68,7 @@ const routes = [
     path: '/statistic',
     name: 'statistic',
     meta: {layout: 'main', auth: true},
-    component: () => import('../views/HomeView.vue')
+    component: () => import('../views/StatisticView.vue')
   },
   {
     path: '/general-statistic',

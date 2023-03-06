@@ -1,5 +1,5 @@
 import axios from "axios"
-import AuthService from '@/services/AuthService'
+import LocalStorageService from '@/services/LocalStorageService'
 import DateService from '@/services/DateService'
 import CreateOrderRequest from "@/model/CreateOrderRequest";
 /*eslint no-unused-vars: ["error", { "args": "none" }]*/
@@ -439,7 +439,7 @@ export default {
             return axios(REPORTS_BASE_URL, {
                 method: 'GET',
                 headers: {
-                    Authorization: AuthService.getToken()
+                    Authorization: LocalStorageService.getToken()
                 }
             }).then((response) => {
                 return response;
@@ -453,7 +453,7 @@ export default {
             {
                 method: 'GET',
                 headers: {
-                    Authorization: AuthService.getToken()
+                    Authorization: LocalStorageService.getToken()
                 }
             }).then((response) => {
                 return response;
@@ -463,11 +463,11 @@ export default {
             });
         },
         getAllOrdersByUuid({dispatch, commit}) {
-            return axios('http://localhost:8081/api/v1/orders/employer/' + AuthService.getUuid(), 
+            return axios('http://localhost:8081/api/v1/orders/employer/' + LocalStorageService.getUuid(), 
             {
                 method: 'GET',
                 headers: {
-                    Authorization: AuthService.getToken()
+                    Authorization: LocalStorageService.getToken()
                 }
             }).then((response) => {
                 commit('SET_ORDERS_BY_UUID_TO_STATE', response.data);
@@ -479,11 +479,11 @@ export default {
         },
         async getAllOrdersByUuidAsync({dispatch, commit}) {
             try {
-                await axios('http://localhost:8081/api/v1/orders/employer/' + AuthService.getUuid(), 
+                await axios('http://localhost:8081/api/v1/orders/employer/' + LocalStorageService.getUuid(), 
                 {
                     method: 'GET',
                     headers: {
-                        Authorization: AuthService.getToken()
+                        Authorization: LocalStorageService.getToken()
                     }
                 }).then((response) => {
                     commit('SET_ORDERS_BY_UUID_TO_STATE', response.data);
@@ -500,7 +500,7 @@ export default {
                 {
                     method: 'GET',
                     headers: {
-                        Authorization: AuthService.getToken()
+                        Authorization: LocalStorageService.getToken()
                     }
                 }).then((response) => {
                     commit('SET_ORDERS_TO_STATE', response.data);
@@ -515,7 +515,7 @@ export default {
                 {
                 method: 'GET',
                 headers: {
-                    Authorization: AuthService.getToken()
+                    Authorization: LocalStorageService.getToken()
                 }
             }).then((response) => {
                 return response;
@@ -527,10 +527,10 @@ export default {
         createOrder({dispatch, commit}, req) {
             let request = new CreateOrderRequest();
             request = req
-            request.employerUuid = AuthService.getUuid()
+            request.employerUuid = LocalStorageService.getUuid()
             return axios.post(ORDERS_BASE_URL, request, {
                 headers: {
-                    Authorization: AuthService.getToken()
+                    Authorization: LocalStorageService.getToken()
                 }
             }).then((response) => {
                 console.log('order created!')
@@ -543,7 +543,7 @@ export default {
         updateOrder({dispatch, commit}, order) {
             return axios.put(ORDERS_BASE_URL + order.id, order, {
                 headers: {
-                    Authorization: AuthService.getToken()
+                    Authorization: LocalStorageService.getToken()
                 }
             }).then((response) => {
                 return response;
@@ -558,7 +558,7 @@ export default {
                 {
                     method: 'DELETE',
                     headers: {
-                        Authorization: AuthService.getToken()
+                        Authorization: LocalStorageService.getToken()
                     }
                 }).then((response) => {
                     commit('DELETE_ORDER_BY_ID', id)

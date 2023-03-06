@@ -5,7 +5,7 @@
       </div>
       <h4>Ваше имя пользователя: {{ this.$store.state.auth.user.username }}</h4>
       <h4>Ваша должность: {{ this.$store.state.auth.user.role === 'USER' ? 'Пользователь' : this.$store.state.auth.user.role === 'WAREHOUSE_MANAGER' ? 'Модератор' : 'Администратор'}}</h4>
-      <h4>Ваш uuid: {{ this.$store.state.auth.user.uuid }}</h4>
+      <h4>Ваш id сотрудника: {{ this.$store.state.auth.user.uuid }}</h4>
      <!--<form class="form">
         <div class="input-field">
           <input
