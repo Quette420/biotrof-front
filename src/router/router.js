@@ -44,7 +44,7 @@ const routes = [
     path: '/history',
     name: 'history',
     meta: {layout: 'main', auth: true},
-    component: () => import('../views/MyHistory.vue')
+    component: () => import('../views/OrdersHistory.vue')
   },
   {
     path: '/not-shipped',

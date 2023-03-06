@@ -37,7 +37,7 @@ import MyLoader from '@/components/app/MyLoader.vue';
 import paginationMixin from '@/mixins/pagination.mixin';
 
 export default {
-  name: 'my-history',
+  name: 'orders-history',
   mixins: [paginationMixin],
   components: {
     HistoryTable,
