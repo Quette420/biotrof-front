@@ -82,11 +82,12 @@ export default {
         label: 'Количество заказов',
         data: [],
         borderColor: 'rgb(153, 102, 255)',
-        borderWidth: 4,
+        borderWidth: 3,
         tension: 0.1,
         fill: false,
         pointBorderColor: 'rgb(242, 12, 116)',
-        pointHoverRadius: 6,
+        pointHoverRadius: 4,
+        pointRadius: 2
       }
     ]},
   pieData:{

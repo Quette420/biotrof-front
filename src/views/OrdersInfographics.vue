@@ -1,20 +1,22 @@
 <template>
     <div id="bar-chart">
         <div>
-            <button class="btn-small btn" 
-            @click="calculateDiagramm">
-              <i class="material-icons">Все заказы</i>
-            </button>
-            <button class="btn-small btn" 
-            @click="calculateDiagramm2">
-              <i class="material-icons">За этот год</i>
-            </button>
-            <button class="btn-small btn" 
-            @click="calculateDiagramm3">
-              <i class="material-icons">За этот месяц</i>
-            </button>
-        <canvas id="myChart" width="20"></canvas>
+            
+        <canvas id="myChart" width="9" height="4.9"></canvas>
+        
     </div>
+      <button class="btn-small btn" @click="setupAllOrdersCountGiagram">
+        <i class="material-icons">Все заказы</i>
+      </button>
+      <button class="btn-small btn" @click="setupYearlyOrdersCountDiagram">
+        <i class="material-icons">За этот год</i>
+      </button>
+      <button class="btn-small btn" @click="calculateDiagramm3">
+        <i class="material-icons">За этот месяц</i>
+      </button>
+      <button class="btn-small btn" @click="setupAllOrdersGainDiagram">
+        <i class="material-icons">Выручка</i>
+      </button>
     </div>
 </template>
 
@@ -80,6 +82,7 @@ export default {
       }
             ],
             orders: [],
+            currentSchema: '',
             data:{
                 labels: ['Red','Blue','Yellow','Green','Purple','Orange'],
                 datasets: [{
@@ -101,7 +104,8 @@ export default {
                     'rgba(153,102,255,1)',
                     'rgba(255,159,64,1)'
                 ],
-                borderWidth: 2
+                borderWidth: 2,
+                pointRadius: 3
                 }]
             },
             options: {
@@ -120,7 +124,7 @@ export default {
     } catch(e) {
       console.log('error')
     }
-    const ordrs = this.GET_PER_YEAR_ORDERS
+    const ordrs = this.ORDERS
     this.orders = ordrs.map(order => {
     // eslint-disable-next-line
     Object.entries(this.products).forEach(([key, value]) => {
@@ -146,15 +150,91 @@ export default {
        }
     })
     console.log(this.orders)
-    const ctx = document.getElementById('myChart')
+    this.setupAllOrdersDiagram(this.orders);
+       
+}, methods: {
+    setupAllOrdersDiagram(orders) {
+      this.fillChartAllOrdersCount(orders);
+      const ctx = document.getElementById('myChart');
     // eslint-disable-next-line
     this.myChart = new Chart(ctx, {
         type: 'line',
         data: this.data,
         options: this.options
     })
-       
-}, methods: {
+    },
+    fillChartAllOrdersCount(orders) {
+      let map = new Map()
+      orders.map(o => {
+        const date = new Date(o.createDate)
+        //const strDate = '0' + '' + JSON.stringify(date.getDate()) + '.0' + JSON.stringify(date.getMonth() + 1)
+        const strDate = JSON.stringify(date.getFullYear())
+        if(map.has(strDate)) {
+          map.set(strDate, map.get(strDate) + 1)
+        } else {
+          map.set(strDate, 1)
+        }
+      })
+      this.data.labels = Array.from(map.keys());
+      this.data.datasets[0].data = Array.from(map.values());
+      this.data.datasets[0].label = 'Количество заказов'
+      this.data.datasets[0].borderColor = 'rgb(153, 102, 255)'
+      this.data.datasets[0].pointBorderColor = 'rgb(242, 12, 116)'
+    },
+    fillChartAllOrdersGain(orders) {
+      let map = new Map()
+      orders.map(o => {
+        const date = new Date(o.createDate)
+        //const strDate = '0' + '' + JSON.stringify(date.getDate()) + '.0' + JSON.stringify(date.getMonth() + 1)
+        const strDate = JSON.stringify(date.getFullYear())
+        if(map.has(strDate)) {
+          map.set(strDate, map.get(strDate) + o.price)
+        } else {
+          map.set(strDate, o.price)
+        }
+      })
+      this.data.labels = Array.from(map.keys());
+      this.data.datasets[0].data = Array.from(map.values());
+      this.data.datasets[0].label = 'Выручка' 
+      this.data.datasets[0].borderColor = 'rgb(164, 214, 109)'
+      this.data.datasets[0].pointBorderColor = 'rgb(153, 102, 255)'
+    },
+    fillYearlyOrdersCount(orders) {
+      let map = new Map()
+      orders.map(o => {
+        const date = new Date(o.createDate)
+        //const strDate = '0' + '' + JSON.stringify(date.getMonth() + 1) + '.' + JSON.stringify(date.getFullYear())
+        const strDate = JSON.stringify(date.getMonth() + 1) + '.' + JSON.stringify(date.getFullYear())
+        if(map.has(strDate)) {
+          map.set(strDate, map.get(strDate) + 1)
+        } else {
+          map.set(strDate, 1)
+        }
+      })
+      this.data.labels = Array.from(map.keys());
+      this.data.datasets[0].data = Array.from(map.values());
+      this.data.datasets[0].label = 'Количество заказов'
+      this.data.datasets[0].borderColor = 'rgb(153, 102, 255)'
+      this.data.datasets[0].pointBorderColor = 'rgb(242, 12, 116)'
+    },
+    fillYearlyOrdersGain(orders) {
+      let map = new Map()
+      orders.map(o => {
+        const date = new Date(o.createDate)
+        //const strDate = '0' + '' + JSON.stringify(date.getMonth() + 1) + '.' + JSON.stringify(date.getFullYear())
+        const strDate = JSON.stringify(date.getMonth() + 1) + '.' + JSON.stringify(date.getFullYear())
+        if(map.has(strDate)) {
+          map.set(strDate, map.get(strDate) + o.price)
+        } else {
+          map.set(strDate, o.price)
+        }
+      })
+      this.data.labels = Array.from(map.keys());
+      this.data.datasets[0].data = Array.from(map.values());
+      this.data.datasets[0].label = 'Выручка' 
+      this.data.datasets[0].borderColor = 'rgb(164, 214, 109)'
+      this.data.datasets[0].pointBorderColor = 'rgb(153, 102, 255)'
+    },
     calculateDiagramm () {
         console.log()
         this.data.labels = ['Ожидает оплаты','На подписании','Изготовление','Готово к отгрузке','Отгрузка','Отгружено']
@@ -182,10 +262,37 @@ export default {
         this.myChart.update()
     },
     setupAllOrdersCountGiagram() {
-
+      this.currentSchema = 'ALL';
+      this.orders = this.ORDERS;
+      this.fillChartAllOrdersCount(this.orders)
+      this.myChart.reset()
+      this.myChart.update()
     },
     setupAllOrdersGainDiagram() {
-
+      if('YEAR' === this.currentSchema) {
+        this.orders = this.GET_PER_YEAR_ORDERS;
+        this.fillYearlyOrdersGain(this.orders)
+      } else if('MONTH' === this.currentSchema) {
+        this.orders = this.GET_PER_YEAR_ORDERS;
+        this.fillYearlyOrdersGain(this.orders)
+      } else {
+        this.orders = this.ORDERS;
+        this.fillChartAllOrdersGain(this.orders)
+      }
+      this.myChart.update()
+    },
+    setupYearlyOrdersCountDiagram() {
+      this.currentSchema = 'YEAR';
+      this.orders = this.GET_PER_YEAR_ORDERS;
+      this.fillYearlyOrdersCount(this.orders)
+      this.myChart.reset()
+      this.myChart.update()
+    },
+    setupYearlyOrdersGainDiagram() {
+      this.orders = this.GET_PER_YEAR_ORDERS;
+      this.fillYearlyOrdersGain(this.orders)
+      this.myChart.reset()
+      this.myChart.update()
     }
 }, computed: {
     ...mapGetters([
