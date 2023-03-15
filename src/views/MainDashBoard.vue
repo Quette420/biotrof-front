@@ -87,7 +87,7 @@ export default {
         fill: false,
         pointBorderColor: 'rgb(242, 12, 116)',
         pointHoverRadius: 4,
-        pointRadius: 2
+        pointRadius: 3
       }
     ]},
   pieData:{
