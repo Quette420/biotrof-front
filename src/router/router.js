@@ -69,12 +69,6 @@ const routes = [
     name: 'statistic',
     meta: {layout: 'main', auth: true},
     component: () => import('../views/StatisticView.vue')
-  },
-  {
-    path: '/general-statistic',
-    name: 'general-statistic',
-    meta: {layout: 'main', auth: true},
-    component: () => import('../views/GeneralStatistic.vue')
   }
 ]
 

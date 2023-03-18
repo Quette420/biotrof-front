@@ -4,7 +4,7 @@
         <h3>Создать заказ</h3>
       </div>
   
-      <form class="form" @submit.prevent="createOrder">
+      <form class="form" @submit="createOrder">
         <div class="input-field">
                 <select id="category" ref="select" v-model="category" required>
                   <option value="" selected disabled>Выберите категорию</option>
