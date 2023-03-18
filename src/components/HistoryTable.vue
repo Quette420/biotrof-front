@@ -9,6 +9,8 @@
           <th>Вес</th>
           <th>Дата создания</th>
           <th>Палнируемая дата доставки</th>
+          <th>ФИО клиента</th>
+          <th>Номер телефона</th>
           <th>Статус</th>
           <th>Открыть</th>
         </tr>
@@ -23,6 +25,8 @@
           <td>{{order.weight}}</td>
           <td>{{order.createDate}}</td>
           <td>{{order.plannedDateOfShipment}}</td>
+          <td>{{order.clientFio}}</td>
+          <td>{{order.clientPhoneNumber}}</td>
           <td>
             <span 
              

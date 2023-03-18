@@ -4,7 +4,7 @@
         <h3>Создать заказ</h3>
       </div>
   
-      <form class="form" @submit="createOrder">
+      <form class="form" @submit.prevent="createOrder">
         <div class="input-field">
                 <select id="category" ref="select" v-model="category" required>
                   <option value="" selected disabled>Выберите категорию</option>
@@ -44,7 +44,31 @@
               step=0.01
               v-model="weight"
           >
-          <label for="weight">Вес</label>
+          <label for="weight">Вес товара</label>
+        </div>
+        <div class="input-field">
+          <input
+              id="clientFio"
+              type="text"
+              v-model="clientFio"
+          >
+          <label for="clientFio">ФИО клиента</label>
+        </div>
+        <div class="input-field">
+          <input
+              id="phoneNumber"
+              type="tel"
+              v-model="phoneNumber"
+          >
+          <label for="phoneNumber">Телефон для связи</label>
+        </div>
+        <div class="input-field">
+          <input
+              id="address"
+              type="text"
+              v-model="address"
+          >
+          <label for="address">Адрес доставки</label>
         </div>
         <div class="input-field">
           <input
@@ -54,17 +78,6 @@
           >
           <label for="plannedDateOfShipment">Дата доставки</label>
         </div>
-        <div class="input-field">
-          <textarea
-              id="textarea"
-              type="text"
-              v-model="wishes"
-              class="materialize-textarea"
-          >
-          Пожелания</textarea>
-          <label for="textarea">Пожелания</label>
-        </div>
-  
         <button class="btn waves-effect waves-light" type="submit">
           Создать
           <i class="material-icons right">send</i>
@@ -86,7 +99,9 @@ export default {
       price: '',
       weight:'',
       plannedDateOfShipment:'',
-      wishes:'',
+      clientFio:'',
+      phoneNumber:'',
+      address:'',
       products: [
         { label: 'Целлобактерин®+',
           value: 'Cillobakterin+'
@@ -127,8 +142,11 @@ export default {
         price: this.price,
         weight:this.weight,
         plannedDateOfShipment:this.plannedDateOfShipment,
-        wishes:this.wishes
+        clientFio:this.clientFio,
+        phoneNumber:this.phoneNumber,
+        address:this.address,
       }
+      console.log(request)
       try {
           this.$store.dispatch('createOrder', request)
           } catch(e) {

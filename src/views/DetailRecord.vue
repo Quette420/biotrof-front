@@ -23,6 +23,9 @@
               <p>Категория: {{ categories[order.category] }}</p>
               <p>Вес: {{ order.weight }} кг</p>
               <p>Цена: {{ order.price }} ₽</p>
+              <p>ФИО клиента: {{ order.clientFio }} </p>
+              <p>Номер телефона: {{ order.clientPhoneNumber }} </p>
+              <p>Адрес: {{ order.shipmentAddress }} </p>
               <p>Планируемая дата доставки: {{ order.plannedDateOfShipment }}</p>
               <p>Дата доставки: {{ order.shipmentDate }}</p>
               <p>Отгружено: {{ order.isShipped ? 'Да' : 'Нет' }}</p>

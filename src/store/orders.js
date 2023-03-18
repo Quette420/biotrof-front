@@ -528,6 +528,7 @@ export default {
             let request = new CreateOrderRequest();
             request = req
             request.employerUuid = LocalStorageService.getUuid()
+            console.log(request)
             return axios.post(ORDERS_BASE_URL, request, {
                 headers: {
                     Authorization: LocalStorageService.getToken()
