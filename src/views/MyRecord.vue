@@ -9,10 +9,10 @@
                 <select id="category" ref="select" v-model="category" required>
                   <option value="" selected disabled>Выберите категорию</option>
                     <option
-                    v-for="(c, index) in categories"
-                    :value="c.value"
-                    :key="index">
-                    {{ c.label }}
+                    v-for="category in categories"
+                    :key="category"
+                  >
+                    {{ category }}
                 </option>
                 <label for="category">Категория:</label>
                 </select>
@@ -21,10 +21,10 @@
               <select id="productName" ref="select" v-model="productName" required>
                 <option value="" selected disabled>Выберите Название продукта</option>
                   <option
-                    v-for="(productName, index) in products"
-                    :value="productName.value"
-                    :key="index">
-                    {{ productName.label }}
+                    v-for="productName in products"
+                    :key="productName"
+                    >
+                    {{ productName }}
                 </option>
                 <label for="productName">Название продукта:</label>
                 </select>
@@ -103,35 +103,30 @@ export default {
       phoneNumber:'',
       address:'',
       products: [
-        { label: 'Целлобактерин®+',
-          value: 'Cillobakterin+'
-        },
-        { label: 'Заслон®',
-          value: 'Zaslon'
-        },
-        { label: 'Биотроф®',
-          value: 'Biotrof'
-        },
-        { label: 'Агротроф®',
-          value: 'Agrotrof'
-        },
-        { label: 'Интесан®',
-          value: 'Intesan'
-        }
+        'Целлобактерин®+',
+        'Целлобактерин®-Т:',
+        'Интебио®Форте',
+        'Интебио®',
+        'Провитол®',
+        'Ликвипро®',
+        'Профорт®',
+        'Заслон®-Фито',
+        'Заслон®',
+        'Заслон®2+',
+        'Биотроф®',
+        'Биотроф®2',
+        'Биотроф®-111',
+        'Промилк®',
+        'Промилк ®+',
+        'Биотроф®-600',
+        'Агротроф®',
+        'Интесан®', 
         ],
         categories: [
-        { label: 'Кормовые добавки',
-          value: 'FeedAdditives'
-        },
-        { label: 'Сорбенты от микотоксикозов',
-          value: 'SorbentsForMycotoxicosis'
-        },
-        { label: 'Биопрепараты и силосные закваски для заготовки кормов',
-          value: 'BiologicsAndSilageFerments'
-        },
-        { label: 'Биопрепараты для переработки навоза и биодезодорации',
-          value: 'BiologicalProductsForManureProcessing'
-        }
+        'Кормовые добавки',
+        'Сорбенты от микотоксикозов',
+        'Биопрепараты и силосные закваски для заготовки кормов',
+        'Биопрепараты для переработки навоза и биодезодорации',
       ]    
     }
   }, methods: {

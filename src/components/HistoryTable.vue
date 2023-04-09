@@ -19,14 +19,14 @@
         <tbody>
         <tr v-for="order of orders" :key="order.id">
           <td>{{order.id}}</td>
-          <td>{{order.productName}}</td>
-          <td>{{order.category}}</td>
+          <td>{{order.product.productName}}</td>
+          <td>{{order.product.category.categoryName}}</td>
           <td>{{order.price}} ₽</td>
           <td>{{order.weight}}</td>
           <td>{{order.createDate}}</td>
           <td>{{order.plannedDateOfShipment}}</td>
-          <td>{{order.clientFio}}</td>
-          <td>{{order.clientPhoneNumber}}</td>
+          <td>{{order.client.lastName}} {{order.client.firstName }} {{order.client.middleName}}</td>
+          <td>{{order.client.phoneNumber}}</td>
           <td>
             <span 
              

@@ -46,37 +46,6 @@ export default {
   data: () => ({
     loading: true,
     orders: [],
-    products: [
-        { label: 'Целлобактерин®+',
-          value: 'Cillobakterin+'
-        },
-        { label: 'Заслон®',
-          value: 'Zaslon'
-        },
-        { label: 'Биотроф®',
-          value: 'Biotrof'
-        },
-        { label: 'Агротроф®',
-          value: 'Agrotrof'
-        },
-        { label: 'Интесан®',
-          value: 'Intesan'
-        }
-        ],
-    categories: [
-        { label: 'Кормовые добавки',
-          value: 'FeedAdditives'
-        },
-        { label: 'Сорбенты от микотоксикозов',
-          value: 'SorbentsForMycotoxicosis'
-        },
-        { label: 'Биопрепараты и силосные закваски для заготовки кормов',
-          value: 'BiologicsAndSilageFerments'
-        },
-        { label: 'Биопрепараты для переработки навоза и биодезодорации',
-          value: 'BiologicalProductsForManureProcessing'
-        }
-      ],
     statuses: [
         { label: 'Не оплачено',
           value: 'WAITING_FOR_PAYMENT',
@@ -112,18 +81,6 @@ export default {
       console.log('Orders arrived!')
       const ordrs = response.data
       this.setupPagination(this.orders = ordrs.map(order => {
-      // eslint-disable-next-line
-      Object.entries(this.products).forEach(([key, value]) => {
-      if(order.productName === value.value) {
-        order.productName = value.label
-      }
-      });
-      // eslint-disable-next-line
-      Object.entries(this.categories).forEach(([key, value]) => {
-      if(order.category === value.value) {
-        order.category = value.label
-      }
-    })
       // eslint-disable-next-line
       Object.entries(this.statuses).forEach(([key, value]) => {
       if(order.stage === value.value) {

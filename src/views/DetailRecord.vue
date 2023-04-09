@@ -19,17 +19,16 @@
           }">
             <div class="card-content white-text">
               <p>Номер заказа: {{ order.id}}</p>
-              <p>Название продукта: {{ products[order.productName]}}</p>
-              <p>Категория: {{ categories[order.category] }}</p>
+              <p>Название продукта: {{ order.product.productName}}</p>
+              <p>Категория: {{ order.product.category.categoryName }}</p>
               <p>Вес: {{ order.weight }} кг</p>
               <p>Цена: {{ order.price }} ₽</p>
-              <p>ФИО клиента: {{ order.clientFio }} </p>
-              <p>Номер телефона: {{ order.clientPhoneNumber }} </p>
-              <p>Адрес: {{ order.shipmentAddress }} </p>
+              <p>ФИО клиента: {{ order.client.lastName }} {{ order.client.firstName }} {{ order.client.middleName }} </p>
+              <p>Номер телефона: {{ order.client.phoneNumber }} </p>
+              <p>Адрес: {{ order.client.address }} </p>
               <p>Планируемая дата доставки: {{ order.plannedDateOfShipment }}</p>
               <p>Дата доставки: {{ order.shipmentDate }}</p>
               <p>Отгружено: {{ order.isShipped ? 'Да' : 'Нет' }}</p>
-              <p>Пожелания: {{ order.wishes }}</p>
               <p>Дата создания: {{ order.createDate }}</p>
               <p>Дата изменения: {{ order.modifiedDate }}</p>
               <p>Идентификатор сотрудника: {{ order.employerUuid }}</p>
@@ -60,19 +59,6 @@ export default {
   data: () => ({
     order:null,
     loading: true,
-    products: {
-      'Cillobakterin+': 'Целлобактерин®+',
-      'Zaslon': 'Заслон®',
-      'Biotrof': 'Биотроф®',
-      'Agrotrof': 'Агротроф®',
-      'Intesan': 'Интесан®'
-    },
-    categories:{
-      'FeedAdditives': 'Кормовые добавки',
-      'SorbentsForMycotoxicosis': 'Сорбенты от микотоксикозов',
-      'BiologicsAndSilageFerments': 'Биопрепараты и силосные закваски для заготовки кормов',
-      'BiologicalProductsForManureProcessing': 'Биопрепараты для переработки навоза и биодезодорации'
-    },
     statuses: [
         { label: 'Не оплачено',
           value: 'WAITING_FOR_PAYMENT',
