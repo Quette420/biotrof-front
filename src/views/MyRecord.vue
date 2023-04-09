@@ -35,7 +35,7 @@
               type="number"
               v-model="price"
           >
-          <label for="price">Сумма</label>
+          <label for="price">Стоимость товара</label>
         </div>
         <div class="input-field">
           <input
