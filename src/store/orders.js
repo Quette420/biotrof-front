@@ -2,6 +2,7 @@ import axios from "axios"
 import LocalStorageService from '@/services/LocalStorageService'
 import DateService from '@/services/DateService'
 import CreateOrderRequest from "@/model/CreateOrderRequest";
+import UpdateOrderRequest from "@/model/UpdateOrderRequest";
 /*eslint no-unused-vars: ["error", { "args": "none" }]*/
 
 const REPORTS_BASE_URL = 'http://localhost:8081/reports';
@@ -667,8 +668,13 @@ export default {
                 return error;
             });
         },
-        updateOrder({dispatch, commit}, order) {
-            return axios.put(ORDERS_BASE_URL + order.id, order, {
+        updateOrder({dispatch, commit}, req) {
+            console.log("REQUEST " + req)
+            let request = new UpdateOrderRequest();
+            request = req;
+            console.log("REQUEST " + request.weight)
+            console.log(ORDERS_BASE_URL + "/" + req.id)
+            return axios.put(ORDERS_BASE_URL + "/" + req.id, request, {
                 headers: {
                     Authorization: LocalStorageService.getToken()
                 }

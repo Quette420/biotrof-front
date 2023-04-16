@@ -8,24 +8,29 @@
           Информация о заказе
         </a>
       </div>
-      <div class="row">
+      <UpdateOrderPopUp
+        v-if="isInfoPopUpVisible"
+        @closePopUp="closePopUp"
+        />
+      <div class="row"
+      v-else>
         <div class="col s12 m6">
           <div class="card" :class="{
-            'red': order.stage === 'WAITING_FOR_PAYMENT',
+            '#c62828 red darken-3': order.stage === 'WAITING_FOR_PAYMENT',
             'orange': order.stage === 'CONTRACT_SIGNING',
-            'lime': order.stage === 'MANUFACTURE',
+            '#afb42b lime darken-2': order.stage === 'MANUFACTURE',
             'green': order.stage === 'READY_FOR_SHIPMENT',
             'blue': order.stage === 'DONE'
           }">
             <div class="card-content white-text">
               <p>Номер заказа: {{ order.id}}</p>
-              <p>Название продукта: {{ order.product.productName}}</p>
-              <p>Категория: {{ order.product.category.categoryName }}</p>
+              <p>Название продукта: {{ this.order.product.productName}}</p>
+              <p>Категория: {{ this.order.product.category.categoryName }}</p>
               <p>Вес: {{ order.weight }} кг</p>
               <p>Цена: {{ order.price }} ₽</p>
-              <p>ФИО клиента: {{ order.client.lastName }} {{ order.client.firstName }} {{ order.client.middleName }} </p>
-              <p>Номер телефона: {{ order.client.phoneNumber }} </p>
-              <p>Адрес: {{ order.client.address }} </p>
+              <p>ФИО клиента: {{ this.order.client.lastName }} {{ this.order.client.firstName }} {{ this.order.client.middleName }} </p>
+              <p>Номер телефона: {{ this.order.client.phoneNumber }} </p>
+              <p>Адрес: {{ this.order.client.address }} </p>
               <p>Планируемая дата доставки: {{ order.plannedDateOfShipment }}</p>
               <p>Дата доставки: {{ order.shipmentDate }}</p>
               <p>Отгружено: {{ order.isShipped ? 'Да' : 'Нет' }}</p>
@@ -53,11 +58,14 @@
 
 import { mapActions } from 'vuex';
 import MyLoader from '@/components/app/MyLoader.vue';
+import UpdateOrderPopUp from '@/components/popup/UpdateOrderPopUp.vue';
 
 export default {
   name: 'detail-record',
   data: () => ({
+    isInfoPopUpVisible: false,
     order:null,
+    client: null,
     loading: true,
     statuses: [
         { label: 'Не оплачено',
@@ -83,14 +91,19 @@ export default {
     ]
   }),
   components: {
-    MyLoader
+    MyLoader,
+    UpdateOrderPopUp
   },
   methods:{ 
   ...mapActions([
       'getOrderByOrderId'
       ]),
   async editOrder(){
+    this.isInfoPopUpVisible = true;
     console.log( this.$route.params.id)
+  },
+  closePopUp() {
+    this.isInfoPopUpVisible = false;
   },
   async deleteOrder(){
     console.log(  this.$route.params.id)
@@ -102,17 +115,15 @@ export default {
       }
   }
 },
-  mounted() {
-    const id = this.$route.params.id
-    this.order = this.getOrderByOrderId(id).then(
-    (response) => { 
-      this.order = response.data
-      console.log(this.order)
-  },
-    (error) => {
-      console.log(error);
-  }
-  );
+  async mounted() {
+    
+    try {
+      const response = await this.getOrderByOrderId(this.$route.params.id);
+      this.order = response.data;
+    } catch(e) {
+      console.log('error')
+   }
+  console.log(this.order)
   this.loading = false;
  }
   
