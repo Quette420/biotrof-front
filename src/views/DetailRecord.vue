@@ -12,8 +12,16 @@
         v-if="isInfoPopUpVisible"
         @closePopUp="closePopUp"
         />
+      <UpdateStagePopUpVue
+      v-if="isUpdateStagePopUpVisible"
+      @closePopUp="closeStagePopUp"
+      />
+      <UpdateShipmentPopUp
+      v-if="isUpdateShipmentPopUpVisible"
+      @closePopUp="closeShipmentPopUp"
+      />
       <div class="row"
-      v-else>
+      v-if="!isUpdateStagePopUpVisible && !isInfoPopUpVisible && !isUpdateShipmentPopUpVisible">
         <div class="col s12 m6">
           <div class="card" :class="{
             '#c62828 red darken-3': order.stage === 'WAITING_FOR_PAYMENT',
@@ -37,6 +45,15 @@
               <p>Дата создания: {{ order.createDate }}</p>
               <p>Дата изменения: {{ order.modifiedDate }}</p>
               <p>Идентификатор сотрудника: {{ order.employerUuid }}</p>
+              <button class="btn-small green accent-4 btn" 
+              v-if="this.ROLE != 'USER'"
+            @click="updateShipment">
+              <i class="material-icons">check</i>
+            </button>
+            <button class="btn-small yellow btn" 
+            @click="updateStage">
+              <i class="material-icons">arrow_forward</i>
+            </button>
               <button class="btn-small orange btn" 
             @click="editOrder">
               <i class="material-icons">edit</i>
@@ -56,17 +73,22 @@
 
 <script>
 
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import MyLoader from '@/components/app/MyLoader.vue';
 import UpdateOrderPopUp from '@/components/popup/UpdateOrderPopUp.vue';
+import UpdateStagePopUpVue from '@/components/popup/UpdateStagePopUp.vue';
+import UpdateShipmentPopUp from '@/components/popup/UpdateShipmentPopUp.vue';
 
 export default {
   name: 'detail-record',
   data: () => ({
     isInfoPopUpVisible: false,
+    isUpdateStagePopUpVisible: false,
+    isUpdateShipmentPopUpVisible: false,
     order:null,
     client: null,
     loading: true,
+    admin: true,
     statuses: [
         { label: 'Не оплачено',
           value: 'WAITING_FOR_PAYMENT',
@@ -92,18 +114,31 @@ export default {
   }),
   components: {
     MyLoader,
-    UpdateOrderPopUp
+    UpdateOrderPopUp,
+    UpdateStagePopUpVue,
+    UpdateShipmentPopUp
   },
   methods:{ 
   ...mapActions([
       'getOrderByOrderId'
       ]),
-  async editOrder(){
+  updateStage() {
+    this.isUpdateStagePopUpVisible = true;
+  },
+  updateShipment() {
+    this.isUpdateShipmentPopUpVisible = true;
+  },
+  editOrder(){
     this.isInfoPopUpVisible = true;
-    console.log( this.$route.params.id)
   },
   closePopUp() {
     this.isInfoPopUpVisible = false;
+  },
+  closeStagePopUp() {
+    this.isUpdateStagePopUpVisible = false;
+  },
+  closeShipmentPopUp() {
+    this.isUpdateShipmentPopUpVisible = false;
   },
   async deleteOrder(){
     console.log(  this.$route.params.id)
@@ -116,7 +151,6 @@ export default {
   }
 },
   async mounted() {
-    
     try {
       const response = await this.getOrderByOrderId(this.$route.params.id);
       this.order = response.data;
@@ -125,7 +159,12 @@ export default {
    }
   console.log(this.order)
   this.loading = false;
- }
+ },
+  computed: {
+      ...mapGetters([
+                'ROLE'
+            ])
+    }
   
 }
 

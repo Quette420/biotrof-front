@@ -6,13 +6,13 @@
         
     </div>
       <button class="btn-small btn" @click="setupAllOrdersCountGiagram">
-        <i class="material-icons">Все заказы</i>
+        <i class="material-icons">Заказы за всё время</i>
       </button>
       <button class="btn-small btn" @click="setupYearlyOrdersCountDiagram">
-        <i class="material-icons">За этот год</i>
+        <i class="material-icons">В этом году</i>
       </button>
       <button class="btn-small btn" @click="calculateDiagramm3">
-        <i class="material-icons">За этот месяц</i>
+        <i class="material-icons">В этом месяце</i>
       </button>
       <button class="btn-small btn" @click="setupAllOrdersGainDiagram">
         <i class="material-icons">Выручка</i>
