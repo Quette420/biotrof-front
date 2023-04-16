@@ -11,7 +11,7 @@
       <button class="btn-small btn" @click="setupYearlyOrdersCountDiagram">
         <i class="material-icons">В этом году</i>
       </button>
-      <button class="btn-small btn" @click="calculateDiagramm3">
+      <button class="btn-small btn" @click="setupMonthlyOrdersCountDiagram">
         <i class="material-icons">В этом месяце</i>
       </button>
       <button class="btn-small btn" @click="setupAllOrdersGainDiagram">
@@ -192,6 +192,42 @@ export default {
       this.data.datasets[0].borderColor = 'rgb(164, 214, 109)'
       this.data.datasets[0].pointBorderColor = 'rgb(153, 102, 255)'
     },
+    fillMonthlyOrdersCount(orders) {
+      let map = new Map()
+      orders.map(o => {
+        const date = new Date(o.createDate)
+        //const strDate = '0' + '' + JSON.stringify(date.getMonth() + 1) + '.' + JSON.stringify(date.getFullYear())
+        const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
+        if(map.has(strDate)) {
+          map.set(strDate, map.get(strDate) + 1)
+        } else {
+          map.set(strDate, 1)
+        }
+      })
+      this.data.labels = Array.from(map.keys());
+      this.data.datasets[0].data = Array.from(map.values());
+      this.data.datasets[0].label = 'Количество заказов'
+      this.data.datasets[0].borderColor = 'rgb(153, 102, 255)'
+      this.data.datasets[0].pointBorderColor = 'rgb(242, 12, 116)'
+    },
+    fillMonthlyOrdersGain(orders) {
+      let map = new Map()
+      orders.map(o => {
+        const date = new Date(o.createDate)
+        //const strDate = '0' + '' + JSON.stringify(date.getMonth() + 1) + '.' + JSON.stringify(date.getFullYear())
+        const strDate = JSON.stringify(date.getDate()) + '.' + JSON.stringify(date.getMonth() + 1)
+        if(map.has(strDate)) {
+          map.set(strDate, map.get(strDate) + o.price)
+        } else {
+          map.set(strDate, o.price)
+        }
+      })
+      this.data.labels = Array.from(map.keys());
+      this.data.datasets[0].data = Array.from(map.values());
+      this.data.datasets[0].label = 'Выручка' 
+      this.data.datasets[0].borderColor = 'rgb(164, 214, 109)'
+      this.data.datasets[0].pointBorderColor = 'rgb(153, 102, 255)'
+    },
     calculateDiagramm () {
         console.log()
         this.data.labels = ['Ожидает оплаты','На подписании','Изготовление','Готово к отгрузке','Отгрузка','Отгружено']
@@ -230,7 +266,7 @@ export default {
         this.orders = this.GET_PER_YEAR_ORDERS;
         this.fillYearlyOrdersGain(this.orders)
       } else if('MONTH' === this.currentSchema) {
-        this.orders = this.GET_PER_YEAR_ORDERS;
+        this.orders = this.GET_PER_MONTH_ORDERS;
         this.fillYearlyOrdersGain(this.orders)
       } else {
         this.orders = this.ORDERS;
@@ -250,10 +286,23 @@ export default {
       this.fillYearlyOrdersGain(this.orders)
       this.myChart.reset()
       this.myChart.update()
+    },
+    setupMonthlyOrdersCountDiagram() {
+      this.currentSchema = 'MONTH';
+      this.orders = this.GET_PER_MONTH_ORDERS;
+      this.fillMonthlyOrdersCount(this.orders)
+      this.myChart.reset()
+      this.myChart.update()
+    },
+    setupMonthlyOrdersGainDiagram() {
+      this.orders = this.GET_PER_MONTH_ORDERS;
+      this.fillMonthlyOrdersGain(this.orders)
+      this.myChart.reset()
+      this.myChart.update()
     }
 }, computed: {
     ...mapGetters([
-      'ORDERS', 'GET_PER_YEAR_ORDERS'
+      'ORDERS', 'GET_PER_YEAR_ORDERS', 'GET_PER_MONTH_ORDERS'
     ])
 }
 }
