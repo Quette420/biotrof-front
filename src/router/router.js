@@ -26,7 +26,7 @@ const routes = [
     path: '/detail/:id',
     name: 'detail',
     meta: {layout: 'main', auth: true},
-    component: () => import('../views/DetailRecord.vue')
+    component: () => import('../views/OrderDetails.vue')
   },
   {
     path: '/infographics',
@@ -36,9 +36,9 @@ const routes = [
   },
   {
     path: '/order',
-    name: 'record',
+    name: 'order-create',
     meta: {layout: 'main', auth: true},
-    component: () => import('../views/MyRecord.vue')
+    component: () => import('../views/CreateOrder.vue')
   },
   {
     path: '/history',
