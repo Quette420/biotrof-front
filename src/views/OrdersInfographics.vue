@@ -14,7 +14,7 @@
       <button class="btn-small btn" @click="setupMonthlyOrdersCountDiagram">
         <i class="material-icons">В этом месяце</i>
       </button>
-      <button class="btn-small btn" @click="setupAllOrdersGainDiagram">
+      <button class="btn-small btn" @click="switchToGain">
         <i class="material-icons">Выручка</i>
       </button>
     </div>
@@ -228,32 +228,6 @@ export default {
       this.data.datasets[0].borderColor = 'rgb(164, 214, 109)'
       this.data.datasets[0].pointBorderColor = 'rgb(153, 102, 255)'
     },
-    calculateDiagramm () {
-        console.log()
-        this.data.labels = ['Ожидает оплаты','На подписании','Изготовление','Готово к отгрузке','Отгрузка','Отгружено']
-        this.data.datasets[0].label = 'Статистика по заказам'
-        this.data.datasets[0].data[0] = 30
-        this.data.datasets[0].data[1] = 2
-        this.data.datasets[0].data[3] = 5
-        this.data.datasets[0].data[4] = 22
-        this.data.datasets[0].data[5] = 9
-        this.data.datasets[0].data[6] = 15
-        this.myChart.update()
-    },
-    calculateDiagramm2 () {
-        console.log()
-        this.data.labels = ['Январь','Февраль','Апрель','Май','Июнь','Июль', 'Август','Сентябрь','Октябрь','Ноябрь','Декабрь']
-        this.data.datasets[0].label = 'Статистика за год'
-        this.data.datasets[0].data = [100, 120, 130, 140, 150, 160, 130, 100, 120, 130, 140, 150, 160]
-        this.myChart.update()
-    },
-    calculateDiagramm3 () {
-        console.log()
-        this.data.labels = ['1','2','3','4','5','6', '7','8','9','10','11','12','13','14','15','16','17', '18','19','20','21','22','23','24','25','26','27','28','29','30','31']
-        this.data.datasets[0].label = 'Статистика за месяц'
-        this.data.datasets[0].data = [100, 120, 130, 140, 150, 160, 130, 100, 120, 130, 110, 190, 50, 75, 170, 66, 99, 200, 100, 120, 130, 140, 190, 110, 120, 100, 100, 120, 130, 140, 150]
-        this.myChart.update()
-    },
     setupAllOrdersCountGiagram() {
       this.currentSchema = 'ALL';
       this.orders = this.ORDERS;
@@ -261,13 +235,13 @@ export default {
       this.myChart.reset()
       this.myChart.update()
     },
-    setupAllOrdersGainDiagram() {
+    switchToGain() {
       if('YEAR' === this.currentSchema) {
         this.orders = this.GET_PER_YEAR_ORDERS;
         this.fillYearlyOrdersGain(this.orders)
       } else if('MONTH' === this.currentSchema) {
         this.orders = this.GET_PER_MONTH_ORDERS;
-        this.fillYearlyOrdersGain(this.orders)
+        this.fillMonthlyOrdersGain(this.orders)
       } else {
         this.orders = this.ORDERS;
         this.fillChartAllOrdersGain(this.orders)

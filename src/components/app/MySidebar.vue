@@ -30,7 +30,7 @@ export default {
         moderatorLinks: [
             {title: 'Главная', url: '/', exact: true},
             {title: 'Новый заказ', url: '/order'},
-            {title: 'Все заказы', url: '/history'},
+            {title: 'Мои заказы', url: '/history'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
         ],
         adminLinks: [
