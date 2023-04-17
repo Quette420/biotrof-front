@@ -80,7 +80,7 @@ import UpdateStagePopUpVue from '@/components/popup/UpdateStagePopUp.vue';
 import UpdateShipmentPopUp from '@/components/popup/UpdateShipmentPopUp.vue';
 
 export default {
-  name: 'detail-record',
+  name: 'detail-order',
   data: () => ({
     isInfoPopUpVisible: false,
     isUpdateStagePopUpVisible: false,
