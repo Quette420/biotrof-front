@@ -46,13 +46,16 @@ export default {
             try {
                 await axios.post('http://localhost:8081/login', request)
                 .then((response) => {
-                    localStorage.setItem('token', JSON.stringify(response.data.token));
-                    localStorage.setItem('uuid', JSON.stringify(response.data.uuid));
-                //    sessionStorage.setItem('token', JSON.stringify(response.data.token));
-                //    sessionStorage.setItem('uuid', JSON.stringify(response.data.uuid));
-                    commit('SET_USER_TO_STATE', response.data);
+                    if(response.data.status != 'BANNED') {
+                        localStorage.setItem('token', JSON.stringify(response.data.token));
+                        localStorage.setItem('uuid', JSON.stringify(response.data.uuid));
+                    //    sessionStorage.setItem('token', JSON.stringify(response.data.token));
+                    //    sessionStorage.setItem('uuid', JSON.stringify(response.data.uuid));
+                        commit('SET_USER_TO_STATE', response.data);
+                        router.push('/')
+                    }
                 });
-                router.push('/')
+                
             } catch (e) {
                 console.log(e)
             }
