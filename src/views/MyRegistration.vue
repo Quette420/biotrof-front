@@ -10,7 +10,6 @@
               class="validate"
           >
           <label for="username">Имя пользователя</label>
-          <small class="helper-text invalid">Name</small>
         </div>
         <div class="input-field">
           <input
@@ -20,7 +19,6 @@
               class="validate"
           >
           <label for="password">Пароль</label>
-          <small class="helper-text invalid">Password</small>
         </div>
       </div>
       <div class="card-action">

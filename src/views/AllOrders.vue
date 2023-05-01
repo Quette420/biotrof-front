@@ -52,7 +52,7 @@ data: () => ({
       },
       { label: 'Изготовление',
         value: 'MANUFACTURE',
-        color: 'yellow'
+        color: '#c0ca33 lime darken-1'
       },
       { label: 'Готово к отгрузке',
         value: 'READY_FOR_SHIPMENT',

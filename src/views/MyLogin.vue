@@ -9,7 +9,7 @@
             type="text"
             class="validate"
             >
-            <label for="login">Login</label>
+            <label for="login">Имя пользователя</label>
             
         </div>
         <div class="input-field">
