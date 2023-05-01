@@ -576,7 +576,21 @@ export default {
             });
         },
         getNotShippedOrders({dispatch, commit}) {
-            return axios(ORDERS_BASE_URL + '/shipment', 
+            return axios(ORDERS_BASE_URL + '/shipment/not-shipped', 
+            {
+                method: 'GET',
+                headers: {
+                    Authorization: LocalStorageService.getToken()
+                }
+            }).then((response) => {
+                return response;
+            }).catch((error) => {
+                console.log(error)
+                return error;
+            });
+        },
+        getShippedOrders({dispatch, commit}) {
+            return axios(ORDERS_BASE_URL + '/shipment/shipped', 
             {
                 method: 'GET',
                 headers: {

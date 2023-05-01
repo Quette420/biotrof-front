@@ -32,6 +32,7 @@ export default {
             {title: 'Новый заказ', url: '/order'},
             {title: 'Мои заказы', url: '/history'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
+            {title: 'Отгружены', url: '/shipped'},
         ],
         adminLinks: [
             {title: 'Главная', url: '/', exact: true},
@@ -39,6 +40,7 @@ export default {
             {title: 'Мои заказы', url: '/history'},
             {title: 'Все заказы', url: '/all-orders'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
+            {title: 'Отгружены', url: '/shipped'},
             {title: 'Статистика', url: '/statistic'},
             {title: 'Инфографика', url: '/infographics'}
         ]

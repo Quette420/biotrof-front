@@ -53,6 +53,12 @@ const routes = [
     component: () => import('../views/NotShippedOrders.vue')
   },
   {
+    path: '/shipped',
+    name: 'shipped',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/ShippedOrders.vue')
+  },
+  {
     path: '/all-orders',
     name: 'all-orders',
     meta: {layout: 'main', auth: true},
