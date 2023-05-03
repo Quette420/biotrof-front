@@ -50,8 +50,8 @@
       v-bind:yearly-ready-for-shipment="!statisticToggle ? GET_PER_YEAR_EMPLOYER_ORDER_SALES_READY_FOR_SHIPMENT : GET_PER_YEAR_ORDERS_SALES_READY_FOR_SHIPMENT"
       v-bind:yearly-closed="!statisticToggle ? GET_PER_YEAR_EMPLOYER_ORDER_SALES_IN_DONE : GET_PER_YEAR_ORDERS_SALES_IN_DONE"
       />
+      <OrdersBarStatistic/>
     </div>
-    <OrdersBarStatistic/>
   </div>
 </template>
 

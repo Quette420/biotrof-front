@@ -278,6 +278,8 @@ export default {
     ...mapGetters([
       'ORDERS', 'GET_PER_YEAR_ORDERS', 'GET_PER_MONTH_ORDERS'
     ])
+}, destroyed() {
+  this.myChart.destroy();
 }
 }
 </script>
