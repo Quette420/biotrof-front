@@ -51,6 +51,7 @@
       v-bind:yearly-closed="!statisticToggle ? GET_PER_YEAR_EMPLOYER_ORDER_SALES_IN_DONE : GET_PER_YEAR_ORDERS_SALES_IN_DONE"
       />
     </div>
+    <OrdersBarStatistic/>
   </div>
 </template>
 
@@ -62,6 +63,7 @@ import MounthBill from '@/components/MounthBill.vue';
 import YearBill from '@/components/YearBill.vue';
 import HomeCurrency from '@/components/HomeCurrency.vue';
 import {mapGetters} from 'vuex'
+import OrdersBarStatistic from '@/views/OrdersBarStatistic.vue'
 
 export default {
   name: 'statistic-view-vue',
@@ -75,7 +77,8 @@ export default {
     MounthBill,
     YearBill,
     HomeCurrency,
-    MyLoader
+    MyLoader,
+    OrdersBarStatistic
 },methods:{ 
    switchToGeneralStatistic() {
     this.statisticToggle = !this.statisticToggle;
