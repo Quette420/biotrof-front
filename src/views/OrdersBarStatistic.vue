@@ -9,10 +9,10 @@
       <button v-if="categoriesAndNamesToggle" class="btn-small btn" @click="setupEmployerProductNamesChartData">
         <i class="material-icons">Названия добавок</i>
       </button>
-      <button v-if="ROLE === 'ADMIN' && !allOrdersToggle" class="btn-small btn" @click="setupEmployerProductNamesChartData">
+      <button v-if="ROLE === 'ADMIN' && !allOrdersToggle" class="btn-small btn" @click="switchEmplAllOrders">
         <i class="material-icons">Статистика по всем пользователям</i>
       </button>
-      <button v-if="ROLE === 'ADMIN' && allOrdersToggle" class="btn-small btn" @click="setupEmployerProductNamesChartData">
+      <button v-if="ROLE === 'ADMIN' && allOrdersToggle" class="btn-small btn" @click="switchEmplAllOrders">
         <i class="material-icons">Моя статистика</i>
       </button>
     </div>
@@ -31,6 +31,7 @@ export default {
     return {
       categoriesAndNamesToggle: false,
       allOrdersToggle: false,
+      currentSchema: 'MY',
       allOrders: null,
       emlpoyerOrders: null,
       chartData: {
@@ -75,14 +76,24 @@ export default {
     })
   },
   setupEmployerProductNamesChartData() {
-    this.emlpoyerOrders = this.GET_ALL_EMPLOYER_ORDERS
-    this.fillProductNamesChartData(this.emlpoyerOrders);
+    let currentOrderData;
+    if(this.currentSchema === 'MY') {
+      currentOrderData = this.GET_ALL_EMPLOYER_ORDERS
+    } else {
+      currentOrderData = this.ORDERS
+    }
+    this.fillProductNamesChartData(currentOrderData);
     this.myBarChart.update()
     this.categoriesAndNamesToggle = !this.categoriesAndNamesToggle
   },
   setupEmployerCategoriesChartData() {
-    this.emlpoyerOrders = this.GET_ALL_EMPLOYER_ORDERS
-    this.fillCategoriesChartData(this.emlpoyerOrders);
+    let currentOrderData;
+    if(this.currentSchema === 'MY') {
+      currentOrderData = this.GET_ALL_EMPLOYER_ORDERS
+    } else {
+      currentOrderData = this.ORDERS
+    }
+    this.fillCategoriesChartData(currentOrderData);
     this.myBarChart.update()
     this.categoriesAndNamesToggle = !this.categoriesAndNamesToggle
   },
@@ -114,17 +125,28 @@ export default {
       this.chartData.datasets[0].data = Array.from(map.values());
       this.chartData.datasets[0].label = 'Количество заказов'
   },
-  setupAllProductNamesChartData() {
-    this.allOrders = this.ORDERS
-    this.fillProductNamesChartData(this.allOrders);
+  switchEmplAllOrders() {
+    let currentOrderData;
+    if(this.currentSchema === 'MY') {
+      this.currentSchema = 'ALL'
+      currentOrderData = this.ORDERS
+    } else {
+      this.currentSchema = 'MY'
+      currentOrderData = this.GET_ALL_EMPLOYER_ORDERS
+    }
+    if(this.categoriesAndNamesToggle) {
+      this.fillCategoriesChartData(currentOrderData)
+    } else {
+      this.fillProductNamesChartData(currentOrderData)
+    }
     this.myBarChart.update()
-    this.categoriesAndNamesToggle = !this.categoriesAndNamesToggle
+    this.allOrdersToggle = !this.allOrdersToggle
   },
   setupAllCategoriesChartData() {
     this.allOrders = this.ORDERS
     this.fillCategoriesChartData(this.allOrders);
     this.myBarChart.update()
-    this.categoriesAndNamesToggle = !this.categoriesAndNamesToggle
+    this.allOrdersToggle = !this.allOrdersToggle
   }
 },computed: {
   ...mapGetters(['GET_ALL_EMPLOYER_ORDERS', 'ORDERS', 'ROLE'])
