@@ -22,7 +22,7 @@
               type="Date"
               v-model="dateFrom"
           >
-          <label for="dateFrom">Начальная дата</label>
+          <label for="dateFrom">От</label>
         </div>
         <div class="input-field">
           <input
@@ -30,7 +30,7 @@
               type="Date"
               v-model="dateTo"
           >
-          <label for="dateTo">Дата окончания</label>
+          <label for="dateTo">До</label>
         </div>
         <button class="btn waves-effect waves-light" type="submit">
           Сформировать отчет
