@@ -42,7 +42,8 @@ export default {
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
             {title: 'Отгружены', url: '/shipped'},
             {title: 'Статистика', url: '/statistic'},
-            {title: 'Инфографика', url: '/infographics'}
+            {title: 'Инфографика', url: '/infographics'},
+            {title: 'Отчеты', url: '/reports'}
         ]
     }),
     computed: {

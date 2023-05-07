@@ -5,13 +5,14 @@ import CreateOrderRequest from "@/model/CreateOrderRequest";
 import UpdateOrderRequest from "@/model/UpdateOrderRequest";
 /*eslint no-unused-vars: ["error", { "args": "none" }]*/
 
-const REPORTS_BASE_URL = 'http://localhost:8081/reports';
+//const REPORTS_BASE_URL = 'http://localhost:8081/reports';
 const ORDERS_BASE_URL = 'http://localhost:8081/api/v1/orders'
 
 export default {
     state: {
         ordersArray: [],
-        ordersByUuid: []
+        ordersByUuid: [],
+        ordersByDate: []
       },
       getters: {
         GET_ALL_EMPLOYER_ORDERS(state) {
@@ -547,6 +548,9 @@ export default {
                 sum += order.price 
             });
             return sum;
+        },
+        ORDERS_BY_DATE(state) {
+            return state.ordersByDate;
         }
       },
       mutations: {
@@ -556,24 +560,29 @@ export default {
         SET_ORDERS_BY_UUID_TO_STATE(state, orders) {
             state.ordersByUuid = orders
         },
+        SET_ORDERS_BY_DATE_TO_STATE(state, orders) {
+            state.ordersByDate = orders
+        },
         DELETE_ORDER_BY_ID(state, orderId) {
             const orderInex = state.ordersByUuid.findIndex(p => p.id === orderId)
             state.ordersByUuid.splice(orderInex, 1)
         }
       },
     actions: {
-        getAllReports({dispatch, commit}) {
-            return axios(REPORTS_BASE_URL, {
-                method: 'GET',
-                headers: {
-                    Authorization: LocalStorageService.getToken()
-                }
-            }).then((response) => {
-                return response;
-            }).catch((error) => {
-                console.log(error)
-                return error;
-            });
+        async getOrdersByDate({dispatch, commit}) {
+            try {
+                await axios.get(ORDERS_BASE_URL + '/by-date', {
+                    headers: {
+                        Authorization: LocalStorageService.getToken()
+                    }
+                }).then((response) => {
+                    console.log(response.data)
+                    commit('SET_ORDERS_BY_DATE_TO_STATE', response.data);
+                    return response;
+                });
+            } catch (e) {
+                console.log(e)
+            }
         },
         getNotShippedOrders({dispatch, commit}) {
             return axios(ORDERS_BASE_URL + '/shipment/not-shipped', 

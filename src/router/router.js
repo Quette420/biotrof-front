@@ -75,6 +75,12 @@ const routes = [
     name: 'statistic',
     meta: {layout: 'main', auth: true},
     component: () => import('../views/StatisticView.vue')
+  },
+  {
+    path: '/reports',
+    name: 'reports',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/ReportsDownload.vue')
   }
 ]
 
