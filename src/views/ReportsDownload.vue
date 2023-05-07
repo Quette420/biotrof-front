@@ -3,7 +3,7 @@
   <div class="page-title">
     <h3>Сформировать отчет по заказам</h3>
   </div>
-  <form class="form" @submit.prevent="selectOrdersToDownload">
+  <form class="form" @submit="filterByDateAndDownload">
         <div class="input-field">
               <select id="productName" ref="select" v-model="productName">
                 <option value="" selected disabled>Выберите Название продукта</option>
@@ -173,11 +173,14 @@ export default {
     this.ordersByDate = this.ORDERS_BY_DATE
     this.setupOrderNames(this.ORDERS_BY_DATE)
     this.setupOrderCategories(this.ORDERS_BY_DATE)
-    console.log(this.ordersByDate)
-    console.log(this.categories.values)
 }, methods: {
-  selectOrdersToDownload() {
-    const items = this.ORDERS_BY_DATE;
+  filterByDateAndDownload() {
+    this.dateFrom = new Date(this.dateFrom)
+    this.dateTo = new Date(this.dateTo)
+    const result = this.ORDERS_BY_DATE;
+    const items = result.filter(this.dateFiler)
+    this.formatDates(items)
+    console.log(items)
     const replacer = (key, value) => value === null ? '' : value
     const hdr = Object.keys(items[0])
     const csv = [
@@ -185,6 +188,7 @@ export default {
       ...items.map(row => hdr.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
     ].join('\r\n')
     this.download(csv);
+  
   },
   download (input) {
     console.log(input)
@@ -209,7 +213,6 @@ export default {
         return {
           ...order
          }
-  
       })
   }, 
   setupOrderCategories(ordrs) {
@@ -225,6 +228,16 @@ export default {
          }
   
       })
+  },
+  formatDates(ordrs) {
+    this.ordersByDate = ordrs.map(order => {
+      const date = new Date(order.create_date)
+       order.create_date = date.toISOString().split('T')[0]
+      })
+  },
+  dateFiler(ordr) {
+    const date = new Date(ordr.create_date)
+    return this.dateFrom <= date && date <= this.dateTo;
   }
 }, computed: {
   ...mapGetters([
