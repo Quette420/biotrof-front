@@ -576,7 +576,6 @@ export default {
                         Authorization: LocalStorageService.getToken()
                     }
                 }).then((response) => {
-                    console.log(response.data)
                     commit('SET_ORDERS_BY_DATE_TO_STATE', response.data);
                     return response;
                 });
