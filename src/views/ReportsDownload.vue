@@ -33,8 +33,8 @@
           <label for="dateTo">До</label>
         </div>
         <button class="btn waves-effect waves-light" type="submit">
-          Сформировать отчет
-          <i class="material-icons right">send</i>
+          Скачать отчет
+          <i class="material-icons right">download</i>
         </button>
   </form>
 </div>
