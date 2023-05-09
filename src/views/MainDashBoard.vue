@@ -67,6 +67,7 @@ import DashBoardInprocessBill from '@/components/DashBoardInprocessBill.vue'
 import DashBoardClosedBill from '@/components/DashBoardClosedBill.vue'
 import {mapActions, mapGetters} from 'vuex'
 import Chart from 'chart.js/auto'
+import constants from '@/utils/constants';
   
 export default {
   name: 'main-dashboard',
@@ -91,7 +92,7 @@ export default {
       }
     ]},
   pieData:{
-    labels: ['Не оплачено', 'Подписание', 'Изготовление', 'Ожидает отгрузки', 'Отгружено'],
+    labels: constants.statusesLabels,
     datasets: [{
     label: 'My First Dataset',
     data: [10, 20, 15, 19, 16],

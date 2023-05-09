@@ -35,6 +35,7 @@ import { mapActions } from 'vuex';
 import HistoryTable from '@/components/HistoryTable.vue';
 import MyLoader from '@/components/app/MyLoader.vue';
 import paginationMixin from '@/mixins/pagination.mixin';
+import constants from '@/utils/constants';
 
 export default {
   name: 'orders-history',
@@ -46,28 +47,7 @@ export default {
   data: () => ({
     loading: true,
     orders: [],
-    statuses: [
-        { label: 'Не оплачено',
-          value: 'WAITING_FOR_PAYMENT',
-          color: 'red'
-        },
-        { label: 'Подписание',
-          value: 'CONTRACT_SIGNING',
-          color:  'orange'
-        },
-        { label: 'Изготовление',
-          value: 'MANUFACTURE',
-          color: '#c0ca33 lime darken-1'
-        },
-        { label: 'Готово к отгрузке',
-          value: 'READY_FOR_SHIPMENT',
-          color: 'green'
-        },
-        { label: 'Отгружено',
-          value: 'DONE',
-          color: 'blue'
-        }
-    ]
+    statuses: constants.statuses
   }),
   methods:{ 
   ...mapActions([

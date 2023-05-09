@@ -24,34 +24,14 @@
 
 import { mapGetters } from 'vuex'
 import Chart from 'chart.js/auto'
+import constants from '@/utils/constants'
 
 export default {
     data() {
         return{   
-      statuses: [
-      { label: 'Не оплачено',
-        value: 'WAITING_FOR_PAYMENT',
-        color: 'red'
-      },
-      { label: 'Подписание',
-        value: 'CONTRACT_SIGNING',
-        color:  'orange'
-      },
-      { label: 'Изготовление',
-        value: 'MANUFACTURE',
-        color: 'yellow'
-      },
-      { label: 'Готово к отгрузке',
-        value: 'READY_FOR_SHIPMENT',
-        color: 'green'
-      },
-      { label: 'Отгружено',
-        value: 'DONE',
-        color: 'blue'
-      }
-            ],
-            orders: [],
-            currentSchema: '',
+      statuses: constants.statuses,
+      orders: [],
+      currentSchema: '',
             data:{
                 labels: ['Red','Blue','Yellow','Green','Purple','Orange'],
                 datasets: [{

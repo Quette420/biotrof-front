@@ -78,6 +78,7 @@ import MyLoader from '@/components/app/MyLoader.vue';
 import UpdateOrderPopUp from '@/components/popup/UpdateOrderPopUp.vue';
 import UpdateStagePopUpVue from '@/components/popup/UpdateStagePopUp.vue';
 import UpdateShipmentPopUp from '@/components/popup/UpdateShipmentPopUp.vue';
+import constants from '@/utils/constants';
 
 export default {
   name: 'detail-order',
@@ -89,28 +90,7 @@ export default {
     client: null,
     loading: true,
     admin: true,
-    statuses: [
-        { label: 'Не оплачено',
-          value: 'WAITING_FOR_PAYMENT',
-          color: 'red'
-        },
-        { label: 'Подписание',
-          value: 'CONTRACT_SIGNING',
-          color:  'orange'
-        },
-        { label: 'Изготовление',
-          value: 'MANUFACTURE',
-          color: 'yellow'
-        },
-        { label: 'Готово к отгрузке',
-          value: 'READY_FOR_SHIPMENT',
-          color: 'green'
-        },
-        { label: 'Отгружено',
-          value: 'DONE',
-          color: 'blue'
-        }
-    ]
+    statuses: constants.statuses
   }),
   components: {
     MyLoader,

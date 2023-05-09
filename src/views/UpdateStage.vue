@@ -28,6 +28,7 @@
   
 <script>
 
+import constants from '@/utils/constants'
 
 /*global M*/
 export default {
@@ -37,17 +38,17 @@ export default {
       status: null,
       select: null,
       statuses: [
-      { label: 'Не оплачено',
-        value: 'WAITING_FOR_PAYMENT'
+      { label: constants.statuses[0].label,
+        value: constants.statuses[0].value
       },
-      { label: 'Подписание',
-        value: 'CONTRACT_SIGNING'
+      { label: constants.statuses[1].label,
+        value: constants.statuses[1].value
       },
-      { label: 'Изготовление',
-        value: 'MANUFACTURE'
+      { label: constants.statuses[2].label,
+        value: constants.statuses[2].value
       },
-      { label: 'Готово к отгрузке',
-        value: 'READY_FOR_SHIPMENT'
+      { label: constants.statuses[3].label,
+        value: constants.statuses[3].value
       }
   ]   
     }
