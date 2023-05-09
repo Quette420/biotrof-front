@@ -33,6 +33,7 @@
   import HistoryTable from '@/components/HistoryTable.vue';
   import MyLoader from '@/components/app/MyLoader.vue';
   import paginationMixin from '@/mixins/pagination.mixin';
+import constants from '@/utils/constants';
   
   export default {
   name: 'not-shipped',
@@ -40,12 +41,7 @@
   data: () => ({
     loading: true,
     orders: [],
-    statuses: [
-        { label: 'Отгружено',
-          value: 'DONE',
-          color: 'blue'
-        }
-    ]
+    statuses: [constants.statuses[4]]
   }),
   methods:{ 
   ...mapActions([
