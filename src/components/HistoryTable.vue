@@ -22,7 +22,7 @@
           <td>{{order.product.productName}}</td>
           <td>{{order.product.category.categoryName}}</td>
           <td>{{order.price}} ₽</td>
-          <td>{{order.weight}}</td>
+          <td>{{order.weight}} кг</td>
           <td>{{order.createDate}}</td>
           <td>{{order.plannedDateOfShipment}}</td>
           <td>{{order.client.lastName}} {{order.client.firstName }} {{order.client.middleName}}</td>
