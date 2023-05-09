@@ -95,8 +95,8 @@ export default {
   data() {
     return {
       select: null,
-      productName:'Целлобактерин®+',
-      category: 'Кормовые добавки',
+      productName:constants.products[0],
+      category: constants.categories[0],
       price: '',
       weight:'',
       plannedDateOfShipment:'',
