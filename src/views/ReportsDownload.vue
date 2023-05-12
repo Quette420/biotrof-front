@@ -135,7 +135,7 @@ export default {
   formatDates(ordrs) {
     this.ordersByDate = ordrs.map(order => {
       const date = new Date(order.create_date)
-       order.create_date = date.toISOString().split('T')[0]
+       order.create_date = date.toLocaleDateString('en-GB')
       })
   },
   dateFiler(ordr) {
