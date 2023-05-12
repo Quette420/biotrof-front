@@ -104,6 +104,9 @@ export default {
             localStorage.setItem('uuid', JSON.stringify(response.data.uuid));
             return response;
         }).catch((error) => {
+            if(error.code === 'ERR_BAD_REQUEST') {
+                window.location.replace("http://localhost:8080/login")
+            }
                 console.log(error)
             return error;
         });
