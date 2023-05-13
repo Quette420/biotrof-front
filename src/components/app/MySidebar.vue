@@ -25,7 +25,8 @@ export default {
             {title: 'Главная', url: '/', exact: true},
             {title: 'Новый заказ', url: '/order'},
             {title: 'Мои заказы', url: '/history'},
-            {title: 'Моя статистика', url: '/statistic'}
+            {title: 'Моя статистика', url: '/statistic'},
+            {title: 'Рейтинг добавок', url: '/raiting'}
         ],
         moderatorLinks: [
             {title: 'Главная', url: '/', exact: true},
@@ -33,6 +34,8 @@ export default {
             {title: 'Мои заказы', url: '/history'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
             {title: 'Отгружены', url: '/shipped'},
+            {title: 'Моя статистика', url: '/statistic'},
+            {title: 'Рейтинг добавок', url: '/raiting'}
         ],
         adminLinks: [
             {title: 'Главная', url: '/', exact: true},
@@ -42,6 +45,7 @@ export default {
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
             {title: 'Отгружены', url: '/shipped'},
             {title: 'Статистика', url: '/statistic'},
+            {title: 'Рейтинг добавок', url: '/raiting'},
             {title: 'Инфографика', url: '/infographics'},
             {title: 'Отчеты', url: '/reports'}
         ]

@@ -81,6 +81,12 @@ const routes = [
     name: 'reports',
     meta: {layout: 'main', auth: true},
     component: () => import('../views/ReportsDownload.vue')
+  },
+  {
+    path: '/raiting',
+    name: 'raiting',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/RaitingBar.vue')
   }
 ]
 
