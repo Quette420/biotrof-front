@@ -127,5 +127,10 @@ export default {
           label: 'Биопрепараты для переработки навоза и биодезодорации',
           value: 'Biological products for manure processing and biodesodorization'
         }
-    ] 
+    ],
+    graphicTypes: [
+      'Общая статистика',
+      'Статистика по категориям',
+      'Статистика по продуктам'
+    ]
 }

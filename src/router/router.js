@@ -87,6 +87,18 @@ const routes = [
     name: 'raiting',
     meta: {layout: 'main', auth: true},
     component: () => import('../views/RaitingBar.vue')
+  },
+  {
+    path: '/selection-graphic',
+    name: 'selection-graphic',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/SelectionGraphic.vue')
+  },
+  {
+    path: '/category-infographic',
+    name: 'category-infographic',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/OrdersCategoryInfographic.vue')
   }
 ]
 

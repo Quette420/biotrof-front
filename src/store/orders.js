@@ -12,11 +12,15 @@ export default {
     state: {
         ordersArray: [],
         ordersByUuid: [],
-        ordersByDate: []
+        ordersByDate: [],
+        ordersByYear: []
       },
       getters: {
         GET_ALL_EMPLOYER_ORDERS(state) {
             return state.ordersByUuid;
+        },
+        GET_ALL_ORDERS_BY_YEAR(state) {
+            return state.ordersByYear;
         },
         GET_PER_WEEK_EMPLOYER_ORDERS(state) {
             let now = new Date();
@@ -563,6 +567,9 @@ export default {
         SET_ORDERS_BY_DATE_TO_STATE(state, orders) {
             state.ordersByDate = orders
         },
+        SET_ORDERS_BY_YEAR_TO_STATE(state, orders) {
+            state.ordersByYear = orders
+        },
         DELETE_ORDER_BY_ID(state, orderId) {
             const orderInex = state.ordersByUuid.findIndex(p => p.id === orderId)
             state.ordersByUuid.splice(orderInex, 1)
@@ -672,6 +679,22 @@ export default {
                 console.log(error)
                 return error;
             });
+        },
+        async getAllOrdersByYearAsync({dispatch, commit}, year) {
+            try {
+                await axios('http://localhost:8081/api/v1/orders/by-year/' + year, 
+                {
+                    method: 'GET',
+                    headers: {
+                        Authorization: LocalStorageService.getToken()
+                    }
+                }).then((response) => {
+                    commit('SET_ORDERS_BY_YEAR_TO_STATE', response.data);
+                    return response;
+                });
+            } catch (e) {
+                console.log(e)
+            }
         },
         createOrder({dispatch, commit}, req) {
             let request = new CreateOrderRequest();
