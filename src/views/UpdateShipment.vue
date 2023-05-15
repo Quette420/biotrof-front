@@ -32,7 +32,7 @@ export default {
     }
   },
   methods: {
-      updateOrder() {
+      async updateOrder() {
       const request = {
         id: this.$route.params.id,
         shipmentDate: this.shipmentDate,
@@ -41,7 +41,7 @@ export default {
       }
       console.log(request)
       try {
-          this.$store.dispatch('updateOrder', request)
+          await this.$store.dispatch('updateOrder', request)
           } catch(e) {
             console.log('error')
         }

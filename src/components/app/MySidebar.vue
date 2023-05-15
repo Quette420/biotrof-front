@@ -46,9 +46,10 @@ export default {
             {title: 'Отгружены', url: '/shipped'},
             {title: 'Статистика', url: '/statistic'},
             {title: 'Рейтинг добавок', url: '/raiting'},
-            {title: 'Инфографика', url: '/infographics'},
+            {title: 'Графики', url: '/infographics'},
             {title: 'Отчеты', url: '/reports'},
             {title: 'Графики', url: '/selection-graphic'},
+            {title: 'Наличие', url: '/products-quantity'},
         ]
     }),
     computed: {

@@ -17,11 +17,11 @@
                 <label for="category">Категория:</label>
                 </select>
         </div>
-        <div class="input-field">
-              <select id="productName" ref="select" v-model="productName" required>
+        <div v-show="category && categories[0] === category" class="input-field">
+              <select id="productName" ref="select" v-model="productName">
                 <option value="" selected disabled>Выберите Название продукта</option>
                   <option
-                    v-for="productName in products"
+                    v-for="productName in feedAdditives"
                     :key="productName"
                     >
                     {{ productName }}
@@ -29,24 +29,52 @@
                 <label for="productName">Название продукта:</label>
                 </select>
             </div>
-        <div class="input-field">
-          <input
-              id="price"
-              type="number"
-              v-model="price"
-          >
-          <label for="price">Стоимость товара</label>
-        </div>
-        <div class="input-field">
+            <div v-show="category && categories[1] === category" class="input-field">
+              <select id="productName" ref="select" v-model="productName">
+                <option value="" selected disabled>Выберите Название продукта</option>
+                  <option
+                    v-for="productName in sorbentsForMycotoxicosis"
+                    :key="productName"
+                    >
+                    {{ productName }}
+                </option>
+                <label for="productName">Название продукта:</label>
+                </select>
+            </div>
+            <div v-show="category && categories[2] === category" class="input-field">
+              <select id="productName" ref="select" v-model="productName">
+                <option value="" selected disabled>Выберите Название продукта</option>
+                  <option
+                    v-for="productName in biologicsAndSilageFermentsForForagePreparation"
+                    :key="productName"
+                    >
+                    {{ productName }}
+                </option>
+                <label for="productName">Название продукта:</label>
+                </select>
+            </div>
+            <div v-show="category && categories[3] === category" class="input-field">
+              <select id="productName" ref="select" v-model="productName">
+                <option value="" selected disabled>Выберите Название продукта</option>
+                  <option
+                    v-for="productName in biologicalProductsForManureProcessingAndBiodesodorization"
+                    :key="productName"
+                    >
+                    {{ productName }}
+                </option>
+                <label for="productName">Название продукта:</label>
+                </select>
+            </div>
+        <div v-show="productName" class="input-field">
           <input
               id="weight"
               type="number"
               step=0.01
               v-model="weight"
           >
-          <label for="weight">Вес товара</label>
+          <label for="weight">Вес товара в килограммах</label>
         </div>
-        <div class="input-field">
+        <div v-show="weight && weightValidate >= weight" class="input-field">
           <input
               id="clientFio"
               type="text"
@@ -54,7 +82,7 @@
           >
           <label for="clientFio">ФИО клиента</label>
         </div>
-        <div class="input-field">
+        <div v-show="clientFio" class="input-field">
           <input
               id="phoneNumber"
               type="tel"
@@ -62,7 +90,7 @@
           >
           <label for="phoneNumber">Телефон для связи</label>
         </div>
-        <div class="input-field">
+        <div v-show="phoneNumber" class="input-field">
           <input
               id="address"
               type="text"
@@ -70,7 +98,7 @@
           >
           <label for="address">Адрес доставки</label>
         </div>
-        <div class="input-field">
+        <div v-show="address" class="input-field">
           <input
               id="plannedDateOfShipment"
               type="Date"
@@ -78,16 +106,18 @@
           >
           <label for="plannedDateOfShipment">Дата доставки</label>
         </div>
-        <button class="btn waves-effect waves-light" type="submit">
+        <button v-show="productName && category && weight && clientFio && phoneNumber && address && plannedDateOfShipment" class="btn waves-effect waves-light" type="submit">
           Создать
           <i class="material-icons right">send</i>
         </button>
       </form>
+      <h4 v-if="weight"> {{weightValidate >= weight ? "Итоговая стоимость: " +  getPriceByName * weight + " рублей." : "Такого количества товара нет в наличии."}}</h4>
     </div>
   </template>
   
 <script>
 import constants from '@/utils/constants'
+import { mapGetters } from 'vuex'
 
 /*global M*/
 export default {
@@ -95,23 +125,28 @@ export default {
   data() {
     return {
       select: null,
-      productName:constants.products[0],
-      category: constants.categories[0],
+      productName: null,
+      category: null,
       price: '',
       weight:'',
       plannedDateOfShipment:'',
       clientFio:'',
+      productNames: '',
       phoneNumber:'',
       address:'',
       products: constants.products,
-      categories: constants.categories   
+      categories: constants.categories,
+      feedAdditives: [],
+      sorbentsForMycotoxicosis: [],
+      biologicsAndSilageFermentsForForagePreparation: [],
+      biologicalProductsForManureProcessingAndBiodesodorization: []
     }
   }, methods: {
       createOrder() {
       const request = {
-        productName: this.productName, 
+        productName: this.productName.substr(0, this.productName.indexOf('(') - 1), 
         category: this.category,
-        price: this.price,
+        price: this.weight * this.getPriceByName,
         weight:this.weight,
         plannedDateOfShipment:this.plannedDateOfShipment,
         clientFio:this.clientFio,
@@ -119,13 +154,71 @@ export default {
         address:this.address,
       }
       console.log(request)
-      try {
+      if(this.productName != null) {
+        try {
           this.$store.dispatch('createOrder', request)
           } catch(e) {
             console.log('error')
         }
+      }
+      
     }
-  }, mounted() {
+  }, computed: {
+    getPriceByName() {
+      let price = 0;
+      this.products.map(p => {
+        if(p.productName === this.productName.substr(0, this.productName.indexOf('(') - 1)) {
+          price = p.price
+        }
+      })
+      return price;
+    },
+    filterProductsByCategory() {
+      let productsByCategory = new Array();
+      this.products.map(p => {
+        if(p.category === this.category) {
+          productsByCategory.push(p)
+        }
+      })
+      return productsByCategory;
+    },
+    weightValidate() {
+      let quantity = 0;
+      this.products.map(p => {
+        if(p.productName === this.productName.substr(0, this.productName.indexOf('(') - 1)) {
+          quantity =  p.quantity;
+        }
+      })
+      return quantity;
+    },
+    ...mapGetters([
+      'PRODUCTS'
+    ])
+  },
+   async mounted() {
+    try {
+      await this.$store.dispatch('getAllProductsSync')
+      .then(response => {
+        let productNames = response.data.map(p => p.productName + (p.quantity === null ? " (Нет в наличии)" : " (В наличии " + p.quantity + " кг)"))
+        this.productNames = productNames
+        response.data.map(p => {
+          if(p.category.categoryName === constants.categories[0]) {
+            this.feedAdditives.push(p.productName + (p.quantity === null ? " (Нет в наличии)" : " (В наличии " + p.quantity + " кг)"))
+          } else if(p.category.categoryName === constants.categories[1]) {
+            this.sorbentsForMycotoxicosis.push(p.productName + (p.quantity === null ? " (Нет в наличии)" : " (В наличии " + p.quantity + " кг)"))
+          } else if(p.category.categoryName === constants.categories[2]) {
+            this.biologicsAndSilageFermentsForForagePreparation.push(p.productName + (p.quantity === null ? " (Нет в наличии)" : " (В наличии " + p.quantity + " кг)"))
+          } else {
+            this.biologicalProductsForManureProcessingAndBiodesodorization.push(p.productName + (p.quantity === null ? " (Нет в наличии)" : " (В наличии " + p.quantity + " кг)"))
+          }
+        })
+      }
+      );
+      this.products = this.PRODUCTS
+   } catch(e) {
+      console.log('error')
+   }
+
     var elems = document.querySelectorAll('select')
     this.select = M.FormSelect.init(elems, this.$options)
   }, destroyed() {

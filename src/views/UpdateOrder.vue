@@ -17,11 +17,47 @@
                 <label for="category">Категория:</label>
                 </select>
         </div>
-        <div class="input-field">
+        <div v-show="category && categories[0] === category" class="input-field">
               <select id="productName" ref="select" v-model="productName">
                 <option value="" selected disabled>Выберите Название продукта</option>
                   <option
-                    v-for="productName in products"
+                    v-for="productName in feedAdditives"
+                    :key="productName"
+                    >
+                    {{ productName }}
+                </option>
+                <label for="productName">Название продукта:</label>
+                </select>
+            </div>
+            <div v-show="category && categories[1] === category" class="input-field">
+              <select id="productName" ref="select" v-model="productName">
+                <option value="" selected disabled>Выберите Название продукта</option>
+                  <option
+                    v-for="productName in sorbentsForMycotoxicosis"
+                    :key="productName"
+                    >
+                    {{ productName }}
+                </option>
+                <label for="productName">Название продукта:</label>
+                </select>
+            </div>
+            <div v-show="category && categories[2] === category" class="input-field">
+              <select id="productName" ref="select" v-model="productName">
+                <option value="" selected disabled>Выберите Название продукта</option>
+                  <option
+                    v-for="productName in biologicsAndSilageFermentsForForagePreparation"
+                    :key="productName"
+                    >
+                    {{ productName }}
+                </option>
+                <label for="productName">Название продукта:</label>
+                </select>
+            </div>
+            <div v-show="category && categories[3] === category" class="input-field">
+              <select id="productName" ref="select" v-model="productName">
+                <option value="" selected disabled>Выберите Название продукта</option>
+                  <option
+                    v-for="productName in biologicalProductsForManureProcessingAndBiodesodorization"
                     :key="productName"
                     >
                     {{ productName }}
@@ -108,14 +144,18 @@ export default {
       phoneNumber:null,
       address:null,
       products: constants.products,
-      categories: constants.categories   
+      categories: constants.categories,
+      feedAdditives: [],
+      sorbentsForMycotoxicosis: [],
+      biologicsAndSilageFermentsForForagePreparation: [],
+      biologicalProductsForManureProcessingAndBiodesodorization: []
     }
   },
   methods: {
     ...mapActions([
       'getOrderByOrderId'
       ]),
-      updateOrder() {
+      async updateOrder() {
         this.checkNullOrUndefField(this.productName)
       const request = {
         id: this.$route.params.id,
@@ -130,7 +170,7 @@ export default {
       }
       console.log(request)
       try {
-          this.$store.dispatch('updateOrder', request)
+          await this.$store.dispatch('updateOrder', request)
           } catch(e) {
             console.log('error')
         }
@@ -142,6 +182,22 @@ export default {
     try {
       const response = await this.getOrderByOrderId(this.$route.params.id);
       this.order = response.data;
+      await this.$store.dispatch('getAllProductsSync')
+      .then(response => {
+        response.data.map(p => {
+          if(p.category.categoryName === constants.categories[0]) {
+            this.feedAdditives.push(p.productName)
+          } else if(p.category.categoryName === constants.categories[1]) {
+            this.sorbentsForMycotoxicosis.push(p.productName)
+          } else if(p.category.categoryName === constants.categories[2]) {
+            this.biologicsAndSilageFermentsForForagePreparation.push(p.productName)
+          } else {
+            this.biologicalProductsForManureProcessingAndBiodesodorization.push(p.productName)
+          }
+        })
+      }
+      );
+      this.products = this.PRODUCTS
     } catch(e) {
       console.log('error')
    }

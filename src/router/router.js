@@ -99,6 +99,12 @@ const routes = [
     name: 'category-infographic',
     meta: {layout: 'main', auth: true},
     component: () => import('../views/OrdersCategoryInfographic.vue')
+  },
+  {
+    path: '/products-quantity',
+    name: 'products-quantity',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/ProductsQuantity.vue')
   }
 ]
 

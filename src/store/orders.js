@@ -713,7 +713,7 @@ export default {
                 return error;
             });
         },
-        updateOrder({dispatch, commit}, req) {
+        async updateOrder({dispatch, commit}, req) {
             console.log("REQUEST " + req)
             let request = new UpdateOrderRequest();
             request = req;
