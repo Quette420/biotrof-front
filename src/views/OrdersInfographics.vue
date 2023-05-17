@@ -2,7 +2,7 @@
     <div id="bar-chart">
         <div>
             
-        <canvas id="myChart" width="9" height="4.9"></canvas>
+        <canvas id="myChart" width="11" height="4.9"></canvas>
         
     </div>
       <button class="btn-small btn" @click="setupAllOrdersCountGiagram">

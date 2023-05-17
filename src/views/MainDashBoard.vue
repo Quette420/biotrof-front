@@ -94,7 +94,7 @@ export default {
   pieData:{
     labels: constants.statusesLabels,
     datasets: [{
-    label: 'My First Dataset',
+    label: 'Заказов в этом статусе',
     data: [10, 20, 15, 19, 16],
     backgroundColor: [
     'rgba(242,2,2,0.7)',
