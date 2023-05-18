@@ -123,6 +123,8 @@
 <script>
 import constants from '@/utils/constants'
 import { mapGetters } from 'vuex'
+import CreateOrderRequest from '@/model/CreateOrderRequest'
+import LocalStorageService from '@/services/LocalStorageService'
 
 /*global M*/
 export default {
@@ -148,25 +150,22 @@ export default {
     }
   }, methods: {
       createOrder() {
-      const request = {
-        productName: this.productName.substr(0, this.productName.indexOf('(') - 1), 
-        category: this.category,
-        price: this.weight * this.getPriceByName,
-        weight:this.weight,
-        plannedDateOfShipment:this.plannedDateOfShipment,
-        clientFio:this.clientFio,
-        phoneNumber:this.phoneNumber,
-        address:this.address,
+      const request = new CreateOrderRequest(
+        this.productName.substr(0, this.productName.indexOf('(') - 1), 
+        this.category, 
+        this.weight * this.getPriceByName, 
+        this.weight, 
+        this.plannedDateOfShipment, 
+        this.clientFio, 
+        this.phoneNumber, 
+        this.address,
+        LocalStorageService.getUuid()
+      );
+      try {
+        this.$store.dispatch('createOrder', request)
+        } catch(e) {
+          console.log('error')
       }
-      console.log(request)
-      if(this.productName != null) {
-        try {
-          this.$store.dispatch('createOrder', request)
-          } catch(e) {
-            console.log('error')
-        }
-      }
-      
     }
   }, computed: {
     getPriceByName() {

@@ -1,7 +1,6 @@
 import axios from "axios"
 import LocalStorageService from '@/services/LocalStorageService'
 import DateService from '@/services/DateService'
-import CreateOrderRequest from "@/model/CreateOrderRequest";
 import UpdateOrderRequest from "@/model/UpdateOrderRequest";
 /*eslint no-unused-vars: ["error", { "args": "none" }]*/
 
@@ -696,10 +695,7 @@ export default {
                 console.log(e)
             }
         },
-        createOrder({dispatch, commit}, req) {
-            let request = new CreateOrderRequest();
-            request = req
-            request.employerUuid = LocalStorageService.getUuid()
+        createOrder({dispatch, commit}, request) {
             console.log(request)
             return axios.post(ORDERS_BASE_URL, request, {
                 headers: {
