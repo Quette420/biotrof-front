@@ -34,6 +34,21 @@ export default {
                 return error;
             });
         },
+        createProduct({dispatch, commit}, request) {
+            console.log(request)
+            return axios.post(PRODUCTS_BASE_URL, request, {
+                headers: {
+                    Authorization: LocalStorageService.getToken()
+                }
+            }).then((response) => {
+                console.log('order created!')
+                return response;
+            }).catch((error) => {
+                console.log(error)
+                return error;
+            });
+            
+        },
         updateProductQuantity({dispatch, commit}, req) {
             console.log("REQUEST " + req)
             return axios.put(PRODUCTS_BASE_URL + '/quantity', req, {

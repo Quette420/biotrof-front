@@ -73,6 +73,7 @@
               v-model="weight"
           >
           <label for="weight">Вес товара в килограммах</label>
+          <span v-show="!weight">Выберите количество товара</span>
         </div>
         <div v-show="weight && weightValidate >= weight" class="input-field">
           <input
@@ -81,6 +82,7 @@
               v-model="clientFio"
           >
           <label for="clientFio">ФИО клиента</label>
+          <span v-show="!clientFio">Введите фамилию имя и отчество клиента</span>
         </div>
         <div v-show="clientFio" class="input-field">
           <input
@@ -89,6 +91,7 @@
               v-model="phoneNumber"
           >
           <label for="phoneNumber">Телефон для связи</label>
+          <span v-show="!phoneNumber">Укажите телефон клиента</span>
         </div>
         <div v-show="phoneNumber" class="input-field">
           <input
@@ -97,6 +100,7 @@
               v-model="address"
           >
           <label for="address">Адрес доставки</label>
+          <span v-show="!address">Укажите адрес доставки</span>
         </div>
         <div v-show="address" class="input-field">
           <input
@@ -105,13 +109,14 @@
               v-model="plannedDateOfShipment"
           >
           <label for="plannedDateOfShipment">Дата доставки</label>
+          <span v-show="!plannedDateOfShipment">Укажите желаемую дату доставки</span>
         </div>
         <button v-show="productName && category && weight && clientFio && phoneNumber && address && plannedDateOfShipment" class="btn waves-effect waves-light" type="submit">
           Создать
           <i class="material-icons right">send</i>
         </button>
       </form>
-      <h4 v-if="weight"> {{weightValidate >= weight ? "Итоговая стоимость: " +  getPriceByName * weight + " рублей." : "Такого количества товара нет в наличии."}}</h4>
+      <h4 v-if="weight"> {{weightValidate >= weight ? "Итоговая стоимость: " +  getPriceByName * weight + " рублей." : "Указанного количества товара нет на складе."}}</h4>
     </div>
   </template>
   

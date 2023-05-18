@@ -24,32 +24,36 @@ export default {
         userLinks: [
             {title: 'Главная', url: '/', exact: true},
             {title: 'Новый заказ', url: '/order'},
-            {title: 'Мои заказы', url: '/history'},
+          //  {title: 'Мои заказы', url: '/history'},
+            {title: 'Мои заказы', url: '/employer-orders'},
             {title: 'Моя статистика', url: '/statistic'},
-            {title: 'Рейтинг добавок', url: '/raiting'}
+            {title: 'Рейтинг добавок', url: '/raiting'},
         ],
         moderatorLinks: [
             {title: 'Главная', url: '/', exact: true},
             {title: 'Новый заказ', url: '/order'},
-            {title: 'Мои заказы', url: '/history'},
+            {title: 'Все заказы', url: '/test'},
+           /* {title: 'Мои заказы', url: '/history'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
-            {title: 'Отгружены', url: '/shipped'},
+            {title: 'Отгружены', url: '/shipped'}, */
             {title: 'Моя статистика', url: '/statistic'},
-            {title: 'Рейтинг добавок', url: '/raiting'}
+            {title: 'Рейтинг добавок', url: '/raiting'},
+            {title: 'Продукция', url: '/products'},
         ],
         adminLinks: [
             {title: 'Главная', url: '/', exact: true},
             {title: 'Новый заказ', url: '/order'},
-            {title: 'Мои заказы', url: '/history'},
+            {title: 'Все заказы', url: '/orders'},
+       /*     {title: 'Мои заказы', url: '/history'},
             {title: 'Все заказы', url: '/all-orders'},
             {title: 'Готовы к отгрузке', url: '/not-shipped'},
-            {title: 'Отгружены', url: '/shipped'},
+            {title: 'Отгружены', url: '/shipped'}, */
             {title: 'Статистика', url: '/statistic'},
             {title: 'Рейтинг добавок', url: '/raiting'},
-            {title: 'Графики', url: '/infographics'},
+        //    {title: 'Графики', url: '/infographics'},
             {title: 'Отчеты', url: '/reports'},
             {title: 'Графики', url: '/selection-graphic'},
-            {title: 'Наличие', url: '/products-quantity'},
+            {title: 'Продукция', url: '/products'},
         ]
     }),
     computed: {

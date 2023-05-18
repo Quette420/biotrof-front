@@ -101,10 +101,22 @@ const routes = [
     component: () => import('../views/OrdersCategoryInfographic.vue')
   },
   {
-    path: '/products-quantity',
-    name: 'products-quantity',
+    path: '/orders',
+    name: 'all-orders',
     meta: {layout: 'main', auth: true},
-    component: () => import('../views/ProductsQuantity.vue')
+    component: () => import('../views/TestTableWithAgGrid.vue')
+  },
+  {
+    path: '/products',
+    name: 'products',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/ProductsCreateAndUpdateQuantity.vue')
+  },
+  {
+    path: '/employer-orders',
+    name: 'employer-orders',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/OrdersByEmployerUuid.vue')
   }
 ]
 
