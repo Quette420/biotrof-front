@@ -104,7 +104,7 @@ const routes = [
     path: '/orders',
     name: 'all-orders',
     meta: {layout: 'main', auth: true},
-    component: () => import('../views/TestTableWithAgGrid.vue')
+    component: () => import('../views/AgAllOrders.vue')
   },
   {
     path: '/products',

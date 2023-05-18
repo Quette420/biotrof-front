@@ -1,9 +1,6 @@
 <template>
     <div>
-        <span :class="[typeClass]"
-             class="white-text badge"
-
-             >{{stage}}</span>
+        <span :class="[typeClass]" class="white-text badge">{{stage}}</span>
     </div>
   </template>
   
@@ -31,11 +28,13 @@ import constants from '@/utils/constants';
   
   <style>
   span.badge {
-  min-width: 8rem;
-  height: 30px;
+  min-width: 8.5rem;
+  height: 25px;
   border: solid;
   border-color: black;
   border-width: 2px;
   font-size: smaller;
+  margin-top: 6%;
+  text-align: center;
 }
   </style>

@@ -3,7 +3,8 @@
       <MyLoader v-if="loading"/>
       <div v-else-if="order">
       <div class="breadcrumb-wrap">
-        <a href="/history" class="breadcrumb">История</a>
+        <a v-if="this.ROLE === 'USER'" href="/employer-orders" class="breadcrumb">История</a>
+        <a v-if="this.ROLE === 'ADMIN'" href="/orders" class="breadcrumb">История</a>
         <a class="breadcrumb">
           Информация о заказе
         </a>
@@ -90,7 +91,8 @@ export default {
     client: null,
     loading: true,
     admin: true,
-    statuses: constants.statuses
+    statuses: constants.statuses,
+    backUrl: '',
   }),
   components: {
     MyLoader,
@@ -102,6 +104,9 @@ export default {
   ...mapActions([
       'getOrderByOrderId'
       ]),
+  getUrl() {
+    this.backUrl = this.ROLE === 'USER' ? '/employer-orders' : '/orders';
+  },
   updateStage() {
     this.isUpdateStagePopUpVisible = true;
   },
@@ -124,7 +129,7 @@ export default {
     console.log(  this.$route.params.id)
       try {
       await this.$store.dispatch('deleteOrder',  this.$route.params.id)
-      this.$router.push('/history')
+      this.$router.push('/orders')
       } catch(e) {
       console.log('error')
       }

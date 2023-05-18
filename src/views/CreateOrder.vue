@@ -116,7 +116,7 @@
           <i class="material-icons right">send</i>
         </button>
       </form>
-      <h4 v-if="weight"> {{weightValidate >= weight ? "Итоговая стоимость: " +  getPriceByName * weight + " рублей." : "Указанного количества товара нет на складе."}}</h4>
+      <h4 v-if="weight"> {{weightValidate >= weight ? "Итоговая стоимость: " +  getPriceByName * weight + " рублей." : "Указанного количества товара нет в наличии."}}</h4>
     </div>
   </template>
   

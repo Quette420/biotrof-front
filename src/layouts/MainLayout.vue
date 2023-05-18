@@ -13,11 +13,12 @@
         </div>
       </main>
 
-      <div class="fixed-action-btn">
+     <!--  <div class="fixed-action-btn">
           <router-link class="btn-floating waves-effect waves-light btn-large purple" to="/order">
             <i class="large material-icons">add</i>
           </router-link>
       </div>
+      -->
     </div>
 </template>
 

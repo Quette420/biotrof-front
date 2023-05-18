@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 1600px; height: 750px">
+    <div style="display: flex; flex-direction: column; height: 640px; min-height: 550px; max-height: 770px;">
       <div class="page-title">
         <h3>Список моих заказов</h3>
       </div>
@@ -10,7 +10,7 @@
       :rowData="rowData.rows"
       :defaultColDef="defaultColDef.def"
       :pagination="true"
-      paginationPageSize="15"
+      paginationPageSize="13"
     >
     </ag-grid-vue>
     </div>
@@ -41,10 +41,10 @@
               { headerName: 'Продукт',field: "product.productName" },
               { headerName: 'Категория',field: "product.category.categoryName" },
               { headerName: 'Стоимость', field: "price" },
-              { headerName: 'Фамилия клиента',field: "client.lastName"},
-              { headerName: 'Имя клиента', field: "client.firstName"},
-              { headerName: 'Отчество клиента',field: "client.middleName"},
-              { headerName: 'Телефон клиента',field: "client.phoneNumber"},
+              /* { headerName: 'Фамилия клиента',field: "client.lastName"},
+            { headerName: 'Имя клиента', field: "client.firstName"},
+            { headerName: 'Отчество клиента',field: "client.middleName"},*/
+            { headerName: 'Телефон клиента',field: "client.phoneNumber"}, 
               { headerName: 'Дата создания', field: "createDate"},
               { headerName: 'Статус', field: "stage", cellRenderer: "StatusComp"},
               { headerName: 'Открыть',  field: 'id', cellRenderer: 'OpenInNewButton'},
