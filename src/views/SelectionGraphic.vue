@@ -39,6 +39,9 @@
     <OrdersCategoryInfographic
     v-if="graphicType && graphicType === graphicTypes[1]"
     />
+    <OrdersProductInfographic
+    v-if="graphicType && graphicType === graphicTypes[2]"
+    />
     <OrdersInfographicByYear
     v-bind:year="2023"
     v-if="graphicType && graphicType === graphicTypes[3]"
@@ -51,12 +54,13 @@ import constants from '@/utils/constants'
 import OrdersInfographics from './OrdersInfographics.vue';
 import OrdersCategoryInfographic from './OrdersCategoryInfographic.vue';
 import OrdersInfographicByYear from './OrdersInfographicByYear.vue';
+import OrdersProductInfographic from './OrdersProductInfographic.vue';
 
 
 /*global M*/
 export default {
     name: "AddingForm",
-    components: {OrdersInfographics, OrdersCategoryInfographic, OrdersInfographicByYear},
+    components: {OrdersInfographics, OrdersCategoryInfographic, OrdersProductInfographic, OrdersInfographicByYear},
     data() {
         return {
             select: null,
@@ -69,28 +73,9 @@ export default {
             ordersByYearGraphicToggle: false
         };
     },
-    methods: {
-      createGraphic() {
-          this.allOrdersGraphicToggle = true
-            console.log("s");
-            if(this.year) {
-              console.log("YEAR "  + this.year)
-            }
-          //  this.$router.push({ path: '/category-infographic', params:{title: 'TIDSAFAS'}  })
-        },
-       async closeAllOrdersGraphicPopUp() {
-        await this.selectM()
-          this.allOrdersGraphicToggle = false;
-          console.log(!this.allOrdersGraphicToggle && !this.ordersCategoryGraphicToggle && !this.ordersProductGraphicToggle && !this.ordersByYearGraphicToggle)
-          await this.selectM()
-        },
-        async selectM() {
-          var elems = document.querySelectorAll("select");
+    mounted() {
+      var elems = document.querySelectorAll("select");
         this.select = M.FormSelect.init(elems, this.$options);
-        }
-    },
-    async mounted() {
-       await this.selectM()
     },
     destroyed() {
         if (this.select && this.select.destroy) {

@@ -117,7 +117,13 @@ const routes = [
     name: 'employer-orders',
     meta: {layout: 'main', auth: true},
     component: () => import('../views/OrdersByEmployerUuid.vue')
-  }
+  },
+  {
+    path: '/products-graphic',
+    name: 'products-graphic',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/OrdersProductInfographic.vue')
+  },
 ]
 
 const router = new VueRouter({

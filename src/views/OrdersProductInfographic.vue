@@ -18,20 +18,21 @@ export default {
     data() {
         return{   
       orders: [],
-      colorPointer: 0,
+      productNames: [],
       currentSchema: '',
-            data:{
-                labels: [],
-                datasets: []
-            },
-            options: {
+      colorPointer: 0,
+      data:{
+            labels: [],
+            datasets: []
+        },
+        options: {
                 scales: {
                     y: {
                         beginAtZero: true
                     }
                 }
-            },
-            myCategoryChart: ''
+        },
+        myCategoryChart: ''
         }   
     },
     async mounted () {
@@ -48,52 +49,42 @@ export default {
       order.stage = value.label
       order.typeClass = value.color
     }
+    if(!this.productNames.includes(order.product.productName)) {
+        this.productNames.push(order.product.productName)
+    }
     });  
       return {
         ...order
        }
     })
-    
-    this.setupAllOrdersDiagram(this.orders);
-
-       
+    this.setupAllOrdersDiagram(this.orders); 
 }, methods: {
     setupAllOrdersDiagram(orders) {
-      this.fillCategories(orders);
+      this.fillProducts(orders);
       this.data.labels = this.createLabels();
       const ctx = document.getElementById('myCategoryChart');
     // eslint-disable-next-line
-    this.myCategoryChart = new Chart(ctx, {
+        this.myCategoryChart = new Chart(ctx, {
         type: 'line',
         data: this.data,
         options: this.options
     })
     },
-    setupYearCategories(){
-      this.orders = this.GET_PER_YEAR_ORDERS;
-  
-      this.fillCategories(this.orders)
-      this.data.labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-     
-      this.myCategoryChart.reset()
-      this.myCategoryChart.update()
-    },
-    fillCategories(orders) {
-      for(let i = 0; i < constants.categories.length; i++) {
-        this.createDataSet(constants.categories[i]);
+    fillProducts(orders) {
+    for(let i = 0; i < this.productNames.length; i++) {
+        this.createDataSet(this.productNames[i]);
         let map = new Map();
-        this.setupMap(map, orders, constants.categories[i]);
+        this.setupMap(map, orders, this.productNames[i]);
         this.fillYearData(map);
-        this.fillDataSet(map, constants.categories[i], i)
+        this.fillDataSet(map, this.productNames[i], i)
     }
     },
-    setupMap(map, orders, categoryName) {
+    setupMap(map, orders, productName) {
       orders.map(o => {
-        if(o.product.category.categoryName === categoryName) {
+        if(o.product.productName === productName) {
           const date = new Date(o.createDate)
           //const strDate = '0' + '' + JSON.stringify(date.getDate()) + '.0' + JSON.stringify(date.getMonth() + 1)
           const strDate = JSON.stringify(date.getMonth() + 1)
-          console.log(JSON.stringify(date.getMonth() + 1) + '.' + JSON.stringify(date.getFullYear()))
         if(map.has(strDate)) {
           map.set(strDate, map.get(strDate) + 1)
         } else {
@@ -111,7 +102,7 @@ export default {
       }
     },
     fillDataSet(dataMap, label, dataSetNumber){ 
-       // console.log(dataMap)
+     //   console.log(dataMap)
    //     console.log(label)
     //    console.log(dataSetNumber)
       for (let i = 1; i < 13; i++) {
@@ -148,19 +139,6 @@ export default {
       for(let i = 1; i <= month; i++) {
         if(i < 10) {
           labels.push(JSON.stringify(0) + JSON.stringify(i));
-        } else {
-          labels.push(JSON.stringify(i));
-        }
-      }
-      return labels;
-    },
-    createLabelsWithFullYear() {
-      const date = new Date();
-      const month = new Date().getMonth() + 1;
-      let labels = [];
-      for(let i = 1; i <= month; i++) {
-        if(i < 10) {
-          labels.push(JSON.stringify(0) + JSON.stringify(date.getMonth() + 1) + '.' + JSON.stringify(date.getFullYear()));
         } else {
           labels.push(JSON.stringify(i));
         }
