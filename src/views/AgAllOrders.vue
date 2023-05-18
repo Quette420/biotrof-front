@@ -23,8 +23,8 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { AgGridVue } from "ag-grid-vue";
 import {reactive} from "vue";
-import OpenInNewButton from './OpenInNewButton.vue';
-import StatusComp from './StatusComp.vue';
+import OpenInNewButton from '../components/OpenInNewButton.vue';
+import StatusComp from '../components/StatusComp.vue';
 import constants from '@/utils/constants';
 
 /* eslint-disable */
