@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; flex-direction: column; height: 640px; min-height: 550px; max-height: 770px;">
+  <div style="display: flex; flex-direction: column; height: 770px;">
     <div class="page-title">
       <h3>Список всех заказов</h3>
     </div>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-//style="width: auto; height: 550px; max-width: 1600; min-width: 1550;
+//style="width: auto; height: 550px; max-width: 1600; min-width: 1550; mac 640 height, looks better on wind
 import { mapGetters } from 'vuex'
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
