@@ -28,7 +28,7 @@ import constants from '@/utils/constants';
   
   <style>
   span.badge {
-  min-width: 8.5rem;
+  min-width: 8rem;
   height: 25px;
   border: solid;
   border-color: black;
