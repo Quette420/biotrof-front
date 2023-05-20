@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex; flex-direction: column; height: 640px; min-height: 550px; max-height: 770px;">
+    <div style="display: flex; flex-direction: column; height: 770px;">
       <div class="page-title">
         <h3>Список моих заказов</h3>
       </div>
