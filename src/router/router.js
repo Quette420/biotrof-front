@@ -124,6 +124,12 @@ const routes = [
     meta: {layout: 'main', auth: true},
     component: () => import('../views/OrdersProductInfographic.vue')
   },
+  {
+    path: '/change-password',
+    name: 'change-password',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/ChangePassword.vue')
+  },
 ]
 
 const router = new VueRouter({

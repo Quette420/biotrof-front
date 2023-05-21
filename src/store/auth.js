@@ -110,6 +110,26 @@ export default {
                 console.log(error)
             return error;
         });
-        }
+        },
+        async changePassword({dispatch, commit}, request) {
+            try {
+                await axios.post('http://localhost:8081/change-password', request, 
+                {
+                    headers: {
+                        Authorization: LocalStorageService.getToken()
+                    }
+                })
+                .then((response) => {
+                    console.log(response)
+                    if(response.status === 200) {
+                        localStorage.clear()
+                        router.push('/')
+                    }
+                });
+                
+            } catch (e) {
+                console.log(e)
+            }
+        },
     }
 }
