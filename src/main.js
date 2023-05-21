@@ -9,9 +9,11 @@ import messagePlugin from './utils/message.plugin'
 import MyLoader from './components/app/MyLoader.vue'
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min.js'
+import VueExcelXlsx from "vue-excel-xlsx";
 
 Vue.config.productionTip = false
 
+Vue.use(VueExcelXlsx)
 Vue.use(messagePlugin)
 Vue.filter('date', dateFilter)
 Vue.component('MyLoader', MyLoader)

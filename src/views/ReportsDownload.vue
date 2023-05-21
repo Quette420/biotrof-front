@@ -32,11 +32,22 @@
           >
           <label for="dateTo">До</label>
         </div>
-        <button class="btn waves-effect waves-light" type="submit">
-          Скачать отчет
-          <i class="material-icons right">download</i>
-        </button>
+       
+        <vue-excel-xlsx v-show="ordersToDownload" class="btn waves-effect waves-light" type="submit"
+        :data="ordersToDownload"
+        :columns="columns"
+        :file-name="'Заказы'"
+        :file-type="'xlsx'"
+        :sheet-name="'sheetname'"
+        >
+        Скачать
+        <i class="material-icons">file_download</i>
+    </vue-excel-xlsx>
   </form>
+  <button v-show="!ordersToDownload" class="btn waves-effect waves-light" @click="doFilterByDates">
+    Сгенерировать отчет
+    <i class="material-icons">hourglass_empty</i>
+</button>
 </div>
 </template>
 
@@ -54,6 +65,9 @@ export default {
       productName: '',
       dateFrom: '',
       dateTo: '',
+      dateFromToFilter: '',
+      dateToToFilter:'',
+      ordersToDownload: null,
       csvHeaders : [
         'id',
         'Категория',
@@ -64,7 +78,72 @@ export default {
       ],
       products: constants.products,
       pdcts: constants.productsWithTranslate,
-      categories: constants.categoriesWithTranslate  
+      categories: constants.categoriesWithTranslate,
+      columns : [
+        {
+          label: "ID",
+          field: "id",
+        },
+        {
+          label: "Категория",
+          field: "category",
+        },
+        {
+          label: "Продукт",
+          field: "productName",
+        },
+        {
+          label: "Цена",
+          field: "price",
+          dataFormat: this.priceFormat
+        },
+        {
+          label: "Вес",
+          field: "weight",
+          dataFormat: this.weightFormat
+        },
+        {
+          label: "Статус",
+          field: "stage",
+        },
+        {
+          label: "Имя клиента",
+          field: "clientFirstName",
+        },
+        {
+          label: "Фамилия клиента",
+          field: "clientLastName",
+        },
+        {
+          label: "Отчество клиента",
+          field: "clientMiddleName",
+        },
+        {
+          label: "Телефон клиента",
+          field: "clientNumber",
+        },
+        {
+          label: "Адрес клиента",
+          field: "address",
+        },
+        {
+          label: "Отгружено",
+          field: "isShipped",
+          dataFormat: this.booleanConvert
+        },
+        {
+          label: "Дата создания",
+          field: "createDate",
+        },
+        {
+          label: "Дата доставки",
+          field: "shipmentDate",
+        },
+        {
+          label: "ID сотрудника",
+          field: "employerUuid",
+        }
+      ]  
     }
   },
     async mounted () {
@@ -74,85 +153,57 @@ export default {
       console.log('error')
     }
     this.ordersByDate = this.ORDERS_BY_DATE
-    this.setupOrderNames(this.ORDERS_BY_DATE)
-    this.setupOrderCategories(this.ORDERS_BY_DATE)
+    this.ordersByDate.map(order => {
+    // eslint-disable-next-line
+    Object.entries(constants.statuses).forEach(([key, value]) => {
+    if(order.stage === value.value) {
+      order.stage = value.label
+
+    }
+    });  
+      return {
+        ...order
+       }
+    })
+    console.log(this.ordersByDate)
 }, methods: {
-  filterByDateAndDownload() {
-    this.dateFrom = new Date(this.dateFrom)
-    this.dateTo = new Date(this.dateTo)
+  doFilterByDates() {
+    this.dateFromToFilter = new Date(this.dateFrom);
+    this.dateToToFilter = new Date(this.dateTo);
     const result = this.ORDERS_BY_DATE;
     const items = result.filter(this.dateFiler)
     this.formatDates(items)
-    console.log(items)
-    const replacer = (key, value) => value === null ? '' : value
-    const hdr = Object.keys(items[0])
-    const csv = [
-    hdr.join(','),
-      ...items.map(row => hdr.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
-    ].join('\r\n')
-    this.download(csv);
-  
+    this.ordersToDownload = items 
   },
-  download (input) {
-    console.log(input)
-    const blob = new Blob([input], {type: 'application/csv'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.download = 'test-csv.csv';
-    a.href = url;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
+  priceFormat(value){
+    return value + ' ₽';
   },
-  setupOrderNames(ordrs) {
-    this.ordersByDate = ordrs.map(order => {
-      // eslint-disable-next-line
-      Object.entries(this.pdcts).forEach(([key, value]) => {
-      if(order.product_name === value.label) {
-        order.product_name = value.value
-      }
-      });  
-        return {
-          ...order
-         }
-      })
-  }, 
-  setupOrderCategories(ordrs) {
-    this.ordersByDate = ordrs.map(order => {
-      // eslint-disable-next-line
-      Object.entries(this.categories).forEach(([key, value]) => {
-      if(order.category === value.label) {
-        order.category = value.value
-      }
-      });  
-        return {
-          ...order
-         }
-  
-      })
+  weightFormat(value){
+    return value + ' кг';
+  },
+  booleanConvert(value) {
+    return value ? 'Да' : 'Нет';
+  },
+  filterByDateAndDownload() {
+    console.log("Скачан отчет по заказам с " + this.dateFrom + " по " + this.dateTo)
   },
   formatDates(ordrs) {
     this.ordersByDate = ordrs.map(order => {
-      const date = new Date(order.create_date)
-       order.create_date = date.toLocaleDateString('en-GB')
+      const date = new Date(order.createDate)
+       order.createDate = date.toLocaleDateString('en-GB')
+       if(order.shipmentDate) {
+        const shipmentDate = new Date(order.shipmentDate)
+        order.shipmentDate = shipmentDate.toLocaleDateString('en-GB')
+       }
       })
   },
   dateFiler(ordr) {
-    const date = new Date(ordr.create_date)
-    return this.dateFrom <= date && date <= this.dateTo;
+    const date = new Date(ordr.createDate)
+    return this.dateFromToFilter <= date && date <= this.dateToToFilter;
   }
 }, computed: {
-  ...mapGetters([
-    'ROLE',
-    'ORDERS',
-    'ORDERS_BY_DATE'
-])
+  ...mapGetters(['ORDERS_BY_DATE'])
 }
 }
 </script>
-
-<style>
-
-</style>
 
