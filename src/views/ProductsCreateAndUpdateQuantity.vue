@@ -8,7 +8,7 @@
           <div class="col s12 m6">
             <div>
               <div class="page-subtitle">
-                <h4>Добавить новую добавку</h4>
+                <h4>Добавить новый продукт</h4>
               </div>
   
               <form class="form" @submit="createProduct">
