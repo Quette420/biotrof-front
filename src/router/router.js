@@ -130,6 +130,12 @@ const routes = [
     meta: {layout: 'main', auth: true},
     component: () => import('../views/ChangePassword.vue')
   },
+  {
+    path: '/create-email',
+    name: 'create-email',
+    meta: {layout: 'main', auth: true},
+    component: () => import('../views/CreateEmailForm.vue')
+  },
 ]
 
 const router = new VueRouter({

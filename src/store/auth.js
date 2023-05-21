@@ -9,7 +9,8 @@ export default {
           status: '',
           role: '',
           uuid: '',
-          username: ''
+          username: '',
+          email: ''
       }
       },
       getters: {
@@ -124,6 +125,25 @@ export default {
                     if(response.status === 200) {
                         localStorage.clear()
                         router.push('/')
+                    }
+                });
+                
+            } catch (e) {
+                console.log(e)
+            }
+        },
+        async createEmail({dispatch, commit}, request) {
+            try {
+                await axios.post('http://localhost:8081/email/create', request, 
+                {
+                    headers: {
+                        Authorization: LocalStorageService.getToken()
+                    }
+                })
+                .then((response) => {
+                    console.log(response)
+                    if(response.status === 200) {
+                        router.push('/profile')
                     }
                 });
                 
