@@ -13,6 +13,15 @@
         </div>
         <div class="input-field">
           <input
+          v-model="email"
+              id="email"
+              type="email"
+              class="validate"
+          >
+          <label for="email">Адрес электронной почты</label>
+        </div>
+        <div class="input-field">
+          <input
           v-model="password"
               id="password"
               type="password"
@@ -20,8 +29,21 @@
           >
           <label for="password">Пароль</label>
         </div>
+        <div>
+          <button
+              class="btn waves-effect waves-light auth-submit"
+              type="submit"
+          >
+            Зарегистрироваться
+            <i class="material-icons right">send</i>
+          </button>
+          <p class="center">
+          Уже есть аккаунт?
+          <router-link to="/login">Войти!</router-link>
+        </p>
+        </div>
       </div>
-      <div class="card-action">
+      <!--<div class="card-action">
         <div>
           <button
               class="btn waves-effect waves-light auth-submit"
@@ -36,7 +58,7 @@
           Уже есть аккаунт?
           <router-link to="/login">Войти!</router-link>
         </p>
-      </div>
+      </div> -->
     </form>
   </template>
   
@@ -45,13 +67,15 @@ export default {
   name:'v-login',
     data: () => ({
         username: '',
-        password: ''
+        password: '',
+        email: ''
     }),
     methods: {
         async submitHandlerAsync() {
             const request = {
                 username: this.username, 
-                password: this.password
+                password: this.password,
+                email: this.email
             }
             try {
                 await this.$store.dispatch('register', request)

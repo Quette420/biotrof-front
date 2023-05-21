@@ -22,8 +22,6 @@
             <label for="password">Пароль</label>
             
         </div>
-    </div>
-    <div class="card-action">
         <div>
             <button
             class="btn waves-effect waves-light auth-submit"
@@ -37,7 +35,22 @@
             Нет аккаунта?
             <router-link to="/register">Зарегистрироваться</router-link>
             </p>
+    </div>
+   <!-- <div class="card-action">
+        <div>
+            <button
+            class="btn waves-effect waves-light auth-submit"
+            type="submit"
+            >
+            Войти
+            <i class="material-icons right">send</i>
+            </button>
         </div>
+             <p class="center">
+            Нет аккаунта?
+            <router-link to="/register">Зарегистрироваться</router-link>
+            </p>
+        </div> -->
     </form>
 </template>
 

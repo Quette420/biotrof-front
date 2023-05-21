@@ -46,7 +46,7 @@
   </form>
   <button v-show="!ordersToDownload" class="btn waves-effect waves-light" @click="doFilterByDates">
     Сгенерировать отчет
-    <i class="material-icons">hourglass_empty</i>
+    <i class="material-icons">assignment</i>
 </button>
 </div>
 </template>
