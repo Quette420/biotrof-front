@@ -41,7 +41,7 @@
               step=0.01
               v-model="newProductPrice"
           >
-          <label for="newProductPrice">Цена за килограмм</label>
+          <label for="newProductPrice">Цена за килограмм в рублях</label>
           <span ></span>
         </div>
 
