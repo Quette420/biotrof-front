@@ -129,7 +129,11 @@ export default {
     console.log(  this.$route.params.id)
       try {
       await this.$store.dispatch('deleteOrder',  this.$route.params.id)
-      this.$router.push('/orders')
+      if(this.ROLE === 'USER') {
+        this.$router.push('/employer-orders')
+      } else {
+        this.$router.push('/orders')
+      }
       } catch(e) {
       console.log('error')
       }
